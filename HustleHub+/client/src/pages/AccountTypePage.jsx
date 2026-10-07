@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  UserRound,
+  UsersRound,
   BriefcaseBusiness,
   ArrowRight
 } from 'lucide-react';
@@ -83,7 +83,7 @@ function AccountTypePage() {
             onClick={() => setSelectedRole('freelancer')}
           >
             <div className="account-type-icon">
-              <UserRound
+              <BriefcaseBusiness
                 size={42}
                 strokeWidth={1.8}
               />
@@ -113,7 +113,7 @@ function AccountTypePage() {
             onClick={() => setSelectedRole('client')}
           >
             <div className="account-type-icon">
-              <BriefcaseBusiness
+              <UsersRound
                 size={42}
                 strokeWidth={1.8}
               />
