@@ -1,6 +1,6 @@
 import { NavLink, Link } from 'react-router-dom';
 import '../styles/Navbar.css';
-import hustleHubLogo from '../assets/hustlehub-logo.png';
+import BrandLogo from './BrandLogo';
 
 function Navbar() {
   return (
@@ -8,13 +8,7 @@ function Navbar() {
       <div className="navbar-container">
 
         {/* HustleHub+ Logo */}
-        <Link to="/" className="navbar-logo" aria-label="HustleHub home">
-         <img
-           src={hustleHubLogo}
-           alt="HustleHub"
-           className="navbar-logo-image"
-        />
-     </Link>
+        <BrandLogo />
 
         {/* Main Navigation */}
         <nav className="navbar-links">
