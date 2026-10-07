@@ -235,6 +235,34 @@
   text-decoration: underline;
 }
 
+/* Form Validation */
+
+.form-error {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #d93025;
+
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+}
+
+.form-group input[aria-invalid='true'] {
+  border-color: #d93025;
+}
+
+.form-group input[aria-invalid='true']:focus {
+  border-color: #d93025;
+
+  box-shadow:
+    0 0 0 3px rgba(217, 48, 37, 0.10);
+}
+
+.terms-error {
+  margin-top: 6px;
+}
 
 /* Mobile */
 
