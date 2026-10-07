@@ -1,0 +1,238 @@
+/* Popular Categories */
+
+.categories-section {
+  padding: 30px 5% 90px;
+  background: var(--hh-white);
+}
+
+.categories-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+
+/* Section Heading */
+
+.categories-header {
+  margin-bottom: 32px;
+}
+
+.categories-tag {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: var(--hh-violet);
+
+  font-size: var(--font-eyebrow);
+  line-height: var(--line-eyebrow);
+  font-weight: 800;
+
+  letter-spacing: 1.2px;
+}
+
+.categories-header h2 {
+  margin: 0;
+
+  color: var(--hh-black);
+
+  font-size: var(--font-section-heading);
+  line-height: var(--line-section-heading);
+  font-weight: 700;
+}
+
+.categories-header p {
+  max-width: 520px;
+
+  margin-top: 10px;
+
+  color: var(--hh-text-light);
+
+  font-size: var(--font-body);
+  line-height: var(--line-body);
+  font-weight: 400;
+}
+
+
+/* Category Grid */
+
+.categories-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+
+/* Category Card */
+
+.category-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  min-height: 185px;
+
+  padding: 25px;
+
+  background: var(--hh-white);
+
+  border: 1px solid var(--hh-border);
+  border-radius: 12px;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+
+  border-color: var(--hh-violet);
+
+  box-shadow:
+    0 12px 28px rgba(126, 59, 237, 0.10);
+}
+
+
+/* Category Icon */
+
+.category-icon {
+  width: 52px;
+  height: 52px;
+
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(126, 59, 237, 0.10);
+
+  color: var(--hh-violet);
+
+  border-radius: 12px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.category-card:hover .category-icon {
+  background: var(--hh-violet);
+  color: var(--hh-white);
+}
+
+
+/* Category Text */
+
+.category-card h3 {
+  margin: 0;
+
+  color: var(--hh-black);
+
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+}
+
+.category-card p {
+  margin-top: 7px;
+
+  color: var(--hh-text-light);
+
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
+
+/* Category Arrow */
+
+.category-arrow {
+  position: absolute;
+
+  right: 20px;
+  bottom: 20px;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--hh-violet);
+
+  background: rgba(126, 59, 237, 0.10);
+
+  border-radius: 50%;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.category-card:hover .category-arrow {
+  background: var(--hh-lime);
+
+  color: var(--hh-black);
+
+  transform: translateX(3px);
+}
+
+
+/* Keyboard Accessibility */
+
+.category-card:focus-visible {
+  outline: 3px solid var(--hh-violet);
+
+  outline-offset: 3px;
+}
+
+
+/* Tablet */
+
+@media (max-width: 900px) {
+
+  .categories-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 560px) {
+
+  .categories-section {
+    padding: 45px 24px 65px;
+  }
+
+  .categories-header h2 {
+    font-size: 26px;
+    line-height: 34px;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .category-card {
+    min-height: 160px;
+
+    padding: 20px;
+  }
+
+}

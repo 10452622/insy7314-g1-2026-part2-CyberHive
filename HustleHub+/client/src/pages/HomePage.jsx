@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import PopularCategories from '../components/PopularCategories';
 import heroImage from '../assets/hero.png';
 import '../styles/HomePage.css';
+
 
 function HomePage() {
   return (
@@ -101,6 +103,10 @@ function HomePage() {
 
           </div>
         </section>
+
+         {/* Popular Categories */}
+        <PopularCategories />
+
       </main>
     </div>
   );
