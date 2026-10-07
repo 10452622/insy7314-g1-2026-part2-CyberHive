@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import PopularCategories from '../components/PopularCategories';
+import Footer from '../components/Footer';
 import heroImage from '../assets/hero.png';
 import '../styles/HomePage.css';
 
@@ -107,7 +108,10 @@ function HomePage() {
          {/* Popular Categories */}
         <PopularCategories />
 
-      </main>
+      </main>\
+
+      <Footer />
+      
     </div>
   );
 }
