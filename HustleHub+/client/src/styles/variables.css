@@ -16,3 +16,39 @@
   --hh-shadow:
     0 10px 35px rgba(0, 0, 0, 0.08);
 }
+
+/* Typography */
+
+:root {
+  --font-family: 'Inter', Arial, Helvetica, sans-serif;
+
+  --font-hero: 56px;
+  --line-hero: 64px;
+
+  --font-page-heading: 40px;
+  --line-page-heading: 48px;
+
+  --font-section-heading: 30px;
+  --line-section-heading: 38px;
+
+  --font-subheading: 24px;
+  --line-subheading: 32px;
+
+  --font-card-title: 20px;
+  --line-card-title: 28px;
+
+  --font-body: 16px;
+  --line-body: 24px;
+
+  --font-small: 14px;
+  --line-small: 20px;
+
+  --font-label: 14px;
+  --line-label: 20px;
+
+  --font-button: 16px;
+  --line-button: 24px;
+
+  --font-eyebrow: 12px;
+  --line-eyebrow: 16px;
+}

@@ -1,16 +1,108 @@
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import heroImage from '../assets/hero.png';
+import '../styles/HomePage.css';
 
 function HomePage() {
   return (
-    <>
+    <div className="home-page">
       <Navbar />
 
       <main>
-        <h1 style={{ padding: '40px 5%' }}>
-          HustleHub+ Home
-        </h1>
+        <section className="hero-section">
+          <div className="hero-container">
+
+            {/* Left side */}
+            <div className="hero-content">
+              <span className="hero-tag">FREELANCE MARKETPLACE</span>
+
+              <h1 className="hero-title">
+                Find Skills.
+                <br />
+                Hire Talent.
+                <br />
+                Get Things <span>Done.</span>
+              </h1>
+
+              <p className="hero-description">
+                Connect with talented freelancers, discover professional
+                services, and bring your ideas to life with HustleHub+.
+              </p>
+
+              <div className="hero-actions">
+                {/* Page 6 */}
+                <Link
+                  to="/browse-services"
+                  className="hero-primary-btn"
+                >
+                  Find a Freelancer
+                </Link>
+
+                <Link
+                  to="/register"
+                  className="hero-secondary-btn"
+                >
+                  Become a Freelancer
+                </Link>
+              </div>
+
+              <div className="hero-trust">
+                <div>
+                  <strong>Skilled</strong>
+                  <span>Freelancers</span>
+                </div>
+
+                <div className="trust-divider"></div>
+
+                <div>
+                  <strong>Secure</strong>
+                  <span>Marketplace</span>
+                </div>
+
+                <div className="trust-divider"></div>
+
+                <div>
+                  <strong>Simple</strong>
+                  <span>Bookings</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right side */}
+            <div className="hero-media">
+              <div className="hero-video-wrapper">
+                <video
+                  className="hero-video"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster={heroImage}
+                >
+                  <source
+                    src="/videos/hustlehub-hero.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+
+                <div className="hero-floating-card">
+                  <span className="floating-dot"></span>
+
+                  <div>
+                    <strong>Find the right talent</strong>
+                    <p>For any project.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="hero-decoration hero-decoration-one"></div>
+              <div className="hero-decoration hero-decoration-two"></div>
+            </div>
+
+          </div>
+        </section>
       </main>
-    </>
+    </div>
   );
 }
 
