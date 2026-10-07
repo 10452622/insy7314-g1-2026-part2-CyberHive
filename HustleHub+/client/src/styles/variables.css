@@ -1,0 +1,18 @@
+:root {
+  --hh-black: #000000;
+  --hh-violet: #7E3BED;
+  --hh-white: #FFFFFF;
+  --hh-lime: #C6FF34;
+
+  --hh-text: #111111;
+  --hh-text-light: #666666;
+  --hh-border: #E8E8E8;
+  --hh-background: #FAFAFA;
+
+  --hh-radius-small: 8px;
+  --hh-radius-medium: 14px;
+  --hh-radius-large: 24px;
+
+  --hh-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.08);
+}
