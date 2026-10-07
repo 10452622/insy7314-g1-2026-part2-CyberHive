@@ -167,14 +167,30 @@
   accent-color: var(--hh-violet);
 }
 
-.terms-row a {
+.terms-link-button {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
   color: var(--hh-violet);
 
+  font-size: inherit;
+  line-height: inherit;
   font-weight: 600;
+
+  cursor: pointer;
 }
 
-.terms-row a:hover {
+.terms-link-button:hover {
   text-decoration: underline;
+}
+
+.terms-link-button:focus-visible {
+  outline: 2px solid var(--hh-violet);
+  outline-offset: 2px;
+
+  border-radius: 2px;
 }
 
 
