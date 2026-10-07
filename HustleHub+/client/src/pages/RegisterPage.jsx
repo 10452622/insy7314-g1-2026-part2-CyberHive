@@ -33,7 +33,7 @@ function RegisterPage() {
       [name]: type === 'checkbox' ? checked : value
     }));
 
-    // Remove the error while the user corrects the field
+    // Removes the error while the user corrects the field
     setErrors((previousErrors) => ({
       ...previousErrors,
       [name]: ''
