@@ -4,10 +4,12 @@ import { Eye, EyeOff } from 'lucide-react';
 
 import AuthLayout from '../components/AuthLayout';
 import '../styles/RegisterPage.css';
+import { useRegistration } from '../context/RegistrationContext';
 
 function RegisterPage() {
   const navigate = useNavigate();
 
+  const { setRegistrationData } = useRegistration();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState(false);
@@ -45,32 +47,37 @@ function RegisterPage() {
 
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'First name is required.';
-    } else if (formData.firstName.trim().length < 2) {
-      newErrors.firstName =
-        'First name must contain at least 2 characters.';
-    } else if (!namePattern.test(formData.firstName.trim())) {
-      newErrors.firstName =
-        'Please enter a valid first name.';
+    } 
+    else if 
+    (formData.firstName.trim().length < 2) {
+      newErrors.firstName ='First name must contain at least 2 characters.';
+    } 
+    else if 
+    (!namePattern.test(formData.firstName.trim())) {
+      newErrors.firstName ='Please enter a valid first name.';
     }
 
     if (!formData.lastName.trim()) {
       newErrors.lastName = 'Last name is required.';
-    } else if (formData.lastName.trim().length < 2) {
-      newErrors.lastName =
-        'Last name must contain at least 2 characters.';
-    } else if (!namePattern.test(formData.lastName.trim())) {
-      newErrors.lastName =
-        'Please enter a valid last name.';
+    } 
+    else if 
+    (formData.lastName.trim().length < 2) {
+      newErrors.lastName ='Last name must contain at least 2 characters.';
+    } 
+    else if 
+    (!namePattern.test(formData.lastName.trim())) {
+      newErrors.lastName ='Please enter a valid last name.';
     }
 
     const emailPattern =
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formData.email.trim()) {
-      newErrors.email = 'Email address is required.';
-    } else if (!emailPattern.test(formData.email.trim())) {
-      newErrors.email =
-        'Please enter a valid email address.';
+      newErrors.email ='Email address is required.';
+    } 
+    else if 
+    (!emailPattern.test(formData.email.trim())) {
+      newErrors.email ='Please enter a valid email address.';
     }
 
     const passwordPattern =
@@ -78,24 +85,22 @@ function RegisterPage() {
 
     if (!formData.password) {
       newErrors.password = 'Password is required.';
-    } else if (!passwordPattern.test(formData.password)) {
-      newErrors.password =
-        'Password must be at least 8 characters and include uppercase, lowercase, a number and a special character.';
+    } 
+    else if 
+    (!passwordPattern.test(formData.password)) {
+      newErrors.password ='Password must be at least 8 characters and include uppercase, lowercase, a number and a special character.';
     }
 
     if (!formData.confirmPassword) {
-      newErrors.confirmPassword =
-        'Please confirm your password.';
-    } else if (
-      formData.confirmPassword !== formData.password
-    ) {
-      newErrors.confirmPassword =
-        'Passwords do not match.';
+      newErrors.confirmPassword ='Please confirm your password.';
+    } 
+    else if 
+    (formData.confirmPassword !== formData.password) {
+      newErrors.confirmPassword ='Passwords do not match.';
     }
 
     if (!formData.termsAccepted) {
-      newErrors.termsAccepted =
-        'You must accept the Terms & Conditions.';
+      newErrors.termsAccepted ='You must accept the Terms & Conditions.';
     }
 
     setErrors(newErrors);
@@ -109,6 +114,13 @@ function RegisterPage() {
     if (!validateForm()) {
       return;
     }
+
+  setRegistrationData({
+    firstName: formData.firstName.trim(),
+    lastName: formData.lastName.trim(),
+    email: formData.email.trim(),
+    password: formData.password
+  });
 
     // Page 3 - Choose Account Type
     navigate('/account-type');

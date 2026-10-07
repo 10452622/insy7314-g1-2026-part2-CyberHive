@@ -1,0 +1,301 @@
+
+.account-type-container {
+  width: 100%;
+  max-width: 820px;
+
+  text-align: center;
+}
+
+
+/* Heading */
+
+.account-type-heading {
+  margin-bottom: 38px;
+}
+
+.account-type-heading h1 {
+  margin: 0;
+
+  color: var(--hh-black);
+
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+}
+
+.account-type-heading h1 span {
+  color: var(--hh-violet);
+}
+
+.account-type-heading p {
+  margin-top: 12px;
+
+  color: var(--hh-text-light);
+
+  font-size: 16px;
+  line-height: 24px;
+}
+
+
+/* Options */
+
+.account-type-options {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 24px;
+
+  margin-bottom: 30px;
+}
+
+
+/* Card */
+
+.account-type-card {
+  position: relative;
+
+  min-height: 300px;
+
+  padding: 38px 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid var(--hh-border);
+  border-radius: 20px;
+
+  background: var(--hh-white);
+  color: var(--hh-black);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+.account-type-card:hover {
+  transform: translateY(-4px);
+
+  border-color: var(--hh-violet);
+
+  box-shadow:
+    0 12px 30px rgba(126, 59, 237, 0.10);
+}
+
+
+/* Selected */
+
+.account-type-card.selected {
+  background: var(--hh-violet);
+
+  border-color: var(--hh-violet);
+
+  color: var(--hh-white);
+
+  box-shadow:
+    0 16px 32px rgba(126, 59, 237, 0.20);
+}
+
+
+/* Icon */
+
+.account-type-icon {
+  width: 80px;
+  height: 80px;
+
+  margin-bottom: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 20px;
+
+  background:
+    rgba(126, 59, 237, 0.10);
+
+  color: var(--hh-violet);
+}
+
+.account-type-card.selected
+.account-type-icon {
+  background:
+    rgba(255, 255, 255, 0.16);
+
+  color: var(--hh-white);
+}
+
+
+/* Card Text */
+
+.account-type-card h2 {
+  margin: 0;
+
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+.account-type-card p {
+  max-width: 250px;
+
+  margin: 12px auto 0;
+
+  color: var(--hh-text-light);
+
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.account-type-card.selected p {
+  color:
+    rgba(255, 255, 255, 0.82);
+}
+
+
+/* Selected Check */
+
+.account-type-check {
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(255, 255, 255, 0.20);
+
+  color: var(--hh-white);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+/* Continue */
+
+.account-type-continue {
+  min-width: 180px;
+  min-height: 50px;
+
+  padding: 12px 25px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--hh-violet);
+  color: var(--hh-white);
+
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.account-type-continue:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  background: #6e2ed7;
+}
+
+.account-type-continue:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+}
+
+
+/* Back */
+
+.account-type-back {
+  display: block;
+
+  margin: 18px auto 0;
+
+  padding: 5px;
+
+  border: none;
+
+  background: transparent;
+  color: var(--hh-text-light);
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.account-type-back:hover {
+  color: var(--hh-violet);
+}
+
+
+/* Accessibility */
+
+.account-type-card:focus-visible,
+.account-type-continue:focus-visible,
+.account-type-back:focus-visible {
+  outline: 3px solid var(--hh-lime);
+  outline-offset: 3px;
+}
+
+
+/* Tablet / Mobile */
+
+@media (max-width: 700px) {
+
+  .account-type-heading h1 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .account-type-options {
+    grid-template-columns: 1fr;
+  }
+
+  .account-type-card {
+    min-height: 250px;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .account-type-heading h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .account-type-card {
+    padding: 30px 20px;
+  }
+
+  .account-type-continue {
+    width: 100%;
+  }
+
+}
