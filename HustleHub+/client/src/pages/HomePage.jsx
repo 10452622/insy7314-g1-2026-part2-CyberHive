@@ -1,8 +1,16 @@
+import Navbar from '../components/Navbar';
+
 function HomePage() {
   return (
-    <div>
-      <h1>HustleHub+ Home</h1>
-    </div>
+    <>
+      <Navbar />
+
+      <main>
+        <h1 style={{ padding: '40px 5%' }}>
+          HustleHub+ Home
+        </h1>
+      </main>
+    </>
   );
 }
 

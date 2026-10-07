@@ -1,0 +1,159 @@
+.navbar {
+  width: 100%;
+  background: var(--hh-white);
+  border-bottom: 1px solid var(--hh-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 88px;
+  padding: 0 5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* HustleHub Logo */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar-logo-image {
+  display: block;
+  width: 265px;
+  height: 90px;
+  object-fit: contain;
+}
+
+/* Navigation Links */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.nav-link {
+  position: relative;
+
+  color: var(--hh-text);
+  font-size: 0.92rem;
+  font-weight: 500;
+
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--hh-violet);
+}
+
+.nav-link.active {
+  color: var(--hh-violet);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: '';
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+
+  height: 2px;
+  border-radius: 10px;
+
+  background: var(--hh-violet);
+}
+
+/* Authentication Buttons */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-btn,
+.register-btn {
+  min-width: 86px;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  text-align: center;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.login-btn {
+  border: 1px solid var(--hh-border);
+
+  background: var(--hh-white);
+  color: var(--hh-black);
+}
+
+.login-btn:hover {
+  border-color: var(--hh-violet);
+  color: var(--hh-violet);
+}
+
+.register-btn {
+  border: 1px solid var(--hh-violet);
+
+  background: var(--hh-violet);
+  color: var(--hh-white);
+}
+
+.register-btn:hover {
+  transform: translateY(-1px);
+  background: #6e2ed7;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .navbar-links {
+    gap: 18px;
+  }
+
+  .nav-link {
+    font-size: 0.82rem;
+  }
+
+  .login-btn,
+  .register-btn {
+    min-width: auto;
+    padding: 9px 13px;
+  }
+}
+
+@media (max-width: 720px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-container {
+    min-height: 68px;
+  }
+
+  .navbar-logo-image {
+  width: 165px;
+  height: 55px;
+  }
+}
