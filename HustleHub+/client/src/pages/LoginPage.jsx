@@ -47,8 +47,7 @@ function LoginPage() {
     }
 
     if (!formData.password) {
-      newErrors.password =
-        'Password is required.';
+      newErrors.password ='Password is required.';
     }
 
     setErrors(newErrors);
