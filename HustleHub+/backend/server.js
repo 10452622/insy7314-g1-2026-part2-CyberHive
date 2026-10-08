@@ -42,17 +42,59 @@ app.use("/api/users", userRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-// SSL certificate configuration (IIE, 2026)
-const sslOptions = {
-    key: fs.readFileSync(path.join(__dirname, "cert", "server.key")),
-    cert: fs.readFileSync(path.join(__dirname, "cert", "server.crt"))
-};
+// SSL certificate paths
+const keyPath = path.join(
+    __dirname,
+    "cert",
+    "server.key"
+);
 
-// Create HTTPS server (IIE, 2026)
-https.createServer(sslOptions, app).listen(PORT, () => {
-    console.log(`HustleHub+ API running at https://localhost:${PORT}`);
-});
+const certPath = path.join(
+    __dirname,
+    "cert",
+    "server.crt"
+);
 
+
+// Use HTTPS when local certificates are available. Otherwise use HTTP for local development.
+if (
+    fs.existsSync(keyPath) &&
+    fs.existsSync(certPath)
+) {
+
+    const sslOptions = {
+        key: fs.readFileSync(keyPath),
+        cert: fs.readFileSync(certPath)
+    };
+
+
+    // Create HTTPS server (IIE, 2026)
+    https.createServer(
+        sslOptions,
+        app
+    ).listen(PORT, () => {
+
+        console.log(
+            `HustleHub+ API running at https://localhost:${PORT}`
+        );
+
+    });
+
+} else {
+
+    app.listen(PORT, () => {
+
+        console.log(
+            `HustleHub+ API running at http://localhost:${PORT}`
+        );
+
+        console.log(
+            "SSL certificates not found. Using HTTP for local development."
+        );
+
+    });
+
+}
 /*Reference List
 - The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
   Education: Unpublished.

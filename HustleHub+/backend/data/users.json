@@ -103,5 +103,13 @@
     "email": "testuser_1788614923819@gmail.com",
     "password": "$2b$12$fM6fYPVDU4YIC8oHxsP.fe00ghrlTk91aqJPyfiETC7erS8Y3uAhO",
     "role": "Client"
+  },
+  {
+    "id": "a7658f19-cbfc-445c-afc5-575cc491bb15",
+    "firstName": "Sam",
+    "lastName": "Wilhelm",
+    "email": "samtest001@gmail.com",
+    "password": "$2b$12$DUxGsuPIpfDZ3Ghy7dJir.GmQjmveDiDyp8tXRuED6rkbdvIBLl1G",
+    "role": "Client"
   }
 ]

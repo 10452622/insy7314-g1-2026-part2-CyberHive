@@ -39,13 +39,13 @@ function AccountTypePage() {
       role: selectedRole
     }));
 
-    if (selectedRole === 'client') {
-      // Page 6 
+    if (selectedRole === 'Client') {
+      // Page 6
       navigate('/browse-services');
       return;
     }
 
-    if (selectedRole === 'freelancer') {
+    if (selectedRole === 'Freelancer') {
       navigate('/freelancer-dashboard');
     }
   };
@@ -76,11 +76,11 @@ function AccountTypePage() {
           <button
             type="button"
             className={
-              selectedRole === 'freelancer'
+              selectedRole === 'Freelancer'
                 ? 'account-type-card selected'
                 : 'account-type-card'
             }
-            onClick={() => setSelectedRole('freelancer')}
+            onClick={() => setSelectedRole('Freelancer')}
           >
             <div className="account-type-icon">
               <BriefcaseBusiness
@@ -97,7 +97,7 @@ function AccountTypePage() {
             </p>
 
             <span className="account-type-check">
-              {selectedRole === 'freelancer' ? '✓' : ''}
+              {selectedRole === 'Freelancer' ? '✓' : ''}
             </span>
           </button>
 
@@ -106,11 +106,11 @@ function AccountTypePage() {
           <button
             type="button"
             className={
-              selectedRole === 'client'
+              selectedRole === 'Client'
                 ? 'account-type-card selected'
                 : 'account-type-card'
             }
-            onClick={() => setSelectedRole('client')}
+            onClick={() => setSelectedRole('Client')}
           >
             <div className="account-type-icon">
               <UsersRound
@@ -127,7 +127,7 @@ function AccountTypePage() {
             </p>
 
             <span className="account-type-check">
-              {selectedRole === 'client' ? '✓' : ''}
+              {selectedRole === 'Client' ? '✓' : ''}
             </span>
           </button>
 
