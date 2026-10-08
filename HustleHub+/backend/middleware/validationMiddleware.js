@@ -185,14 +185,43 @@ const validateGigUpdate = [
 ];
 
 
+// booking validation
+
+const validateBooking = [
+    body("gigId")
+        .notEmpty()
+        .withMessage("Gig ID is required.")
+        .bail()
+        .isMongoId()
+        .withMessage("Please provide a valid gig ID."),
+
+    body("requirements")
+        .isString()
+        .withMessage("Requirements must be text.")
+        .bail()
+        .trim()
+        .notEmpty()
+        .withMessage("Please describe your requirements.")
+        .isLength({ max: 2000 })
+        .withMessage(
+            "Requirements cannot exceed 2000 characters."
+        ),
+
+    handleValidationErrors
+];
+
+
+
 module.exports = {
     registerValidation,
     loginValidation,
     forgotPasswordValidation,
     handleValidationErrors,
     validateGig,
-    validateGigUpdate
+    validateGigUpdate,
+    validateBooking
 };
+
 
 /*Reference List
 1. The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of

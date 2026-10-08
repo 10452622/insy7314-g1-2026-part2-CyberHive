@@ -13,6 +13,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 const gigRoutes = require("./routes/gigRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
@@ -43,6 +44,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/gigs", gigRoutes);
+app.use("/api/bookings", bookingRoutes);
 
 // Error handling
 app.use(notFound);
