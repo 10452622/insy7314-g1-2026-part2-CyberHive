@@ -153,5 +153,45 @@
     "email": "hugh@test.com",
     "password": "$2b$12$NDcb.tI90u6LSOu.VSq.NewVVT3V8Hi/rjjb85/1aeJEXMxdNOQrS",
     "role": "Client"
+  },
+  {
+    "id": "20207a04-3ffb-428c-a5d1-c0d5a4361e3d",
+    "firstName": "Joe",
+    "lastName": "Smith",
+    "email": "smith@test.co.za",
+    "password": "$2b$12$G.lCoNbdviA54MtlYRMQaO2PPu07kxRm1fHdQj6kyWVktB1iJVvQG",
+    "role": "Freelancer"
+  },
+  {
+    "id": "e6129107-e271-4b14-9205-d1fb812fc3d6",
+    "firstName": "john",
+    "lastName": "smith",
+    "email": "smith@gmail.com",
+    "password": "$2b$12$II3ic8QI4vGVoHmDwBFGfeRefyiCRA0mzmLjsZUAQRkkyXUHw3DtW",
+    "role": "Freelancer"
+  },
+  {
+    "id": "3d5607de-36dc-4d19-890b-5d0a69d60ed8",
+    "firstName": "Nala",
+    "lastName": "Loo",
+    "email": "loo@gmail.com",
+    "password": "$2b$12$bcX6CnLiNSEVeDh6NPs3..p9ByHtn21ef8U/7yAknHPtM7SS3PMAG",
+    "role": "Client"
+  },
+  {
+    "id": "bba5976a-c7ae-4153-9665-a615594256b4",
+    "firstName": "Zilde",
+    "lastName": "Camala",
+    "email": "camala@yahoo.co.uk",
+    "password": "$2b$12$mYSNKe0OMpDmh1dVirkDXeUm0xLFAhX9HZb.37sUoSjvFfMr4DjE.",
+    "role": "Client"
+  },
+  {
+    "id": "6e5194e1-80bf-4875-b786-704ef49eee0e",
+    "firstName": "David",
+    "lastName": "Miles",
+    "email": "dm@gmail.com",
+    "password": "$2b$12$qMRyvkpzCtqGzL44xztxCuV1xgZ680w1JtLUpqQwA.HrTG5Q2LkCG",
+    "role": "Freelancer"
   }
 ]

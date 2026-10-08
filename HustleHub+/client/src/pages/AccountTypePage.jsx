@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import {
@@ -15,6 +15,7 @@ import { registerUser } from '../services/authService';
 
 import '../styles/AccountTypePage.css';
 
+
 function AccountTypePage() {
   const navigate = useNavigate();
 
@@ -27,14 +28,24 @@ function AccountTypePage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [serverError, setServerError] = useState(''); /* //(MDN Web Docs, 2026) */
+  const [serverError, setServerError] = useState('');
+
+  const registrationCompleted = useRef(false); /* //(MDN Web Docs, 2026) */
 
 
   useEffect(() => {
-    if (!registrationData) {
-      navigate('/register');
+    if (
+      !registrationData &&
+      !registrationCompleted.current
+    ) {
+      navigate('/register', {
+        replace: true
+      });
     }
-  }, [registrationData, navigate]);
+  }, [
+    registrationData,
+    navigate
+  ]); /* //(MDN Web Docs, 2026) */
 
 
   const handleContinue = async () => {
@@ -57,28 +68,30 @@ function AccountTypePage() {
         role: selectedRole
       });
 
+      registrationCompleted.current = true;
 
-      /*
-        Removes the password from frontend memory once registration has succeeded.
-      */
-      setRegistrationData({
-        firstName: response.user.firstName,
-        lastName: response.user.lastName,
-        email: response.user.email,
-        role: response.user.role
-      });
+
+      setRegistrationData(null);
 
 
       if (selectedRole === 'Client') {
         // Page 6
-        navigate('/browse-services');
+        navigate('/browse-services', {
+          replace: true
+        });
+
         return;
       }
 
 
       if (selectedRole === 'Freelancer') {
-        navigate('/freelancer-dashboard');
+        navigate('/freelancer-dashboard', {
+          replace: true
+        });
+
+        return;
       } /* //(MDN Web Docs, 2026) */
+
 
     } catch (error) {
 
@@ -230,7 +243,9 @@ function AccountTypePage() {
 
       </section>
 
-    </AuthLayout> /* //(MDN Web Docs, 2026) */
+      {/* //(MDN Web Docs, 2026) */}
+
+    </AuthLayout>
   );
 }
 

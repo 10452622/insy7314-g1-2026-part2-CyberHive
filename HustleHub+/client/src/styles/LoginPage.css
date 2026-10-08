@@ -266,6 +266,7 @@ input[aria-invalid='true']:focus {
     line-height: 34px;
   }
  /* //(MDN Web Docs, 2026) */
+ 
   /* Error */
 
   .login-server-error {

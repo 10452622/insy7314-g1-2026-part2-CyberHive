@@ -91,7 +91,6 @@ function LoginPage() {
       });
 
 
-      // Saves authentication details for this browser session
       saveSession(
         response.token,
         response.user
