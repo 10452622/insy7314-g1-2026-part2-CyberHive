@@ -25,12 +25,34 @@ import BookingConfirmation from "./pages/BookingConfirmation"; /* (MDN Web Docs,
 import MyOrders from "./pages/MyOrders";
 import Messages from "./pages/Messages";
 
+import {
+    getCurrentUser,
+    isAuthenticated
+} from "./services/authSession";
+
 function MarketplaceLayout() {
     return (
         <div className="hh-marketplace">
             <Outlet />
         </div>
     );
+}
+
+// Protect pages that require a logged-in Client
+function ClientRoute() {
+    const user = getCurrentUser();
+
+    // Redirect unauthenticated users to login
+    if (!isAuthenticated() || !user) {
+        return <Navigate to="/login" replace />;
+    }
+
+    // Prevent those that arent Client accounts from accessing Client pages
+    if (user.role !== "Client") {
+        return <Navigate to="/" replace />;
+    }
+
+    return <Outlet />;
 }
 
 function App() {
@@ -75,11 +97,6 @@ function App() {
                 <Route element={<MarketplaceLayout />}>
 
                     <Route
-                        path="/client/home"
-                        element={<ClientHome />}
-                    />
-
-                    <Route
                         path="/gigs"
                         element={<BrowseGigs />}
                     />
@@ -89,25 +106,34 @@ function App() {
                         element={<GigDetails />}
                     />
 
-                    <Route
-                        path="/booking/:gigId"
-                        element={<CreateBooking />} /* (MDN Web Docs, 2026) */
-                    />
+                    <Route element={<ClientRoute />}>
 
-                    <Route
-                        path="/booking/confirmation/:bookingId"
-                        element={<BookingConfirmation />}
-                    />
+                        <Route
+                            path="/client/home"
+                            element={<ClientHome />}
+                        />
 
-                    <Route
-                        path="/client/orders"
-                        element={<MyOrders />}
-                    />
+                        <Route
+                            path="/booking/:gigId"
+                            element={<CreateBooking />} /* (MDN Web Docs, 2026) */
+                        />
 
-                    <Route
-                        path="/client/messages"
-                        element={<Messages />}
-                    />
+                        <Route
+                            path="/booking/confirmation/:bookingId"
+                            element={<BookingConfirmation />}
+                        />
+
+                        <Route
+                            path="/client/orders"
+                            element={<MyOrders />}
+                        />
+
+                        <Route
+                            path="/client/messages"
+                            element={<Messages />}
+                        />
+
+                    </Route>
 
                 </Route>
 
@@ -115,6 +141,7 @@ function App() {
                     path="*"
                     element={<Navigate to="/" replace />}
                 />
+
             </Routes>
         </BrowserRouter>
     );
