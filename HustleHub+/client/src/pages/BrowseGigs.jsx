@@ -7,8 +7,7 @@ import {
     useSearchParams
 } from "react-router-dom";
 
-import Navbar
-    from "../components/Navbar";
+import ClientNavbar from "../components/ClientNavbar";
 
 import GigCard
     from "../components/GigCard";
@@ -122,7 +121,7 @@ function BrowseGigs() {
 
     return (
         <>
-            <Navbar />
+           <ClientNavbar />
 
 
             <main className="browse-page">

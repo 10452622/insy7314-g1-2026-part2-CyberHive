@@ -7,7 +7,7 @@ import {
     Link
 } from "react-router-dom";
 
-import Navbar from "../components/Navbar";
+import ClientNavbar from "../components/ClientNavbar";
 
 import {
     getMyBookings
@@ -102,7 +102,7 @@ function MyOrders() {
 
     return (
         <>
-            <Navbar />
+          <ClientNavbar />
 
             <main className="orders-page">
 

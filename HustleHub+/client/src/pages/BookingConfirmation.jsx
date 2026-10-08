@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import Navbar from "../components/Navbar";
+import ClientNavbar from "../components/ClientNavbar";
 import { getBookingById } from "../services/api";
 
 function BookingConfirmation() {
@@ -31,7 +31,7 @@ function BookingConfirmation() {
     if (loading) {
         return (
             <>
-                <Navbar />
+                <ClientNavbar />
                 <div className="page-container">
                     <div className="status-box">
                         Loading confirmation...

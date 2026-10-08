@@ -2,14 +2,14 @@ import {
     Link
 } from "react-router-dom";
 
-import Navbar from "../components/Navbar";
+import ClientNavbar from "../components/ClientNavbar";
 
 
 function Messages() {
 
     return (
         <>
-            <Navbar />
+           <ClientNavbar />
 
             <main className="messages-page">
 

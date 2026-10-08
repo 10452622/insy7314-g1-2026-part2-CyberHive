@@ -94,6 +94,11 @@ function App() {
                     element={<AboutPage />}
                 />
 
+               <Route
+                     path="/browse-services"
+                     element={<Navigate to="/gigs" replace />}
+               />
+               
                 <Route element={<MarketplaceLayout />}>
 
                     <Route

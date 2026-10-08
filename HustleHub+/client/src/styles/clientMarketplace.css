@@ -1245,3 +1245,115 @@ flex-direction: column;
 }
 
 }
+
+.hh-marketplace .client-navbar {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.hh-marketplace .client-navbar .navbar-inner {
+    max-width: 1240px;
+    min-height: 76px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.hh-marketplace .client-navbar .brand {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.hh-marketplace .client-navbar .brand-main { color: var(--dark); }
+.hh-marketplace .client-navbar .brand-plus { color: var(--purple); }
+
+.hh-marketplace .client-navbar .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.hh-marketplace .client-navbar .nav-link {
+    color: var(--gray);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 27px 0;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+}
+
+.hh-marketplace .client-navbar .nav-link:hover,
+.hh-marketplace .client-navbar .nav-link.active {
+    color: var(--purple);
+    border-bottom-color: var(--purple);
+}
+
+.hh-marketplace .client-navbar .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.hh-marketplace .client-navbar .nav-icon-button {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 22px;
+}
+
+.hh-marketplace .client-navbar .nav-icon-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.hh-marketplace .client-navbar .nav-avatar {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--lavender);
+    color: var(--purple);
+    font-weight: 800;
+}
+
+@media (max-width: 900px) {
+    .hh-marketplace .client-navbar .navbar-inner {
+        flex-wrap: wrap;
+        padding-top: 14px;
+        padding-bottom: 10px;
+    }
+    .hh-marketplace .client-navbar .nav-links {
+        order: 3;
+        width: 100%;
+        gap: 24px;
+        overflow-x: auto;
+    }
+    .hh-marketplace .client-navbar .nav-link { padding: 12px 0; }
+}
+
+@media (max-width: 480px) {
+    .hh-marketplace .client-navbar .navbar-inner {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .hh-marketplace .client-navbar .nav-links { gap: 18px; }
+    .hh-marketplace .client-navbar .nav-link { font-size: 12px; }
+}

@@ -9,8 +9,7 @@ import {
     useParams
 } from "react-router-dom";
 
-import Navbar
-    from "../components/Navbar";
+import ClientNavbar from "../components/ClientNavbar";
 
 import {
     getGigById
@@ -65,7 +64,7 @@ function GigDetails() {
 
         return (
             <>
-                <Navbar />
+              <ClientNavbar />
 
                 <div className="page-container">
                     <div className="status-box">

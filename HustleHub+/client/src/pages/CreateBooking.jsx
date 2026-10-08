@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import Navbar from "../components/Navbar";
+import ClientNavbar from "../components/ClientNavbar";
 import { createBooking, getGigById } from "../services/api";
 
 function CreateBooking() {
@@ -76,7 +76,7 @@ function CreateBooking() {
     if (loading) {
         return (
             <>
-                <Navbar />
+              <ClientNavbar />
                 <div className="page-container">
                     <div className="status-box">
                         Loading booking...

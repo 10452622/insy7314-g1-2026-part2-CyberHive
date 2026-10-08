@@ -7,8 +7,7 @@ import {
     useNavigate
 } from "react-router-dom";
 
-import Navbar
-    from "../components/Navbar";
+import ClientNavbar from "../components/ClientNavbar";
 
 import GigCard
     from "../components/GigCard";
@@ -103,7 +102,7 @@ function ClientHome() {
 
     return (
         <>
-            <Navbar />
+            <ClientNavbar />
 
 
             <main>
