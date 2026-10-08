@@ -11,6 +11,8 @@ import AuthLayout from '../components/AuthLayout';
 
 import { useRegistration } from '../context/RegistrationContext';
 
+import { registerUser } from '../services/authService';
+
 import '../styles/AccountTypePage.css';
 
 function AccountTypePage() {
@@ -23,36 +25,80 @@ function AccountTypePage() {
 
   const [selectedRole, setSelectedRole] = useState('');
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [serverError, setServerError] = useState('');
+
+
   useEffect(() => {
     if (!registrationData) {
       navigate('/register');
     }
   }, [registrationData, navigate]);
 
-  const handleContinue = () => {
-    if (!selectedRole) {
+
+  const handleContinue = async () => {
+    if (!selectedRole || isSubmitting) {
       return;
     }
 
-    setRegistrationData((previousData) => ({
-      ...previousData,
-      role: selectedRole
-    }));
 
-    if (selectedRole === 'Client') {
-      // Page 6
-      navigate('/browse-services');
-      return;
-    }
+    setServerError('');
+    setIsSubmitting(true);
 
-    if (selectedRole === 'Freelancer') {
-      navigate('/freelancer-dashboard');
+
+    try {
+
+      const response = await registerUser({
+        firstName: registrationData.firstName,
+        lastName: registrationData.lastName,
+        email: registrationData.email,
+        password: registrationData.password,
+        role: selectedRole
+      });
+
+
+      /*
+        Removes the password from frontend memory once registration has succeeded.
+      */
+      setRegistrationData({
+        firstName: response.user.firstName,
+        lastName: response.user.lastName,
+        email: response.user.email,
+        role: response.user.role
+      });
+
+
+      if (selectedRole === 'Client') {
+        // Page 6
+        navigate('/browse-services');
+        return;
+      }
+
+
+      if (selectedRole === 'Freelancer') {
+        navigate('/freelancer-dashboard');
+      }
+
+    } catch (error) {
+
+      setServerError(
+        error.message ||
+        'Unable to create your account. Please try again.'
+      );
+
+    } finally {
+
+      setIsSubmitting(false);
+
     }
   };
+
 
   if (!registrationData) {
     return null;
   }
+
 
   return (
     <AuthLayout>
@@ -70,6 +116,7 @@ function AccountTypePage() {
           </p>
         </div>
 
+
         <div className="account-type-options">
 
           {/* Freelancer */}
@@ -80,7 +127,11 @@ function AccountTypePage() {
                 ? 'account-type-card selected'
                 : 'account-type-card'
             }
-            onClick={() => setSelectedRole('Freelancer')}
+            onClick={() => {
+              setSelectedRole('Freelancer');
+              setServerError('');
+            }}
+            disabled={isSubmitting}
           >
             <div className="account-type-icon">
               <BriefcaseBusiness
@@ -110,7 +161,11 @@ function AccountTypePage() {
                 ? 'account-type-card selected'
                 : 'account-type-card'
             }
-            onClick={() => setSelectedRole('Client')}
+            onClick={() => {
+              setSelectedRole('Client');
+              setServerError('');
+            }}
+            disabled={isSubmitting}
           >
             <div className="account-type-icon">
               <UsersRound
@@ -133,24 +188,42 @@ function AccountTypePage() {
 
         </div>
 
+
+        {serverError && (
+          <p
+            className="account-type-error"
+            role="alert"
+          >
+            {serverError}
+          </p>
+        )}
+
+
         <button
           type="button"
           className="account-type-continue"
-          disabled={!selectedRole}
+          disabled={!selectedRole || isSubmitting}
           onClick={handleContinue}
         >
-          Continue
+          {isSubmitting
+            ? 'Creating account...'
+            : 'Continue'
+          }
 
-          <ArrowRight
-            size={18}
-            aria-hidden="true"
-          />
+          {!isSubmitting && (
+            <ArrowRight
+              size={18}
+              aria-hidden="true"
+            />
+          )}
         </button>
+
 
         <button
           type="button"
           className="account-type-back"
           onClick={() => navigate('/register')}
+          disabled={isSubmitting}
         >
           Back to registration
         </button>

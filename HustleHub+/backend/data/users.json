@@ -111,5 +111,13 @@
     "email": "samtest001@gmail.com",
     "password": "$2b$12$DUxGsuPIpfDZ3Ghy7dJir.GmQjmveDiDyp8tXRuED6rkbdvIBLl1G",
     "role": "Client"
+  },
+  {
+    "id": "0879147d-158c-4bfa-8caf-85b2156d79d5",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john@yahoo.co.za",
+    "password": "$2b$12$plws7oJgUw24lYYhcRtoUuFTxkigMThEqZvUcBE86h1ndV0YEXvTK",
+    "role": "Client"
   }
 ]
