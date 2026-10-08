@@ -2,9 +2,12 @@
 import {
     BrowserRouter,
     Navigate,
+    Outlet,
     Route,
     Routes
 } from "react-router-dom";
+
+import "./styles/clientMarketplace.css";
 
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
@@ -22,11 +25,22 @@ import BookingConfirmation from "./pages/BookingConfirmation"; /* (MDN Web Docs,
 import MyOrders from "./pages/MyOrders";
 import Messages from "./pages/Messages";
 
+function MarketplaceLayout() {
+    return (
+        <div className="hh-marketplace">
+            <Outlet />
+        </div>
+    );
+}
+
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route
+                    path="/"
+                    element={<HomePage />}
+                />
 
                 <Route
                     path="/register"
@@ -58,40 +72,44 @@ function App() {
                     element={<AboutPage />}
                 />
 
-                <Route
-                    path="/client/home"
-                    element={<ClientHome />}
-                />
+                <Route element={<MarketplaceLayout />}>
 
-                <Route
-                    path="/gigs"
-                    element={<BrowseGigs />}
-                />
+                    <Route
+                        path="/client/home"
+                        element={<ClientHome />}
+                    />
 
-                <Route
-                    path="/gigs/:id"
-                    element={<GigDetails />}
-                />
+                    <Route
+                        path="/gigs"
+                        element={<BrowseGigs />}
+                    />
 
-                <Route
-                    path="/booking/:gigId"
-                    element={<CreateBooking />} /* (MDN Web Docs, 2026) */
-                />
+                    <Route
+                        path="/gigs/:id"
+                        element={<GigDetails />}
+                    />
 
-                <Route
-                    path="/booking/confirmation/:bookingId"
-                    element={<BookingConfirmation />}
-                />
+                    <Route
+                        path="/booking/:gigId"
+                        element={<CreateBooking />} /* (MDN Web Docs, 2026) */
+                    />
 
-                <Route
-                    path="/client/orders"
-                    element={<MyOrders />}
-                />
+                    <Route
+                        path="/booking/confirmation/:bookingId"
+                        element={<BookingConfirmation />}
+                    />
 
-                <Route
-                    path="/client/messages"
-                    element={<Messages />}
-                />
+                    <Route
+                        path="/client/orders"
+                        element={<MyOrders />}
+                    />
+
+                    <Route
+                        path="/client/messages"
+                        element={<Messages />}
+                    />
+
+                </Route>
 
                 <Route
                     path="*"
