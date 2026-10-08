@@ -1,81 +1,37 @@
-import {
-    useEffect,
-    useState
-} from "react";
 
-import {
-    useNavigate,
-    useParams
-} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Navbar
-    from "../components/Navbar";
-
-import {
-    getBookingById
-} from "../services/api";
-
+import Navbar from "../components/Navbar";
+import { getBookingById } from "../services/api";
 
 function BookingConfirmation() {
+    const { bookingId } = useParams();
+    const navigate = useNavigate();
 
-    const { bookingId } =
-        useParams();
-
-    const navigate =
-        useNavigate();
-
-    const [booking,
-        setBooking] =
-        useState(null);
-
-    const [loading,
-        setLoading] =
-        useState(true);
-
-    const [error,
-        setError] =
-        useState("");
-
+    const [booking, setBooking] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() => {
-
-        const loadBooking =
-            async () => {
-
-                try {
-
-                    const data =
-                        await getBookingById(
-                            bookingId
-                        );
-
-                    setBooking(
-                        data.booking
-                    );
-
-                } catch (err) {
-
-                    setError(
-                        err.message
-                    );
-
-                } finally {
-
-                    setLoading(false);
-                }
-            };
+        const loadBooking = async () => {
+            try {
+                const data = await getBookingById(bookingId);
+                setBooking(data.booking);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
         loadBooking();
-
     }, [bookingId]);
 
-
     if (loading) {
-
         return (
             <>
                 <Navbar />
-
                 <div className="page-container">
                     <div className="status-box">
                         Loading confirmation...
@@ -85,193 +41,131 @@ function BookingConfirmation() {
         );
     }
 
-
     if (error || !booking) {
-
         return (
             <>
                 <Navbar />
-
                 <div className="page-container">
                     <div className="error-box">
-                        {error ||
-                            "Booking not found."}
+                        {error || "Booking not found."}
                     </div>
                 </div>
             </>
         );
     }
 
-
-    const formattedDate =
-        new Date(
-            booking.deliveryDate
-        ).toLocaleDateString(
+    const formattedDate = booking.deliveryDate
+        ? new Date(booking.deliveryDate).toLocaleDateString(
             "en-ZA",
             {
                 day: "numeric",
                 month: "long",
                 year: "numeric"
             }
-        );
+        )
+        : "Not available";
 
-
-    const bookingReference =
-        booking._id
-            .slice(-8)
-            .toUpperCase();
-
+    const bookingReference = booking._id
+        .slice(-8)
+        .toUpperCase();
 
     return (
         <>
             <Navbar />
 
-
             <main className="confirmation-page">
-
                 <div className="confirmation-card">
-
                     <div className="success-icon">
                         ✓
                     </div>
 
-
                     <span className="section-label">
-                        SUCCESS
+                        BOOKING SUBMITTED
                     </span>
 
-
-                    <h1>
-                        Booking Confirmed!
-                    </h1>
-
+                    <h1>Booking Submitted!</h1>
 
                     <p className="confirmation-intro">
-                        Your booking has been
-                        placed successfully. Your
-                        freelancer can now begin
-                        working on your request.
+                        Your booking has been submitted
+                        successfully and is currently pending.
+                        No payment has been processed.
                     </p>
 
-
                     <div className="confirmation-info">
-
                         <div>
-                            <span>
-                                Booking ID
-                            </span>
-
+                            <span>Booking ID</span>
                             <strong>
-                                #HH{
-                                    bookingReference
-                                }
+                                #HH{bookingReference}
                             </strong>
                         </div>
 
-
                         <div>
-                            <span>
-                                Service
-                            </span>
-
+                            <span>Service</span>
                             <strong>
-                                {
-                                    booking.gig
-                                        .title
-                                }
+                                {booking.gig?.title ||
+                                    "Service unavailable"}
                             </strong>
                         </div>
 
-
                         <div>
-                            <span>
-                                Freelancer
-                            </span>
-
+                            <span>Freelancer</span>
                             <strong>
-                                {
-                                    booking
-                                        .freelancer
-                                        .username
-                                }
+                                {booking.gig?.freelancerName ||
+                                    "Freelancer"}
                             </strong>
                         </div>
 
-
                         <div>
-                            <span>
-                                Amount
-                            </span>
-
+                            <span>Amount</span>
                             <strong>
-                                R{
-                                    booking.amount
-                                }
+                                R{booking.amount}
                             </strong>
                         </div>
 
-
                         <div>
-                            <span>
-                                Status
-                            </span>
-
-                            <strong className="confirmed-status">
-                                {
-                                    booking.status
+                            <span>Status</span>
+                            <strong
+                                className={
+                                    booking.status === "Pending"
+                                        ? "order-status status-pending"
+                                        : "confirmed-status"
                                 }
+                            >
+                                {booking.status}
                             </strong>
                         </div>
 
-
                         <div>
-                            <span>
-                                Delivery by
-                            </span>
-
+                            <span>Expected delivery</span>
                             <strong>
-                                {
-                                    formattedDate
-                                }
+                                {formattedDate}
                             </strong>
                         </div>
-
                     </div>
 
-
                     <div className="confirmation-actions">
-
                         <button
                             className="primary-button"
                             onClick={() =>
-                                navigate(
-                                    "/client/orders"
-                                )
+                                navigate("/client/orders")
                             }
                         >
                             View My Order
                         </button>
 
-
                         <button
                             className="secondary-button"
                             onClick={() =>
-                                navigate(
-                                    "/gigs"
-                                )
+                                navigate("/gigs")
                             }
                         >
                             Continue Browsing
                         </button>
-
                     </div>
-
                 </div>
-
             </main>
         </>
     );
 }
-
 
 export default BookingConfirmation;

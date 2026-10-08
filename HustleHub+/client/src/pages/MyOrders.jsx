@@ -298,10 +298,7 @@ function MyOrders() {
 
                                         <strong>
                                             {
-                                                booking
-                                                    .freelancer
-                                                    ?.username ||
-                                                "Freelancer"
+                                                booking.gig?.freelancerName || "Freelancer"
                                             }
                                         </strong>
 
