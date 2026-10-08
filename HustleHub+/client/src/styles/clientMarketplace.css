@@ -1,0 +1,1247 @@
+.hh-marketplace {
+  --purple: var(--hh-violet);
+  --purple-dark: #6e2ed7;
+  --lavender: #f3eaff;
+  --lavender-dark: #e8d8ff;
+  --lime: var(--hh-lime);
+  --dark: var(--hh-text);
+  --gray: var(--hh-text-light);
+  --light-gray: var(--hh-background);
+  --border: var(--hh-border);
+  --white: var(--hh-white);
+  color: var(--hh-text);
+  background: var(--hh-white);
+  font-family: var(--font-family);
+  min-height: 100vh;
+}
+
+.hh-marketplace .brand {
+display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.hh-marketplace .brand strong {
+color: var(--purple);
+}
+
+.hh-marketplace .brand-mark {
+width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: var(--purple);
+    color: white;
+}
+
+.hh-marketplace .icon-button {
+border: 0;
+    background: transparent;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+
+.hh-marketplace .icon-button:hover {
+background: var(--light-gray);
+}
+
+.hh-marketplace .avatar,
+.hh-marketplace .small-avatar,
+.hh-marketplace .profile-avatar {
+display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--lavender);
+    color: var(--purple);
+    font-weight: 800;
+}
+
+.hh-marketplace .avatar {
+width: 40px;
+    height: 40px;
+}
+
+.hh-marketplace .small-avatar {
+width: 32px;
+    height: 32px;
+}
+
+.hh-marketplace .profile-avatar {
+width: 68px;
+    height: 68px;
+    font-size: 24px;
+}
+
+.hh-marketplace .page-container,
+.hh-marketplace .content-section {
+max-width: 1240px;
+    margin: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.hh-marketplace .content-section {
+padding-top: 58px;
+    padding-bottom: 58px;
+}
+
+.hh-marketplace .section-label,
+.hh-marketplace .eyebrow {
+color: var(--purple);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.hh-marketplace .section-heading {
+display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 28px;
+}
+
+.hh-marketplace .section-heading h2 {
+margin: 7px 0 0;
+    font-size: 30px;
+}
+
+.hh-marketplace .text-button {
+background: none;
+    border: 0;
+    color: var(--purple);
+    font-weight: 700;
+}
+
+.hh-marketplace .primary-button,
+.hh-marketplace .secondary-button {
+min-height: 48px;
+    border-radius: 9px;
+    padding: 0 22px;
+    font-weight: 700;
+    border: 1px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.hh-marketplace .primary-button {
+background: var(--purple);
+    color: white;
+}
+
+.hh-marketplace .primary-button:hover {
+background: var(--purple-dark);
+    transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+.hh-marketplace .primary-button:disabled {
+opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.hh-marketplace .secondary-button {
+background: white;
+    color: var(--purple);
+    border-color: var(--purple);
+}
+
+.hh-marketplace .secondary-button:hover {
+transform: translateY(-1px);
+    opacity: 0.92;
+}
+
+.hh-marketplace .full-width {
+width: 100%;
+}
+
+.hh-marketplace .large-button {
+min-height: 55px;
+}
+
+.hh-marketplace .status-box,
+.hh-marketplace .error-box,
+.hh-marketplace .empty-state {
+padding: 24px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.hh-marketplace .status-box,
+.hh-marketplace .empty-state {
+background: white;
+    border: 1px solid var(--border);
+}
+
+.hh-marketplace .error-box {
+background: #fff1f2;
+    color: #9f1239;
+    border: 1px solid #fecdd3;
+}
+
+.hh-marketplace .muted {
+color: var(--gray);
+}
+
+.hh-marketplace .hero {
+background: linear-gradient(120deg, #eeeeff, #ffffff 55%, #efffc0);
+    padding: 90px 24px;
+}
+
+.hh-marketplace .hero-content {
+max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+.hh-marketplace .hero h1 {
+max-width: 750px;
+    margin: 14px auto;
+    font-size: clamp(38px, 5vw, 62px);
+    line-height: 1.06;
+}
+
+.hh-marketplace .hero p {
+color: var(--gray);
+    font-size: 18px;
+}
+
+.hh-marketplace .hero-search {
+max-width: 760px;
+    height: 66px;
+    margin: 34px auto 0;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border-radius: 13px;
+    box-shadow: 0 12px 35px rgba(17, 24, 39, .10);
+}
+
+.hh-marketplace .search-icon {
+padding-left: 14px;
+    color: var(--gray);
+    font-size: 22px;
+}
+
+.hh-marketplace .hero-search input {
+flex: 1;
+    border: 0;
+    outline: 0;
+    padding: 0 8px;
+}
+
+.hh-marketplace .hero-search button {
+height: 52px;
+    padding: 0 32px;
+    border: 0;
+    border-radius: 9px;
+    background: var(--purple);
+    color: white;
+    font-weight: 700;
+}
+
+.hh-marketplace .category-grid {
+display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
+}
+
+.hh-marketplace .category-card {
+min-height: 110px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: white;
+    font-weight: 700;
+}
+
+.hh-marketplace .category-card:hover {
+border-color: var(--purple);
+    transform: translateY(-2px);
+}
+
+.hh-marketplace .category-icon {
+display: block;
+    color: var(--purple);
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.hh-marketplace .gig-grid {
+display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.hh-marketplace .gig-card {
+overflow: hidden;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: .2s;
+}
+
+.hh-marketplace .gig-card:hover {
+transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(17, 24, 39, .08);
+}
+
+.hh-marketplace .gig-image {
+display: block;
+    height: 180px;
+}
+
+.hh-marketplace .gig-image img {
+height: 100%;
+    object-fit: cover;
+}
+
+.hh-marketplace .image-placeholder {
+height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--purple), #8984ed);
+    color: white;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.hh-marketplace .gig-card-body {
+padding: 17px;
+}
+
+.hh-marketplace .seller-row {
+display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--gray);
+    font-size: 13px;
+}
+
+.hh-marketplace .gig-title {
+display: block;
+    min-height: 48px;
+    margin: 14px 0 10px;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.hh-marketplace .rating {
+color: #f59e0b;
+    font-size: 14px;
+}
+
+.hh-marketplace .rating span {
+color: var(--gray);
+}
+
+.hh-marketplace .gig-card-footer {
+display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 17px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+    color: var(--gray);
+    font-size: 12px;
+}
+
+.hh-marketplace .gig-card-footer div {
+text-align: right;
+}
+
+.hh-marketplace .gig-card-footer small {
+display: block;
+}
+
+.hh-marketplace .gig-card-footer strong {
+color: var(--dark);
+    font-size: 18px;
+}
+
+.hh-marketplace .browse-page {
+padding: 54px 0 80px;
+}
+
+.hh-marketplace .browse-heading {
+margin-bottom: 34px;
+}
+
+.hh-marketplace .browse-heading h1 {
+margin: 8px 0;
+    font-size: 38px;
+}
+
+.hh-marketplace .browse-heading p {
+color: var(--gray);
+}
+
+.hh-marketplace .browse-layout {
+display: grid;
+    grid-template-columns: 245px 1fr;
+    gap: 34px;
+}
+
+.hh-marketplace .filter-panel {
+align-self: start;
+    padding: 22px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+}
+
+.hh-marketplace .filter-header,
+.hh-marketplace .results-toolbar {
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hh-marketplace .filter-header button {
+border: 0;
+    background: none;
+    color: var(--purple);
+}
+
+.hh-marketplace .filter-group {
+padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.hh-marketplace .filter-group h4 {
+margin: 0 0 13px;
+}
+
+.hh-marketplace .field-label {
+display: block;
+    margin: 20px 0 8px;
+    font-weight: 700;
+}
+
+.hh-marketplace .standard-input {
+width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+}
+
+.hh-marketplace .radio-row {
+display: flex;
+    gap: 8px;
+    margin: 11px 0;
+    color: var(--gray);
+    font-size: 14px;
+}
+
+.hh-marketplace .price-slider {
+width: 100%;
+}
+
+.hh-marketplace .results-toolbar {
+margin-bottom: 20px;
+}
+
+.hh-marketplace .results-toolbar select {
+padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: white;
+}
+
+.hh-marketplace .results-area .gig-grid {
+grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.hh-marketplace .details-page {
+padding: 32px 0 80px;
+}
+
+.hh-marketplace .breadcrumb {
+display: flex;
+    gap: 9px;
+    margin-bottom: 26px;
+    color: var(--gray);
+    font-size: 13px;
+}
+
+.hh-marketplace .details-grid {
+display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(320px, .8fr);
+    gap: 42px;
+}
+
+.hh-marketplace .main-gig-image {
+height: 500px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.hh-marketplace .main-gig-image img {
+height: 100%;
+    object-fit: cover;
+}
+
+.hh-marketplace .large-placeholder {
+height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #24213f, var(--purple));
+    color: white;
+}
+
+.hh-marketplace .large-placeholder span {
+font-size: 14px;
+    letter-spacing: 4px;
+}
+
+.hh-marketplace .large-placeholder strong {
+margin: 15px;
+    font-size: 40px;
+}
+
+.hh-marketplace .large-placeholder small {
+color: var(--lime);
+}
+
+.hh-marketplace .thumbnail-row {
+display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.hh-marketplace .thumbnail-placeholder {
+width: 90px;
+    height: 65px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--lavender);
+    color: var(--purple);
+}
+
+.hh-marketplace .details-content {
+margin-top: 42px;
+    padding: 30px;
+    background: white;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+}
+
+.hh-marketplace .details-content p {
+color: var(--gray);
+    line-height: 1.8;
+}
+
+.hh-marketplace .details-content hr {
+margin: 30px 0;
+    border: 0;
+    border-top: 1px solid var(--border);
+}
+
+.hh-marketplace .freelancer-card,
+.hh-marketplace .seller-detail {
+display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.hh-marketplace .purchase-card {
+align-self: start;
+    position: sticky;
+    top: 105px;
+    padding: 30px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(17, 24, 39, .07);
+}
+
+.hh-marketplace .purchase-card h1 {
+font-size: 29px;
+    line-height: 1.25;
+}
+
+.hh-marketplace .category-pill {
+display: inline-block;
+    padding: 7px 11px;
+    border-radius: 50px;
+    background: var(--lavender);
+    color: var(--purple);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.hh-marketplace .seller-detail small {
+display: block;
+    margin-top: 4px;
+    color: var(--gray);
+}
+
+.hh-marketplace .purchase-card > .rating {
+margin: 17px 0;
+}
+
+.hh-marketplace .price-block {
+margin: 22px 0;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.hh-marketplace .price-block small {
+display: block;
+    color: var(--gray);
+}
+
+.hh-marketplace .price-block strong {
+font-size: 32px;
+}
+
+.hh-marketplace .feature-list {
+display: grid;
+    gap: 13px;
+    margin-bottom: 24px;
+    color: var(--gray);
+    font-size: 14px;
+}
+
+.hh-marketplace .purchase-card .secondary-button {
+margin-top: 10px;
+}
+
+.hh-marketplace .save-button {
+width: 100%;
+    margin-top: 14px;
+    border: 0;
+    background: transparent;
+    color: var(--gray);
+}
+
+.hh-marketplace .booking-page {
+min-height: calc(100vh - 76px);
+    padding: 55px 24px 80px;
+}
+
+.hh-marketplace .booking-container {
+max-width: 1050px;
+    margin: auto;
+}
+
+.hh-marketplace .booking-heading {
+margin-bottom: 30px;
+}
+
+.hh-marketplace .booking-heading h1 {
+margin: 8px 0;
+    font-size: 38px;
+}
+
+.hh-marketplace .booking-heading p {
+color: var(--gray);
+}
+
+.hh-marketplace .booking-grid {
+display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    gap: 28px;
+    align-items: start;
+}
+
+.hh-marketplace .order-summary,
+.hh-marketplace .booking-form-card {
+padding: 28px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+}
+
+.hh-marketplace .order-summary h2,
+.hh-marketplace .booking-form-card h2 {
+margin-top: 0;
+}
+
+.hh-marketplace .summary-service {
+display: flex;
+    gap: 15px;
+    padding: 18px 0 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.hh-marketplace .summary-image {
+width: 95px;
+    height: 75px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 9px;
+    background: var(--lavender);
+    color: var(--purple);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.hh-marketplace .summary-image img {
+width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hh-marketplace .summary-service h3 {
+margin: 4px 0 7px;
+}
+
+.hh-marketplace .summary-service p {
+margin: 0;
+    color: var(--gray);
+}
+
+.hh-marketplace .summary-line,
+.hh-marketplace .summary-total {
+display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.hh-marketplace .summary-line {
+border-bottom: 1px solid var(--border);
+    color: var(--gray);
+}
+
+.hh-marketplace .summary-total {
+margin-top: 6px;
+    font-size: 20px;
+}
+
+.hh-marketplace .requirements-input {
+width: 100%;
+    min-height: 175px;
+    margin-top: 14px;
+    padding: 15px;
+    resize: vertical;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    outline: none;
+}
+
+.hh-marketplace .requirements-input:focus {
+border-color: var(--purple);
+}
+
+.hh-marketplace .character-count {
+display: block;
+    text-align: right;
+    color: var(--gray);
+}
+
+.hh-marketplace .payment-heading {
+margin-top: 30px !important;
+}
+
+.hh-marketplace .payment-option {
+display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+}
+
+.hh-marketplace .payment-option:has(input:checked) {
+border-color: var(--purple);
+    background: #f8f7ff;
+}
+
+.hh-marketplace .payment-option small {
+display: block;
+    margin-top: 4px;
+    color: var(--gray);
+}
+
+.hh-marketplace .booking-form-card .primary-button {
+margin-top: 18px;
+}
+
+.hh-marketplace .secure-message {
+margin-top: 13px;
+    text-align: center;
+    color: var(--gray);
+    font-size: 12px;
+}
+
+.hh-marketplace .confirmation-page {
+min-height: calc(100vh - 76px);
+    padding: 70px 24px;
+    background: radial-gradient(circle at top, #eeeeff, #f8f8fc 50%);
+}
+
+.hh-marketplace .confirmation-card {
+max-width: 700px;
+    margin: auto;
+    padding: 50px;
+    text-align: center;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(17, 24, 39, .08);
+}
+
+.hh-marketplace .success-icon {
+width: 76px;
+    height: 76px;
+    margin: 0 auto 20px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--lime);
+    color: #1f2937;
+    font-size: 36px;
+    font-weight: 900;
+}
+
+.hh-marketplace .confirmation-card h1 {
+margin: 10px 0;
+    font-size: 40px;
+}
+
+.hh-marketplace .confirmation-intro {
+max-width: 520px;
+    margin: 0 auto 30px;
+    color: var(--gray);
+    line-height: 1.7;
+}
+
+.hh-marketplace .confirmation-info {
+padding: 10px 24px;
+    text-align: left;
+    background: #f8f8fc;
+    border-radius: 13px;
+}
+
+.hh-marketplace .confirmation-info > div {
+display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.hh-marketplace .confirmation-info > div:last-child {
+border-bottom: 0;
+}
+
+.hh-marketplace .confirmation-info span {
+color: var(--gray);
+}
+
+.hh-marketplace .confirmed-status {
+color: #15803d;
+}
+
+.hh-marketplace .confirmation-actions {
+display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.hh-marketplace .orders-page {
+width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 48px 0 80px;
+}
+
+.hh-marketplace .orders-header {
+display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 38px;
+}
+
+.hh-marketplace .page-eyebrow {
+display: inline-block;
+    margin-bottom: 10px;
+    color: var(--purple);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+.hh-marketplace .orders-header h1 {
+margin: 0 0 8px;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #222;
+}
+
+.hh-marketplace .orders-header p {
+margin: 0;
+    color: #6b6b76;
+}
+
+.hh-marketplace .orders-list {
+display: grid;
+    gap: 22px;
+}
+
+.hh-marketplace .order-card {
+display: grid;
+    grid-template-columns: 220px 1fr;
+    overflow: hidden;
+    border: 1px solid #e7e7ef;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(38, 35, 86, 0.07);
+}
+
+.hh-marketplace .order-card-image {
+min-height: 220px;
+    background: var(--lavender);
+}
+
+.hh-marketplace .order-card-image img {
+width: 100%;
+    height: 100%;
+    min-height: 220px;
+    object-fit: cover;
+}
+
+.hh-marketplace .order-image-placeholder {
+display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--purple), #8883ef);
+    color: white;
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.hh-marketplace .order-card-content {
+padding: 26px 30px;
+}
+
+.hh-marketplace .order-top-row {
+display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.hh-marketplace .order-reference {
+display: block;
+    margin-bottom: 7px;
+    color: #777;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.hh-marketplace .order-top-row h2 {
+margin: 0;
+    color: #222;
+    font-size: 1.25rem;
+}
+
+.hh-marketplace .order-status {
+flex-shrink: 0;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: var(--lavender);
+    color: var(--purple);
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.hh-marketplace .status-completed {
+background: #e9ffd0;
+    color: #365f00;
+}
+
+.hh-marketplace .status-cancelled {
+background: #ffe5e5;
+    color: #9b2525;
+}
+
+.hh-marketplace .status-in-progress {
+background: #fff2cc;
+    color: #725400;
+}
+
+.hh-marketplace .order-freelancer {
+margin: 14px 0 22px;
+    color: #696974;
+}
+
+.hh-marketplace .order-details-grid {
+display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    padding: 18px;
+    border-radius: 14px;
+    background: #f8f8fc;
+}
+
+.hh-marketplace .order-details-grid div {
+display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.hh-marketplace .order-details-grid span {
+color: #7a7a84;
+    font-size: 0.78rem;
+}
+
+.hh-marketplace .order-details-grid strong {
+color: #292933;
+}
+
+.hh-marketplace .order-actions {
+display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.hh-marketplace .order-link {
+color: var(--purple);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.hh-marketplace .order-link:hover {
+text-decoration: underline;
+}
+
+.hh-marketplace .orders-state {
+display: flex;
+    min-height: 390px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 25px;
+    border: 1px solid #e7e7ef;
+    border-radius: 22px;
+    background: white;
+    text-align: center;
+}
+
+.hh-marketplace .orders-state h2 {
+margin: 16px 0 8px;
+}
+
+.hh-marketplace .orders-state p {
+max-width: 480px;
+    margin: 0 0 24px;
+    color: #6f6f79;
+}
+
+.hh-marketplace .state-icon {
+display: flex;
+    width: 70px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--lavender);
+    font-size: 1.8rem;
+}
+
+.hh-marketplace .error-state .state-icon {
+background: #ffe7e7;
+    color: #a52b2b;
+}
+
+.hh-marketplace .messages-page {
+display: flex;
+    width: min(1180px, calc(100% - 40px));
+    min-height: calc(100vh - 100px);
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0 80px;
+}
+
+.hh-marketplace .messages-card {
+width: min(620px, 100%);
+    padding: 55px 45px;
+    border: 1px solid #e7e7ef;
+    border-radius: 26px;
+    background: white;
+    box-shadow: 0 18px 50px rgba(38, 35, 86, 0.09);
+    text-align: center;
+}
+
+.hh-marketplace .messages-icon {
+display: flex;
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 24px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--lavender);
+    font-size: 2rem;
+}
+
+.hh-marketplace .messages-card h1 {
+margin: 2px 0 12px;
+    font-size: 2.4rem;
+    color: #222;
+}
+
+.hh-marketplace .messages-card > p {
+max-width: 470px;
+    margin: 0 auto;
+    color: #6d6d78;
+    line-height: 1.7;
+}
+
+.hh-marketplace .messages-info {
+margin: 30px 0;
+    padding: 20px;
+    border-radius: 15px;
+    background: #f7f7fc;
+}
+
+.hh-marketplace .messages-info div {
+display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.hh-marketplace .messages-info strong {
+color: #292933;
+}
+
+.hh-marketplace .messages-info span {
+color: #73737d;
+    font-size: 0.9rem;
+}
+
+@media  (max-width: 1000px) {
+.hh-marketplace .category-grid {
+grid-template-columns: repeat(3, 1fr);
+}
+
+.hh-marketplace .gig-grid,
+.hh-marketplace .results-area .gig-grid {
+grid-template-columns: repeat(2, 1fr);
+}
+
+.hh-marketplace .details-grid {
+grid-template-columns: 1fr;
+}
+
+.hh-marketplace .purchase-card {
+position: static;
+}
+
+.hh-marketplace .booking-grid {
+grid-template-columns: 1fr;
+}
+
+}
+
+@media  (max-width: 800px) {
+.hh-marketplace .orders-header {
+align-items: flex-start;
+        flex-direction: column;
+}
+
+.hh-marketplace .order-card {
+grid-template-columns: 1fr;
+}
+
+.hh-marketplace .order-card-image {
+min-height: 170px;
+}
+
+.hh-marketplace .order-card-image img,
+.hh-marketplace .order-image-placeholder {
+min-height: 170px;
+}
+
+.hh-marketplace .order-details-grid {
+grid-template-columns: 1fr;
+}
+
+.hh-marketplace .order-top-row {
+flex-direction: column;
+}
+
+.hh-marketplace .messages-card {
+padding: 40px 24px;
+}
+
+}
+
+@media  (max-width: 760px) {
+.hh-marketplace .hero {
+padding: 60px 18px;
+}
+
+.hh-marketplace .hero-search {
+height: auto;
+        flex-wrap: wrap;
+}
+
+.hh-marketplace .hero-search input {
+min-height: 48px;
+}
+
+.hh-marketplace .hero-search button {
+width: 100%;
+}
+
+.hh-marketplace .category-grid,
+.hh-marketplace .gig-grid,
+.hh-marketplace .results-area .gig-grid {
+grid-template-columns: 1fr;
+}
+
+.hh-marketplace .browse-layout {
+grid-template-columns: 1fr;
+}
+
+.hh-marketplace .main-gig-image {
+height: 320px;
+}
+
+.hh-marketplace .confirmation-card {
+padding: 32px 20px;
+}
+
+.hh-marketplace .confirmation-info > div {
+flex-direction: column;
+        gap: 5px;
+}
+
+.hh-marketplace .confirmation-actions {
+flex-direction: column;
+}
+
+}

@@ -1,3 +1,4 @@
+
 //Packages
 const express = require("express");
 const https = require("https");
@@ -6,6 +7,9 @@ const path = require("path");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const cors = require("cors");
+
+// MongoDB connection 
+const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -55,49 +59,56 @@ const certPath = path.join(
     "server.crt"
 );
 
+// Connect to MongoDB before starting the server.
+const startServer = async () => {
+    try {
+        await connectDB();
+        if (
+            fs.existsSync(keyPath) &&
+            fs.existsSync(certPath)
+        ) {
+            const sslOptions = {
+                key: fs.readFileSync(keyPath),
+                cert: fs.readFileSync(certPath)
+            };
 
-// Use HTTPS when local certificates are available. Otherwise use HTTP for local development.
-if (
-    fs.existsSync(keyPath) &&
-    fs.existsSync(certPath)
-) {
+            // Create HTTPS server (IIE, 2026)
+            https.createServer(
+                sslOptions,
+                app
+            ).listen(PORT, () => {
+                console.log(
+                    `HustleHub+ API running at https://localhost:${PORT}`
+                );
+            });
 
-    const sslOptions = {
-        key: fs.readFileSync(keyPath),
-        cert: fs.readFileSync(certPath)
-    };
+        } else {
+            app.listen(PORT, () => {
+                console.log(
+                    `HustleHub+ API running at http://localhost:${PORT}`
+                );
 
+                console.log(
+                    "SSL certificates not found. Using HTTP for local development."
+                );
+            });
+        }
 
-    // Create HTTPS server (IIE, 2026)
-    https.createServer(
-        sslOptions,
-        app
-    ).listen(PORT, () => {
-
-        console.log(
-            `HustleHub+ API running at https://localhost:${PORT}`
+    } catch (error) {
+        console.error(
+            "Backend startup failed:",
+            error.message
         );
 
-    });
+        process.exit(1);
+    }
+};
 
-} else {
+startServer();
 
-    app.listen(PORT, () => {
-
-        console.log(
-            `HustleHub+ API running at http://localhost:${PORT}`
-        );
-
-        console.log(
-            "SSL certificates not found. Using HTTP for local development."
-        );
-
-    });
-
-}
 /*Reference List
-- The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+- The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of
   Education: Unpublished.
-- Ibrahim, M., 2024. What is Cross Origin Resource Sharing (CORS)?. Super Tokens blog, [blog] 06 July. Available at: 
-  <https://supertokens.com/blog/what-is-cross-origin-resource-sharing> [Accessed 02 September 2026].  
+- Ibrahim, M., 2024. What is Cross Origin Resource Sharing (CORS)?. Super Tokens blog, [blog] 06 July. Available at:
+  <https://supertokens.com/blog/what-is-cross-origin-resource-sharing> [Accessed 02 September 2026].
 */

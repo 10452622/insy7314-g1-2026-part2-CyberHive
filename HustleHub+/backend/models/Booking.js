@@ -1,74 +1,59 @@
-const mongoose =
-    require("mongoose");
 
+const mongoose = require("mongoose");
 
-const bookingSchema =
-    new mongoose.Schema(
-        {
-
-            gig: {
-                type:
-                    mongoose.Schema.Types.ObjectId,
-                ref: "Gig",
-                required: true
-            },
-
-            client: {
-                type:
-                    mongoose.Schema.Types.ObjectId,
-                ref: "User",
-                required: true
-            },
-
-            freelancer: {
-                type:
-                    mongoose.Schema.Types.ObjectId,
-                ref: "User",
-                required: true
-            },
-
-            requirements: {
-                type: String,
-                required: true,
-                trim: true,
-                maxlength: 2000
-            },
-
-            amount: {
-                type: Number,
-                required: true,
-                min: 0
-            },
-
-            status: {
-                type: String,
-
-                enum: [
-                    "Pending",
-                    "Confirmed",
-                    "In Progress",
-                    "Completed",
-                    "Cancelled"
-                ],
-
-                default:
-                    "Confirmed"
-            },
-
-            deliveryDate: {
-                type: Date,
-                required: true
-            }
-
+const bookingSchema = new mongoose.Schema(
+    {
+        gig: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Gig",
+            required: true
         },
-        {
-            timestamps: true
+
+        // Client IDs come from the group's JSON user records.
+        client: {
+            type: String,
+            required: true
+        },
+
+        // Freelancer IDs are also UUID strings.
+        freelancer: {
+            type: String,
+            required: true
+        },
+
+        requirements: {
+            type: String,
+            required: true,
+            trim: true,
+            maxlength: 2000
+        },
+
+        amount: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+
+        status: {
+            type: String,
+            enum: [
+                "Pending",
+                "Confirmed",
+                "In Progress",
+                "Completed",
+                "Cancelled"
+            ],
+            default: "Pending"
+        },
+
+        deliveryDate: {
+            type: Date,
+            required: true
         }
-    );
+    },
+    {
+        timestamps: true
+    }
+);
 
-
-module.exports =
-    mongoose.model(
-        "Booking",
-        bookingSchema
-    );
+module.exports = mongoose.model("Booking", bookingSchema);
