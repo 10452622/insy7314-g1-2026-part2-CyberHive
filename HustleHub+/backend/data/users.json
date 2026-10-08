@@ -110,7 +110,9 @@
     "lastName": "Wilhelm",
     "email": "samtest001@gmail.com",
     "password": "$2b$12$DUxGsuPIpfDZ3Ghy7dJir.GmQjmveDiDyp8tXRuED6rkbdvIBLl1G",
-    "role": "Client"
+    "role": "Client",
+    "resetPasswordToken": "ac326f40336d81ef2fd51303e4d930f8d35a0a3beadb74eb19c96da0c43b7a58",
+    "resetPasswordExpires": 1791426515256
   },
   {
     "id": "0879147d-158c-4bfa-8caf-85b2156d79d5",

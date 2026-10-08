@@ -68,6 +68,19 @@ const loginValidation = [
 ];
 
 
+const forgotPasswordValidation = [
+
+    body("email")
+        .trim()
+        .notEmpty()
+        .withMessage("Email is required.")
+        .isEmail()
+        .withMessage("Please provide a valid email address.")
+        .normalizeEmail()
+
+];
+
+
 const handleValidationErrors = (req, res, next) => {
     const errors = validationResult(req);
 
@@ -90,6 +103,7 @@ const handleValidationErrors = (req, res, next) => {
 module.exports = {
     registerValidation,
     loginValidation,
+    forgotPasswordValidation,
     handleValidationErrors
 };
 

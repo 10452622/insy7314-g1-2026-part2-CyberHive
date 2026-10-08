@@ -4,12 +4,23 @@ import { Mail, ArrowLeft } from 'lucide-react';
 
 import AuthLayout from '../components/AuthLayout';
 
+import {
+  requestPasswordReset
+} from '../services/authService';
+
 import '../styles/ForgotPasswordPage.css';
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
+
   const [error, setError] = useState('');
+
+  const [serverError, setServerError] = useState('');
+
   const [submitted, setSubmitted] = useState(false);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
 
   const validateEmail = () => {
     const emailPattern =
@@ -29,15 +40,41 @@ function ForgotPasswordPage() {
     return true;
   };
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!validateEmail()) {
+    if (!validateEmail() || isSubmitting) {
       return;
     }
 
-    setSubmitted(true);
+
+    setServerError('');
+    setIsSubmitting(true);
+
+
+    try {
+
+      await requestPasswordReset(
+        email.trim()
+      );
+
+      setSubmitted(true);
+
+    } catch (error) {
+
+      setServerError(
+        error.message ||
+        'Unable to process your request. Please try again.'
+      );
+
+    } finally {
+
+      setIsSubmitting(false);
+
+    }
   };
+
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -45,7 +82,20 @@ function ForgotPasswordPage() {
     if (error) {
       setError('');
     }
+
+    if (serverError) {
+      setServerError('');
+    }
   };
+
+
+  const handleTryAnotherEmail = () => {
+    setSubmitted(false);
+    setEmail('');
+    setError('');
+    setServerError('');
+  };
+
 
   return (
     <AuthLayout>
@@ -75,6 +125,7 @@ function ForgotPasswordPage() {
 
             </div>
 
+
             <form
               className="forgot-form"
               onSubmit={handleSubmit}
@@ -96,21 +147,40 @@ function ForgotPasswordPage() {
                   value={email}
                   onChange={handleEmailChange}
                   aria-invalid={Boolean(error)}
+                  disabled={isSubmitting}
                 />
 
                 {error && (
-                  <span className="forgot-error">
+                  <span
+                    className="forgot-error"
+                    role="alert"
+                  >
                     {error}
                   </span>
                 )}
 
               </div>
 
+
+              {serverError && (
+                <p
+                  className="forgot-server-error"
+                  role="alert"
+                >
+                  {serverError}
+                </p>
+              )}
+
+
               <button
                 type="submit"
                 className="forgot-submit-btn"
+                disabled={isSubmitting}
               >
-                Send Reset Link
+                {isSubmitting
+                  ? 'Sending...'
+                  : 'Send Reset Link'
+                }
               </button>
 
             </form>
@@ -135,13 +205,14 @@ function ForgotPasswordPage() {
             <button
               type="button"
               className="send-again-btn"
-              onClick={() => setSubmitted(false)}
+              onClick={handleTryAnotherEmail}
             >
               Try another email
             </button>
 
           </div>
         )}
+
 
         <Link
           to="/login"

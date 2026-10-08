@@ -156,7 +156,7 @@ const login = async (req, res, next) => {
         );
 
 
-        // Do not reveal whether the email exists
+        // Does not reveal whether the email exists
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -244,9 +244,99 @@ const login = async (req, res, next) => {
 };
 
 
+// POST /api/auth/forgot-password
+const forgotPassword = async (req, res, next) => {
+
+    try {
+
+        const {
+            email
+        } = req.body;
+
+
+        const users = readUsers();
+
+
+        const user = users.find(
+            user =>
+                user.email.toLowerCase() ===
+                email.toLowerCase()
+        );
+
+
+        /*
+            Always returns the same response whether the email exists or not.
+            This prevents account enumeration.
+        */
+        if (user) {
+
+            // Generate secure reset token
+            const resetToken =
+                crypto
+                    .randomBytes(32)
+                    .toString("hex");
+
+
+            /*
+                Store only a hash of the reset token. The original token would normally be
+                sent to the user by email.
+            */
+            const resetTokenHash =
+                crypto
+                    .createHash("sha256")
+                    .update(resetToken)
+                    .digest("hex");
+
+
+            user.resetPasswordToken =
+                resetTokenHash;
+
+
+            // Reset token expires after 15 minutes
+            user.resetPasswordExpires =
+                Date.now() + (15 * 60 * 1000);
+
+
+            saveUsers(users);
+
+
+            /*
+                Development demonstration only. In production, the reset token would
+                be sent through an email service and should not be logged.
+            */
+            if (process.env.NODE_ENV !== "production") {
+
+                console.log(
+                    `[DEV] Password reset token for ${user.email}: ${resetToken}`
+                );
+
+            }
+
+        }
+
+
+        // Successful generic response
+        return res.status(200).json({
+
+            success: true,
+
+            message:
+                "If an account exists for this email, a password reset link has been sent."
+
+        });
+
+    } catch (error) {
+
+        next(error);
+
+    }
+};
+
+
 module.exports = {
     register,
-    login
+    login,
+    forgotPassword
 };
 
 /*Reference List
