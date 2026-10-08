@@ -1,12 +1,12 @@
 
 const Gig = require("../models/Gig");
-const fs = require("fs");
+const fs = require("fs"); // (Node.js, n.d.)
 const path = require("path");
 
-const usersFilePath = path.join(__dirname, "../data/users.json");
+const usersFilePath = path.join(__dirname, "../data/users.json"); // (Node.js, n.d.)
 
 const findUserById = (id) => {
-    const users = JSON.parse(fs.readFileSync(usersFilePath, "utf8"));
+    const users = JSON.parse(fs.readFileSync(usersFilePath, "utf8")); // (Node.js, n.d.)
     return users.find(user => user.id === id);
 };
 
@@ -50,7 +50,7 @@ const getGigs = async (req, res, next) => {
 
 const getGigById = async (req, res, next) => {
     try {
-        const gig = await Gig.findOne({
+        const gig = await Gig.findOne({ // (Mongoose, n.d.)
             _id: req.params.id,
             isActive: true
         });
@@ -98,7 +98,7 @@ const createGig = async (req, res, next) => {
         const freelancerName = [
             freelancer.firstName || freelancer.username,
             freelancer.lastName
-        ].filter(Boolean).join(" ");
+        ].filter(Boolean).join(" "); //(IIE, 2026)
 
         const gig = await Gig.create({
             title,
@@ -123,7 +123,7 @@ const createGig = async (req, res, next) => {
 
 const updateGig = async (req, res, next) => {
     try {
-        const gig = await Gig.findById(req.params.id);
+        const gig = await Gig.findById(req.params.id); // (Mongoose, n.d.)
 
         if (!gig) {
             return res.status(404).json({
@@ -175,7 +175,7 @@ const updateGig = async (req, res, next) => {
 
 const deleteGig = async (req, res, next) => {
     try {
-        const gig = await Gig.findById(req.params.id);
+        const gig = await Gig.findById(req.params.id); // (Mongoose, n.d.)
 
         if (!gig) {
             return res.status(404).json({
@@ -188,7 +188,7 @@ const deleteGig = async (req, res, next) => {
             return res.status(403).json({
                 success: false,
                 message: "You cannot delete another freelancer's gig."
-            });
+            }); //(IIE, 2026)
         }
 
         gig.isActive = false;
@@ -217,3 +217,14 @@ module.exports = {
     updateGig,
     deleteGig
 };
+
+/* Reference List
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+  Education: Unpublished.
+  
+Node.js, (n.d.). File system | Node.js v22.x Documentation. [online] Available at: https://nodejs.org/api/fs.html [Accessed: 7 October 2026].
+
+Node.js, (n.d.). Path | Node.js v22.x Documentation. [online] Available at: https://nodejs.org/api/path.html [Accessed: 7 October 2026].
+
+Mongoose, (n.d.). Mongoose v8.17.0 API: Model. [online] Available at: https://mongoosejs.com/docs/api/model.html [Accessed: 7 October 2026].
+*/

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
-import { getGigById } from "../services/api";
+import { getGigById } from "../services/api"; //(IIE, 2026)
 
 function GigDetails() {
     const { id } = useParams();
@@ -50,7 +50,7 @@ function GigDetails() {
                 <ClientNavbar />
 
                 <div className="page-container">
-                    <div className="status-box">
+                    <div className="status-box">  {/* //(MDN Web Docs, 2026) */}
                         Loading service...
                     </div>
                 </div>
@@ -129,7 +129,7 @@ function GigDetails() {
                                 ))}
                             </div>
 
-                            <div className="details-content">
+                            <div className="details-content">  {/* //(MDN Web Docs, 2026) */}
                                 <h2>About this service</h2>
 
                                 <p>{gig.description}</p>
@@ -199,8 +199,8 @@ function GigDetails() {
                                 <div>✓ Track booking status in My Orders</div>
                             </div>
 
-                            <button
-                                type="button"
+                            <button //(MDN Web Docs, 2026) 
+                                type="button"  
                                 className="primary-button full-width large-button"
                                 onClick={() =>
                                     navigate(`/booking/${gig._id}`)
@@ -235,3 +235,11 @@ function GigDetails() {
 }
 
 export default GigDetails;
+
+/*Reference List
+
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+Education: Unpublished.
+*/

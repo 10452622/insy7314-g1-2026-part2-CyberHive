@@ -8,7 +8,7 @@ const messageSchema = new mongoose.Schema(
             ref: "Booking",
             required: true,
             index: true
-        },
+        }, //(IIE, 2026)
 
         sender: {
             type: String,
@@ -32,4 +32,10 @@ messageSchema.index({
     createdAt: 1
 });
 
-module.exports = mongoose.model("Message", messageSchema);
+module.exports = mongoose.model("Message", messageSchema); //(IIE, 2026)
+
+/*Reference List
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+  Education: Unpublished.
+*/

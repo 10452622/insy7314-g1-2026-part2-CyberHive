@@ -7,14 +7,14 @@ const createBooking = async (req, res, next) => {
     try {
         const { gigId, requirements } = req.body;
 
-        if (!mongoose.isValidObjectId(gigId)) {
+        if (!mongoose.isValidObjectId(gigId)) { //(Mongoose, n.d.)
             return res.status(400).json({
                 success: false,
                 message: "Invalid gig ID."
             });
         }
 
-        const gig = await Gig.findOne({
+        const gig = await Gig.findOne({ //(Mongoose, n.d.)
             _id: gigId,
             isActive: true
         });
@@ -31,7 +31,7 @@ const createBooking = async (req, res, next) => {
             deliveryDate.getDate() + gig.deliveryDays
         );
 
-        const booking = await Booking.create({
+        const booking = await Booking.create({ //(Mongoose, n.d.)
             gig: gig._id,
             client: req.user.id,
             freelancer: gig.freelancer,
@@ -55,7 +55,7 @@ const createBooking = async (req, res, next) => {
 // Retrieve bookings belonging to the logged-in client
 const getMyBookings = async (req, res, next) => {
     try {
-        const bookings = await Booking.find({
+        const bookings = await Booking.find({ //(Mongoose, n.d.)
             client: req.user.id
         })
             .populate("gig")
@@ -108,7 +108,7 @@ const getBookingById = async (req, res, next) => {
             booking
         });
 
-    } catch (error) {
+    } catch (error) { //(Express.js, n.d.)
         next(error);
     }
 };
@@ -118,3 +118,12 @@ module.exports = {
     getMyBookings,
     getBookingById
 };
+
+/*Reference List
+
+Mongoose, (n.d.). Mongoose v8.17.0 API: Mongoose.prototype.isValidObjectId(). [online] Available at: https://mongoosejs.com/docs/api/mongoose.html#Mongoose.prototype.isValidObjectId() [Accessed: 7 October 2026]
+
+Mongoose, (n.d.). Mongoose v8.17.0 API: Model. [online] Available at: https://mongoosejs.com/docs/api/model.html [Accessed: 7 October 2026]..
+
+Express.js, (n.d.). Writing error handlers. [online] Available at: https://expressjs.com/en/guide/error-handling/ [Accessed: 7 October 2026].
+*/

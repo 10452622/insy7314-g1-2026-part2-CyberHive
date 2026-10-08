@@ -14,7 +14,7 @@ import GigCard
 
 import {
     getGigs
-} from "../services/api";
+} from "../services/api"; //(IIE, 2026)
 
 
 const categories = [
@@ -151,7 +151,7 @@ function ClientHome() {
 
                             <button type="submit">
                                 Search
-                            </button>
+                            </button>  {/* (MDN Web Docs, 2026) */}
 
                         </form>
 
@@ -167,7 +167,7 @@ function ClientHome() {
                         <div>
                             <span className="section-label">
                                 EXPLORE
-                            </span>
+                            </span>  {/* (MDN Web Docs, 2026) */}
 
                             <h2>
                                 Popular Categories
@@ -182,12 +182,13 @@ function ClientHome() {
                         {categories.map(
                             (category) => (
 
+                                // (MDN Web Docs, 2026) 
                                 <button
                                     key={category}
                                     className="category-card"
                                     onClick={() =>
                                         openCategory(
-                                            category
+                                            category 
                                         )
                                     }
                                 >
@@ -291,3 +292,11 @@ function ClientHome() {
 
 
 export default ClientHome;
+
+/*Reference List
+
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+Education: Unpublished.
+*/

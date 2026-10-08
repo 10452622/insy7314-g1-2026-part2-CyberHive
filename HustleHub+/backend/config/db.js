@@ -10,7 +10,7 @@ const connectDB = async () => {
             throw new Error(
                 "MONGO_URI is missing from the environment variables."
             );
-        }
+        } //(IIE, 2026)
 
         const connection = await mongoose.connect(
             process.env.MONGO_URI
@@ -30,4 +30,10 @@ const connectDB = async () => {
     }
 };
 
-module.exports = connectDB;
+module.exports = connectDB; // (IIE, 2026)
+
+/*Reference List
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+  Education: Unpublished.
+*/

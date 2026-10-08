@@ -6,7 +6,7 @@ const authorizeRoles = (...allowedRoles) => {
                 success: false,
                 message: "Authentication is required."
             });
-        }
+        } //(IIE, 2026)
 
         if (!allowedRoles.includes(req.user.role)) {
             return res.status(403).json({
@@ -20,3 +20,9 @@ const authorizeRoles = (...allowedRoles) => {
 };
 
 module.exports = { authorizeRoles };
+
+/*Reference List
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+  Education: Unpublished.
+*/

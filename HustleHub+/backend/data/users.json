@@ -209,5 +209,13 @@
     "email": "doe@gmail.com",
     "password": "$2b$12$6wzAnGbRQ2FEhBVukLq1quYVbVHmsCRdE6g6MuwWCBketgYLcgSuK",
     "role": "Client"
+  },
+  {
+    "id": "e0a80609-6fbd-4638-a997-f0cab5de1f90",
+    "firstName": "Meredith",
+    "lastName": "Grey",
+    "email": "grey@gmail.com",
+    "password": "$2b$12$nZPnsTxL8DA2a9ePqFQERuXUKUNHGlJddxPsB2D3JNyr0LfEmByxC",
+    "role": "Freelancer"
   }
 ]

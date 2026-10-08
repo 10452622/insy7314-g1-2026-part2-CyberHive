@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
-import { getCurrentUser } from "../services/authSession";
+import { getCurrentUser } from "../services/authSession"; //(IIE, 2026)
 
 import {
     getMyConversations,
@@ -23,7 +23,7 @@ function Messages() {
 
     const [draft, setDraft] = useState("");
     const [loading, setLoading] = useState(true);
-    const [messagesLoading, setMessagesLoading] = useState(false);
+    const [messagesLoading, setMessagesLoading] = useState(false); //(IIE, 2026)
     const [sending, setSending] = useState(false);
     const [error, setError] = useState("");
     const [messageError, setMessageError] = useState("");
@@ -227,7 +227,7 @@ function Messages() {
             <ClientNavbar />
 
             <main className="client-messaging-page">
-                <div className="client-messaging-heading">
+                <div className="client-messaging-heading"> { /*(MDN Web Docs, 2026) */}
                     <span className="page-eyebrow">
                         HUSTLEHUB+ MESSAGES
                     </span>
@@ -272,7 +272,6 @@ function Messages() {
                 ) : (
                     <div className="client-messaging-layout">
 
-                        {/* Conversation list */}
                         <aside className="client-conversation-sidebar">
                             <div className="client-sidebar-heading">
                                 <h2>Conversations</h2>
@@ -301,7 +300,7 @@ function Messages() {
                                         .toUpperCase();
 
                                     return (
-                                        <button
+                                        <button //(MDN Web Docs, 2026) 
                                             key={bookingId}
                                             type="button"
                                             className={
@@ -351,7 +350,7 @@ function Messages() {
                                                 .toUpperCase()}
                                         </div>
 
-                                        <div>
+                                        <div> { /*(MDN Web Docs, 2026) */}
                                             <h2>
                                                 {selectedConversation.freelancerName}
                                             </h2>
@@ -442,7 +441,7 @@ function Messages() {
                                         />
 
                                         <button
-                                            type="submit"
+                                            type="submit" //(MDN Web Docs, 2026) 
                                             className="primary-button"
                                             disabled={
                                                 sending ||
@@ -469,3 +468,10 @@ function Messages() {
 }
 
 export default Messages;
+/*Reference List
+
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+Education: Unpublished.
+*/

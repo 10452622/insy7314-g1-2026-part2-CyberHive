@@ -5,7 +5,6 @@ function GigCard({ gig }) {
     const freelancerName =
         gig.freelancerName || "Freelancer";
 
-        //freelancers
     const freelancerInitial = freelancerName.charAt(0).toUpperCase();
 
     const formattedPrice =
@@ -19,7 +18,7 @@ function GigCard({ gig }) {
               })
             : null;
 
-    const deliveryDays = Number(gig.deliveryDays);
+    const deliveryDays = Number(gig.deliveryDays); //(IIE, 2026)
 
     const deliveryLabel =
         gig.deliveryDays !== null &&
@@ -29,6 +28,7 @@ function GigCard({ gig }) {
             ? `${deliveryDays} day${deliveryDays === 1 ? "" : "s"}`
             : "Delivery time unavailable";
 
+               {/* (Mozilla, 2025) */}
     return (
         <article className="gig-card">
             <Link
@@ -99,3 +99,10 @@ function GigCard({ gig }) {
 }
 
 export default GigCard;
+/*Reference List
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+Education: Unpublished.
+
+Mozilla, 2025. JavaScript reference: Standard built-in objects. [online] Available at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference [Accessed: 7 October 2026].
+*/

@@ -7,7 +7,7 @@ const {
     createGig,
     updateGig,
     deleteGig
-} = require("../controllers/gigController");
+} = require("../controllers/gigController"); //(IIE, 2026)
 
 const {
     authenticateToken
@@ -25,7 +25,7 @@ const {
 const router = express.Router();
 
 router.get("/", getGigs);
-router.get("/:id", getGigById);
+router.get("/:id", getGigById); //(IIE, 2026)
 
 router.post(
     "/",
@@ -41,7 +41,7 @@ router.put(
     authorizeRoles("Freelancer"),
     validateGigUpdate,
     updateGig
-);
+); //(IIE, 2026)
 
 router.delete(
     "/:id",
@@ -51,3 +51,9 @@ router.delete(
 );
 
 module.exports = router;
+
+/*Reference List
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+  Education: Unpublished.
+*/

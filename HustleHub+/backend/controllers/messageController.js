@@ -23,7 +23,7 @@ const getMyConversations = async (req, res, next) => {
             });
         }
 
-        const bookings = await Booking.find({
+        const bookings = await Booking.find({ //Mongoose, (n.d.)
             $or: [
                 { client: userId },
                 { freelancer: userId }
@@ -57,7 +57,7 @@ const getMyConversations = async (req, res, next) => {
         return res.status(200).json({
             success: true,
             conversations
-        });
+        });// (IIE, 2026)
     } catch (error) {
         next(error);
     }
@@ -67,14 +67,14 @@ const getBookingMessages = async (req, res, next) => {
     try {
         const { bookingId } = req.params;
 
-        if (!mongoose.isValidObjectId(bookingId)) {
+        if (!mongoose.isValidObjectId(bookingId)) { //(Mongoose, n.d.)
             return res.status(400).json({
                 success: false,
                 message: "Invalid booking ID."
             });
         }
 
-        const booking = await Booking.findById(bookingId);
+        const booking = await Booking.findById(bookingId); //(Mongoose, n.d.)
 
         if (!booking) {
             return res.status(404).json({
@@ -87,7 +87,7 @@ const getBookingMessages = async (req, res, next) => {
             return res.status(403).json({
                 success: false,
                 message: "You cannot access this conversation."
-            });
+            }); //(IIE, 2026)
         }
 
         const messages = await Message.find({
@@ -128,7 +128,7 @@ const sendMessage = async (req, res, next) => {
             });
         }
 
-        const booking = await Booking.findById(bookingId);
+        const booking = await Booking.findById(bookingId); //Mongoose, (n.d.)
 
         if (!booking) {
             return res.status(404).json({
@@ -155,7 +155,7 @@ const sendMessage = async (req, res, next) => {
             message
         });
     } catch (error) {
-        next(error);
+        next(error); // (Express.js, n.d.)
     }
 };
 
@@ -163,4 +163,23 @@ module.exports = {
     getMyConversations,
     getBookingMessages,
     sendMessage
-};
+}; //(IIE, 2026)
+
+/*Reference List
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+  Education: Unpublished.
+
+Express.js, (n.d.). Writing error handlers. [online] Available at: https://expressjs.com/en/guide/error-handling/ [Accessed: 7 October 2026].
+
+Mongoose, (n.d.). Mongoose v8.17.0 API: Model. [online] Available at: https://mongoosejs.com/docs/api/model.html [Accessed: 7 October 2026].
+
+/*
+
+
+
+
+
+Node.js, (n.d.). File system | Node.js v22.x Documentation. [online] Available at: https://nodejs.org/api/fs.html [Accessed: 8 October 2026].
+
+Node.js, (n.d.). Path | Node.js v22.x Documentation. [online] Available at: https://nodejs.org/api/path.html [Accessed: 8 October 2026]. */

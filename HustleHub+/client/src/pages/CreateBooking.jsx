@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
-import { createBooking, getGigById } from "../services/api";
+import { createBooking, getGigById } from "../services/api"; //(IIE, 2026)
 
 function CreateBooking() {
     const { gigId } = useParams();
@@ -186,7 +186,7 @@ function CreateBooking() {
                             <h2>Order Summary</h2>
 
                             <div className="summary-service">
-                                <div className="summary-image">
+                                <div className="summary-image">  {/* //(MDN Web Docs, 2026) */}
                                     {gig.imageUrl ? (
                                         <img
                                             src={gig.imageUrl}
@@ -272,6 +272,7 @@ function CreateBooking() {
                                 </div>
                             )}
 
+                            {/* //(MDN Web Docs, 2026) */}
                             <button
                                 type="submit"
                                 className="primary-button full-width large-button"
@@ -295,3 +296,11 @@ function CreateBooking() {
 }
 
 export default CreateBooking;
+
+/*Reference List
+
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+Education: Unpublished.
+*/

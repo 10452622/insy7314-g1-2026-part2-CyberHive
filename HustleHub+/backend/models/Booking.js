@@ -7,15 +7,13 @@ const bookingSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Gig",
             required: true
-        },
+        }, //(IIe, 2026)
 
-        // Client IDs come from the group's JSON user records.
         client: {
             type: String,
             required: true
         },
 
-        // Freelancer IDs are also UUID strings.
         freelancer: {
             type: String,
             required: true
@@ -56,4 +54,10 @@ const bookingSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model("Booking", bookingSchema);
+module.exports = mongoose.model("Booking", bookingSchema); //(IIE, 2026)
+
+/*Reference List
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+  Education: Unpublished.
+*/

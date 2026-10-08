@@ -12,7 +12,7 @@ function ClientNavbar() {
         user?.name ||
         user?.username ||
         ""
-    ).trim();
+    ).trim(); //(IIE, 2026)
 
     const initial = firstName
         ? firstName.charAt(0).toUpperCase()
@@ -29,9 +29,10 @@ function ClientNavbar() {
         navigate("/", { replace: true });
     };
 
-    return (
+    // (Mozilla, 2025) 
+    return ( 
         <header className="client-navbar">
-            <div className="navbar-inner">
+            <div className="navbar-inner"> 
 
                 <Link
                     to="/"
@@ -84,10 +85,11 @@ function ClientNavbar() {
                       {initial}
                    </div>
 
+                   {/* (Mozilla, 2025) */}
                     <button
                         type="button"
                         className="client-logout-btn"
-                        onClick={handleLogout}
+                        onClick={handleLogout} 
                     >
                         Logout
                     </button>
@@ -99,3 +101,10 @@ function ClientNavbar() {
 }
 
 export default ClientNavbar;
+/*Reference List
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+Education: Unpublished.
+
+Mozilla, 2025. JavaScript reference: Standard built-in objects. [online] Available at: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference [Accessed: 7 October 2026].
+*/

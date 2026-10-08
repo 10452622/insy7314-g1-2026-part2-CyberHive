@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
-import GigCard from "../components/GigCard";
+import GigCard from "../components/GigCard"; //(IIE, 2026)
 import { getGigs } from "../services/api";
 
 const categories = [
@@ -192,12 +192,12 @@ function BrowseGigs() {
             <main className="browse-page">
                 <div className="page-container">
 
-                    <div className="browse-heading">
+                    <div className="browse-heading"> 
                         <span className="section-label">
                             SEARCH RESULTS
                         </span>
 
-                        <h1>
+                        <h1> 
                             {urlSearch
                                 ? `Results for "${urlSearch}"`
                                 : "Browse Services"}
@@ -213,7 +213,7 @@ function BrowseGigs() {
                                 } found`}
                         </p>
                     </div>
-
+                    {/* //(MDN Web Docs, 2026) */}
                     <div className="browse-layout">
 
                         <aside className="filter-panel">
@@ -223,7 +223,7 @@ function BrowseGigs() {
 
                                 <button
                                     type="button"
-                                    onClick={clearFilters}
+                                    onClick={clearFilters} //(MDN Web Docs, 2026) 
                                 >
                                     Clear
                                 </button>
@@ -428,7 +428,7 @@ function BrowseGigs() {
                                             gig={gig}
                                         />
                                     ))}
-                                </div>
+                                </div> //(MDN Web Docs, 2026) 
                             )}
 
                         </section>
@@ -440,3 +440,11 @@ function BrowseGigs() {
 }
 
 export default BrowseGigs;
+
+/*Reference List
+
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+Education: Unpublished.
+*/

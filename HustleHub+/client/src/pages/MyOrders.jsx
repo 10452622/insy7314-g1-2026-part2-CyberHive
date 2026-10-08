@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
-import { getMyBookings } from "../services/api";
+import { getMyBookings } from "../services/api"; //(IIE, 2026)
 
 function MyOrders() {
     const [bookings, setBookings] = useState([]);
@@ -114,7 +114,7 @@ function MyOrders() {
                         <p>
                             Keep track of your bookings
                             and delivery dates.
-                        </p>
+                        </p>  {/*(MDN Web Docs, 2026) */} 
                     </div>
 
                     <Link
@@ -139,7 +139,7 @@ function MyOrders() {
                     <div className="orders-state error-state">
                         <div className="state-icon">
                             !
-                        </div>
+                        </div> {/*(MDN Web Docs, 2026) */} 
 
                         <h2>
                             We couldn't load your orders
@@ -280,7 +280,7 @@ function MyOrders() {
                                                         className="order-link"
                                                     >
                                                         View Gig
-                                                    </Link>
+                                                    </Link> //(MDN Web Docs, 2026) 
                                                 )}
                                             </div>
                                         </div>
@@ -295,3 +295,11 @@ function MyOrders() {
 }
 
 export default MyOrders;
+
+/*Reference List
+
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+Education: Unpublished.
+*/

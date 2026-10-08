@@ -181,17 +181,6 @@ const login = async (req, res, next) => {
             });
         }
 
-
-        /*
-            Backwards compatibility for older test users.
-
-            Old users contain:
-            username
-
-            New users contain:
-            firstName
-            lastName
-        */
         const firstName =
             user.firstName || user.username || "User";
 

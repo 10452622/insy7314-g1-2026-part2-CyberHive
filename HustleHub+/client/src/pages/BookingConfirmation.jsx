@@ -71,7 +71,7 @@ function BookingConfirmation() {
             !Number.isFinite(Number(value))
         ) {
             return "Not available";
-        }
+        } /* //(MDN Web Docs, 2026) */
 
         return `R${Number(value).toLocaleString("en-ZA", {
             minimumFractionDigits: 2,
@@ -158,7 +158,7 @@ function BookingConfirmation() {
                             <span>Service</span>
                             <strong>
                                 {booking.gig?.title ||
-                                    "Service unavailable"}
+                                    "Service unavailable"} 
                             </strong>
                         </div>
 
@@ -207,7 +207,7 @@ function BookingConfirmation() {
 
                         <button
                             type="button"
-                            className="secondary-button"
+                            className="secondary-button" /* //(MDN Web Docs, 2026) */
                             onClick={() =>
                                 navigate("/gigs")
                             }
@@ -222,3 +222,7 @@ function BookingConfirmation() {
 }
 
 export default BookingConfirmation;
+
+/*Reference List
+    MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+*/

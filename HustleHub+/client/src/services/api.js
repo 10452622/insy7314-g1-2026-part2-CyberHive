@@ -3,7 +3,7 @@ import { getToken } from "./authSession";
 
 const API_BASE_URL =
     import.meta.env.VITE_API_URL ||
-    "http://localhost:5000";
+    "http://localhost:5000"; // (Vite, 2024)
 
 const request = async (endpoint, options = {}) => {
     const token = getToken();
@@ -17,7 +17,7 @@ const request = async (endpoint, options = {}) => {
         headers.Authorization = `Bearer ${token}`;
     }
 
-    const response = await fetch(
+    const response = await fetch( // (Mozilla, 2025)
         `${API_BASE_URL}/api${endpoint}`,
         {
             ...options,
@@ -47,7 +47,7 @@ export const getGigs = async (
     search = "",
     category = ""
 ) => {
-    const params = new URLSearchParams();
+    const params = new URLSearchParams(); // (Mozilla, 2025)
 
     if (search) {
         params.append("search", search);
@@ -110,3 +110,10 @@ export const sendConversationMessage = async (
         })
     });
 };
+
+/*Reference List
+
+Mozilla, 2025. JavaScript reference: Standard built-in objects & Fetch API. [online] Available at: https://developer.mozilla.org/ [Accessed: 8 October 2026].
+
+Vite, 2024. Vite: Environment variables and modes. [online] Available at: https://vite.dev/guide/env-and-mode [Accessed: 8 October 2026].
+*/
