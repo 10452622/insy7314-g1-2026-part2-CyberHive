@@ -4,6 +4,8 @@ import { Eye, EyeOff } from 'lucide-react';
 
 import AuthLayout from '../components/AuthLayout';
 
+import { loginUser } from '../services/authService';
+
 import '../styles/LoginPage.css';
 
 function LoginPage() {
@@ -18,6 +20,11 @@ function LoginPage() {
 
   const [errors, setErrors] = useState({});
 
+  const [serverError, setServerError] = useState('');
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -30,7 +37,10 @@ function LoginPage() {
       ...previousErrors,
       [name]: ''
     }));
+
+    setServerError('');
   };
+
 
   const validateForm = () => {
     const newErrors = {};
@@ -39,15 +49,19 @@ function LoginPage() {
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!formData.email.trim()) {
-      newErrors.email ='Email address is required.';
-    } 
-    else if 
-    (!emailPattern.test(formData.email.trim())) {
-      newErrors.email ='Please enter a valid email address.';
+      newErrors.email =
+        'Email address is required.';
+    }
+    else if (
+      !emailPattern.test(formData.email.trim())
+    ) {
+      newErrors.email =
+        'Please enter a valid email address.';
     }
 
     if (!formData.password) {
-      newErrors.password ='Password is required.';
+      newErrors.password =
+        'Password is required.';
     }
 
     setErrors(newErrors);
@@ -55,17 +69,76 @@ function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!validateForm()) {
+    if (!validateForm() || isSubmitting) {
       return;
     }
 
-    console.log('Login form validated:', {
-      email: formData.email
-    });
+
+    setServerError('');
+    setIsSubmitting(true);
+
+
+    try {
+
+      const response = await loginUser({
+        email: formData.email.trim(),
+        password: formData.password
+      });
+
+
+      /*
+        Stores authentication details for the
+        current browser session.
+
+        sessionStorage clears when the browser
+        session ends.
+      */
+      sessionStorage.setItem(
+        'hustlehubToken',
+        response.token
+      );
+
+      sessionStorage.setItem(
+        'hustlehubUser',
+        JSON.stringify(response.user)
+      );
+
+
+      if (response.user.role === 'Client') {
+        // Page 6
+        navigate('/browse-services');
+        return;
+      }
+
+
+      if (response.user.role === 'Freelancer') {
+        navigate('/freelancer-dashboard');
+        return;
+      }
+
+
+      setServerError(
+        'Unable to determine the account role.'
+      );
+
+    } catch (error) {
+
+      setServerError(
+        error.message ||
+        'Unable to login. Please try again.'
+      );
+
+    } finally {
+
+      setIsSubmitting(false);
+
+    }
   };
+
 
   return (
     <AuthLayout>
@@ -79,6 +152,7 @@ function LoginPage() {
             Login to your account
           </p>
         </div>
+
 
         <form
           className="login-form"
@@ -101,10 +175,14 @@ function LoginPage() {
               value={formData.email}
               onChange={handleChange}
               aria-invalid={Boolean(errors.email)}
+              disabled={isSubmitting}
             />
 
             {errors.email && (
-              <span className="login-error">
+              <span
+                className="login-error"
+                role="alert"
+              >
                 {errors.email}
               </span>
             )}
@@ -131,6 +209,7 @@ function LoginPage() {
                 value={formData.password}
                 onChange={handleChange}
                 aria-invalid={Boolean(errors.password)}
+                disabled={isSubmitting}
               />
 
               <button
@@ -144,6 +223,7 @@ function LoginPage() {
                     ? 'Hide password'
                     : 'Show password'
                 }
+                disabled={isSubmitting}
               >
                 {showPassword
                   ? <EyeOff size={18} />
@@ -154,7 +234,10 @@ function LoginPage() {
             </div>
 
             {errors.password && (
-              <span className="login-error">
+              <span
+                className="login-error"
+                role="alert"
+              >
                 {errors.password}
               </span>
             )}
@@ -168,12 +251,26 @@ function LoginPage() {
           </div>
 
 
+          {serverError && (
+            <p
+              className="login-server-error"
+              role="alert"
+            >
+              {serverError}
+            </p>
+          )}
+
+
           {/* Login Button */}
           <button
             type="submit"
             className="login-submit-btn"
+            disabled={isSubmitting}
           >
-            Login
+            {isSubmitting
+              ? 'Logging in...'
+              : 'Login'
+            }
           </button>
 
         </form>
