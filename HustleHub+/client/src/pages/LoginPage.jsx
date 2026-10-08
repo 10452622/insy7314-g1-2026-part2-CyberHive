@@ -5,6 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import AuthLayout from '../components/AuthLayout';
 
 import { loginUser } from '../services/authService';
+import { saveSession } from '../services/authSession';
 
 import '../styles/LoginPage.css';
 
@@ -90,21 +91,10 @@ function LoginPage() {
       });
 
 
-      /*
-        Stores authentication details for the
-        current browser session.
-
-        sessionStorage clears when the browser
-        session ends.
-      */
-      sessionStorage.setItem(
-        'hustlehubToken',
-        response.token
-      );
-
-      sessionStorage.setItem(
-        'hustlehubUser',
-        JSON.stringify(response.user)
+      // Saves authentication details for this browser session
+      saveSession(
+        response.token,
+        response.user
       );
 
 
