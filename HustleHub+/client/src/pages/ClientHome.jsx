@@ -1,0 +1,294 @@
+import {
+    useEffect,
+    useState
+} from "react";
+
+import {
+    useNavigate
+} from "react-router-dom";
+
+import Navbar
+    from "../components/Navbar";
+
+import GigCard
+    from "../components/GigCard";
+
+import {
+    getGigs
+} from "../services/api";
+
+
+const categories = [
+    "Graphic Design",
+    "Web Development",
+    "Digital Marketing",
+    "Writing",
+    "Video & Animation"
+];
+
+
+function ClientHome() {
+
+    const navigate =
+        useNavigate();
+
+    const [search, setSearch] =
+        useState("");
+
+    const [gigs, setGigs] =
+        useState([]);
+
+    const [loading, setLoading] =
+        useState(true);
+
+    const [error, setError] =
+        useState("");
+
+
+    useEffect(() => {
+
+        const loadGigs = async () => {
+
+            try {
+
+                const data =
+                    await getGigs();
+
+                setGigs(
+                    data.gigs.slice(0, 4)
+                );
+
+            } catch (err) {
+
+                setError(err.message);
+
+            } finally {
+
+                setLoading(false);
+            }
+        };
+
+        loadGigs();
+
+    }, []);
+
+
+    const handleSearch = (event) => {
+
+        event.preventDefault();
+
+        if (!search.trim()) {
+            navigate("/gigs");
+            return;
+        }
+
+        navigate(
+            `/gigs?search=${encodeURIComponent(
+                search.trim()
+            )}`
+        );
+    };
+
+
+    const openCategory =
+        (category) => {
+
+            navigate(
+                `/gigs?category=${encodeURIComponent(
+                    category
+                )}`
+            );
+        };
+
+
+    return (
+        <>
+            <Navbar />
+
+
+            <main>
+
+                <section className="hero">
+
+                    <div className="hero-content">
+
+                        <span className="eyebrow">
+                            CONNECT. WORK. EARN.
+                        </span>
+
+                        <h1>
+                            What service are you
+                            looking for today?
+                        </h1>
+
+                        <p>
+                            Discover talented
+                            freelancers ready to
+                            bring your ideas to life.
+                        </p>
+
+
+                        <form
+                            className="hero-search"
+                            onSubmit={
+                                handleSearch
+                            }
+                        >
+
+                            <span className="search-icon">
+                                ⌕
+                            </span>
+
+                            <input
+                                type="text"
+                                placeholder="Search for services..."
+                                value={search}
+                                onChange={(e) =>
+                                    setSearch(
+                                        e.target.value
+                                    )
+                                }
+                            />
+
+                            <button type="submit">
+                                Search
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </section>
+
+
+                <section className="content-section">
+
+                    <div className="section-heading">
+
+                        <div>
+                            <span className="section-label">
+                                EXPLORE
+                            </span>
+
+                            <h2>
+                                Popular Categories
+                            </h2>
+                        </div>
+
+                    </div>
+
+
+                    <div className="category-grid">
+
+                        {categories.map(
+                            (category) => (
+
+                                <button
+                                    key={category}
+                                    className="category-card"
+                                    onClick={() =>
+                                        openCategory(
+                                            category
+                                        )
+                                    }
+                                >
+                                    <span className="category-icon">
+                                        ◆
+                                    </span>
+
+                                    {category}
+                                </button>
+
+                            )
+                        )}
+
+                    </div>
+
+                </section>
+
+
+                <section className="content-section">
+
+                    <div className="section-heading">
+
+                        <div>
+
+                            <span className="section-label">
+                                HANDPICKED
+                            </span>
+
+                            <h2>
+                                Recommended for you
+                            </h2>
+
+                        </div>
+
+
+                        <button
+                            className="text-button"
+                            onClick={() =>
+                                navigate("/gigs")
+                            }
+                        >
+                            View all →
+                        </button>
+
+                    </div>
+
+
+                    {loading && (
+                        <div className="status-box">
+                            Loading services...
+                        </div>
+                    )}
+
+
+                    {error && (
+                        <div className="error-box">
+                            {error}
+                        </div>
+                    )}
+
+
+                    {!loading &&
+                        !error &&
+                        gigs.length === 0 && (
+
+                        <div className="empty-state">
+
+                            <h3>
+                                No services yet
+                            </h3>
+
+                            <p>
+                                Freelancer services
+                                will appear here once
+                                they are published.
+                            </p>
+
+                        </div>
+                    )}
+
+
+                    <div className="gig-grid">
+
+                        {gigs.map((gig) => (
+
+                            <GigCard
+                                key={gig._id}
+                                gig={gig}
+                            />
+
+                        ))}
+
+                    </div>
+
+                </section>
+
+            </main>
+        </>
+    );
+}
+
+
+export default ClientHome;
