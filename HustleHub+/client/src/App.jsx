@@ -4,7 +4,8 @@ import {
     Navigate,
     Outlet,
     Route,
-    Routes
+    Routes,
+    useLocation
 } from "react-router-dom";
 
 import "./styles/clientMarketplace.css";
@@ -40,19 +41,59 @@ function MarketplaceLayout() {
 
 // Protect pages that require a logged-in Client
 function ClientRoute() {
+    const location = useLocation();
     const user = getCurrentUser();
 
-    // Redirect unauthenticated users to login
     if (!isAuthenticated() || !user) {
-        return <Navigate to="/login" replace />;
+        return (
+            <Navigate
+                to="/login"
+                state={{
+                    from: location.pathname + location.search
+                }}
+                replace
+            />
+        );
     }
 
-    // Prevent those that arent Client accounts from accessing Client pages
-    if (user.role !== "Client") {
-        return <Navigate to="/" replace />;
+    const role = String(user.role || "")
+        .trim()
+        .toLowerCase();
+
+    if (role !== "client") {
+        return (
+            <Navigate
+                to="/login"
+                replace
+            />
+        );
     }
 
     return <Outlet />;
+}
+function BrowseServicesRedirect() {
+    const user = getCurrentUser();
+
+    const role = String(user?.role || "")
+        .trim()
+        .toLowerCase();
+
+    if (isAuthenticated() && role === "client") {
+        return <Navigate to="/client/home" replace />;
+    }
+
+    if (!isAuthenticated() || !user) {
+        return (
+            <Navigate
+                to="/login"
+                state={{ from: "/client/home" }}
+                replace
+            />
+        );
+    }
+
+    // Non-client users can still browse public gigs
+    return <Navigate to="/gigs" replace />;
 }
 
 function App() {
@@ -94,13 +135,12 @@ function App() {
                     element={<AboutPage />}
                 />
 
-               <Route
-                     path="/browse-services"
-                     element={<Navigate to="/gigs" replace />}
-               />
-               
-                <Route element={<MarketplaceLayout />}>
+                <Route
+                    path="/browse-services"
+                    element={<BrowseServicesRedirect />}
+                />
 
+                <Route element={<MarketplaceLayout />}>
                     <Route
                         path="/gigs"
                         element={<BrowseGigs />}
@@ -112,7 +152,6 @@ function App() {
                     />
 
                     <Route element={<ClientRoute />}>
-
                         <Route
                             path="/client/home"
                             element={<ClientHome />}
@@ -137,16 +176,13 @@ function App() {
                             path="/client/messages"
                             element={<Messages />}
                         />
-
                     </Route>
-
                 </Route>
 
                 <Route
                     path="*"
                     element={<Navigate to="/" replace />}
                 />
-
             </Routes>
         </BrowserRouter>
     );
@@ -155,4 +191,5 @@ function App() {
 export default App; /* //(MDN Web Docs, 2026) */
 
 /* Reference List:
-    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026].
+*/

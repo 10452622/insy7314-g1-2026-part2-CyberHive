@@ -1,5 +1,10 @@
+
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  useLocation,
+  useNavigate
+} from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 
 import AuthLayout from '../components/AuthLayout';
@@ -11,6 +16,7 @@ import '../styles/LoginPage.css';
 
 function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -20,11 +26,8 @@ function LoginPage() {
   });
 
   const [errors, setErrors] = useState({});
-
   const [serverError, setServerError] = useState('');
-
   const [isSubmitting, setIsSubmitting] = useState(false); /* //(MDN Web Docs, 2026) */
-
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -42,7 +45,6 @@ function LoginPage() {
     setServerError('');
   };
 
-
   const validateForm = () => {
     const newErrors = {};
 
@@ -52,8 +54,7 @@ function LoginPage() {
     if (!formData.email.trim()) {
       newErrors.email =
         'Email address is required.'; /* //(MDN Web Docs, 2026) */
-    }
-    else if (
+    } else if (
       !emailPattern.test(formData.email.trim())
     ) {
       newErrors.email =
@@ -70,7 +71,6 @@ function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -78,61 +78,79 @@ function LoginPage() {
       return; /* //(MDN Web Docs, 2026) */
     }
 
-
     setServerError('');
     setIsSubmitting(true);
 
-
     try {
-
       const response = await loginUser({
         email: formData.email.trim(),
         password: formData.password
       });
 
+      if (!response?.token || !response?.user) {
+        throw new Error(
+          'Login response is missing account information.'
+        );
+      }
 
+      const role = String(response.user.role || '')
+        .trim()
+        .toLowerCase();
+
+      // Save the authenticated session
       saveSession(
         response.token,
         response.user
       );
 
+      // Client navigation
+      if (role === 'client') {
+        const requestedDestination =
+          location.state?.from;
 
-     if (response.user.role === 'Client') {
-    navigate('/client/home'); /* //(MDN Web Docs, 2026) */
-    return;
-}
+        const allowedDestination =
+          typeof requestedDestination === 'string' &&
+          (
+            requestedDestination.startsWith('/client/') ||
+            requestedDestination.startsWith('/booking/')
+          );
 
+        navigate(
+          allowedDestination
+            ? requestedDestination
+            : '/client/home',
+          { replace: true }
+        );
 
-      if (response.user.role === 'Freelancer') {
-        navigate('/freelancer-dashboard');
         return;
       }
 
+      // Preserve existing Freelancer login behaviour
+      if (role === 'freelancer') {
+        navigate('/freelancer-dashboard', {
+          replace: true
+        });
+
+        return;
+      }
 
       setServerError(
         'Unable to determine the account role.'
       );
 
     } catch (error) {
-
       setServerError(
         error.message ||
         'Unable to login. Please try again.'
       );
-
     } finally {
-
       setIsSubmitting(false);
-
     }
   }; /* //(MDN Web Docs, 2026) */
 
-
   return (
     <AuthLayout>
-
       <section className="login-card">
-
         <div className="login-heading">
           <h1>Welcome back!</h1>
 
@@ -141,13 +159,11 @@ function LoginPage() {
           </p>
         </div>
 
-
         <form
           className="login-form"
           onSubmit={handleSubmit}
           noValidate
         >
-
           {/* Email */}
           <div className="login-form-group">
             <label htmlFor="loginEmail">
@@ -176,10 +192,8 @@ function LoginPage() {
             )}
           </div>
 
-
           {/* Password */}
           <div className="login-form-group">
-
             <div className="login-password-heading">
               <label htmlFor="loginPassword">
                 Password
@@ -187,7 +201,6 @@ function LoginPage() {
             </div>
 
             <div className="login-password-field">
-
               <input
                 id="loginPassword"
                 name="password"
@@ -218,7 +231,6 @@ function LoginPage() {
                   : <Eye size={18} />
                 }
               </button>
-
             </div>
 
             {errors.password && (
@@ -235,9 +247,7 @@ function LoginPage() {
                 Forgot Password?
               </Link>
             </div>
-
           </div>
-
 
           {serverError && (
             <p
@@ -247,7 +257,6 @@ function LoginPage() {
               {serverError}
             </p>
           )}
-
 
           {/* Login Button */}
           <button
@@ -260,9 +269,7 @@ function LoginPage() {
               : 'Login' /* //(MDN Web Docs, 2026) */
             }
           </button>
-
         </form>
-
 
         <p className="login-register-text">
           Don't have an account?{' '}
@@ -271,15 +278,13 @@ function LoginPage() {
             Register
           </Link>
         </p>
-
       </section>
-
     </AuthLayout>
   );
 }
 
 export default LoginPage;
 
-
 /* Reference List:
-    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026].
+*/

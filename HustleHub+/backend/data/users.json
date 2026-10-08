@@ -193,5 +193,21 @@
     "email": "dm@gmail.com",
     "password": "$2b$12$qMRyvkpzCtqGzL44xztxCuV1xgZ680w1JtLUpqQwA.HrTG5Q2LkCG",
     "role": "Freelancer"
+  },
+  {
+    "id": "bc25ff72-8af3-41cc-bfd9-5202590d191b",
+    "firstName": "test",
+    "lastName": "testing",
+    "email": "test@email.com",
+    "password": "$2b$12$hz17k4QTFdY.Yie9eyxpret79cEfmz6IaklXqnwL5mBv9Ya80DGV6",
+    "role": "Client"
+  },
+  {
+    "id": "b21169f7-8e42-48cc-a840-23104bf3defe",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "doe@gmail.com",
+    "password": "$2b$12$6wzAnGbRQ2FEhBVukLq1quYVbVHmsCRdE6g6MuwWCBketgYLcgSuK",
+    "role": "Client"
   }
 ]

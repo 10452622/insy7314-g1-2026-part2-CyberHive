@@ -1,16 +1,40 @@
-
-import { Link, NavLink } from "react-router-dom";
+import { getCurrentUser } from "../services/authSession";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { logout } from "../services/authSession";
 
 function ClientNavbar() {
-    const getNavClass = ({ isActive }) =>
-        isActive ? "nav-link active" : "nav-link";
+    const navigate = useNavigate();
+
+    const user = getCurrentUser();
+
+    const firstName = String(
+        user?.firstName ||
+        user?.name ||
+        user?.username ||
+        ""
+    ).trim();
+
+    const initial = firstName
+        ? firstName.charAt(0).toUpperCase()
+        : "?";
+        
+        const getNavClass = ({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link";
+
+    const handleLogout = () => {
+        // Clear the current user's login session
+        logout();
+
+        // Return to the public homepage
+        navigate("/", { replace: true });
+    };
 
     return (
         <header className="client-navbar">
             <div className="navbar-inner">
 
                 <Link
-                    to="/client/home"
+                    to="/"
                     className="brand"
                 >
                     <span className="brand-main">
@@ -66,9 +90,17 @@ function ClientNavbar() {
                         ♡
                     </button>
 
-                    <div className="nav-avatar">
-                        C
-                    </div>
+                   <div className="nav-avatar">
+                      {initial}
+                   </div>
+
+                    <button
+                        type="button"
+                        className="client-logout-btn"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </button>
 
                 </div>
             </div>

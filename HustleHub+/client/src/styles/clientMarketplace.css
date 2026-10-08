@@ -1357,3 +1357,28 @@ flex-direction: column;
     .hh-marketplace .client-navbar .nav-links { gap: 18px; }
     .hh-marketplace .client-navbar .nav-link { font-size: 12px; }
 }
+
+
+/* Client Navbar - Logout Button */
+.hh-marketplace .client-logout-btn {
+    padding: 9px 16px;
+    border: 1px solid #8b5cf6;
+    border-radius: 8px;
+    background: transparent;
+    color: #7c3aed;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hh-marketplace .client-logout-btn:hover {
+    background: #8b5cf6;
+    color: #ffffff;
+}
+
+.hh-marketplace .client-logout-btn:focus-visible {
+    outline: 2px solid #8b5cf6;
+    outline-offset: 3px;
+}
+
