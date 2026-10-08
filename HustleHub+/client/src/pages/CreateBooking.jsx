@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
 import { createBooking, getGigById } from "../services/api";
@@ -16,25 +16,48 @@ function CreateBooking() {
     const [error, setError] = useState("");
 
     useEffect(() => {
+        let active = true;
+
         const loadGig = async () => {
+            setLoading(true);
+            setError("");
+            setGig(null);
+
             try {
                 const data = await getGigById(gigId);
-                setGig(data.gig);
+
+                if (active) {
+                    setGig(data.gig || null);
+                }
             } catch (err) {
-                setError(err.message);
+                if (active) {
+                    setError(
+                        err.message || "Unable to load this service."
+                    );
+                }
             } finally {
-                setLoading(false);
+                if (active) {
+                    setLoading(false);
+                }
             }
         };
 
         loadGig();
+
+        return () => {
+            active = false;
+        };
     }, [gigId]);
 
     const handleBooking = async (event) => {
         event.preventDefault();
 
+        if (submitting) return;
+
         if (requirements.trim().length < 5) {
-            setError("Please provide your project requirements.");
+            setError(
+                "Please provide at least 5 characters describing your project."
+            );
             return;
         }
 
@@ -49,34 +72,55 @@ function CreateBooking() {
 
             if (!data.booking?._id) {
                 throw new Error(
-                    "Booking response did not include a booking ID."
+                    "The booking response did not include a booking ID. Please check My Orders before submitting again."
                 );
             }
 
             navigate(
-                `/booking/confirmation/${data.booking._id}`
+                `/booking/confirmation/${data.booking._id}`,
+                { replace: true }
             );
         } catch (err) {
-            const message = err.message.toLowerCase();
+            const message = err?.message || "Unable to submit booking.";
+            const lowerMessage = message.toLowerCase();
 
             if (
-                message.includes("authentication") ||
-                message.includes("token") ||
-                message.includes("unauthorized")
+                lowerMessage.includes("authentication") ||
+                lowerMessage.includes("token") ||
+                lowerMessage.includes("unauthorized") ||
+                lowerMessage.includes("401")
             ) {
-                setError("Please log in as a Client before booking.");
+                setError(
+                    "Please log in as a Client before booking."
+                );
             } else {
-                setError(err.message);
+                setError(message);
             }
         } finally {
             setSubmitting(false);
         }
     };
 
+    const formatPrice = (value) => {
+        if (
+            value === null ||
+            value === undefined ||
+            value === "" ||
+            !Number.isFinite(Number(value))
+        ) {
+            return "Price unavailable";
+        }
+
+        return `R${Number(value).toLocaleString("en-ZA", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })}`;
+    };
+
     if (loading) {
         return (
             <>
-              <ClientNavbar />
+                <ClientNavbar />
                 <div className="page-container">
                     <div className="status-box">
                         Loading booking...
@@ -89,19 +133,35 @@ function CreateBooking() {
     if (!gig) {
         return (
             <>
-                <Navbar />
+                <ClientNavbar />
                 <div className="page-container">
                     <div className="error-box">
                         {error || "Service unavailable."}
                     </div>
+
+                    <Link
+                        to="/gigs"
+                        className="secondary-button"
+                    >
+                        Back to Browse Gigs
+                    </Link>
                 </div>
             </>
         );
     }
 
+    const deliveryDays = Number(gig.deliveryDays);
+
+    const deliveryLabel =
+        gig.deliveryDays != null &&
+        gig.deliveryDays !== "" &&
+        Number.isFinite(deliveryDays)
+            ? `${deliveryDays} day${deliveryDays === 1 ? "" : "s"}`
+            : "Not specified";
+
     return (
         <>
-            <Navbar />
+            <ClientNavbar />
 
             <main className="booking-page">
                 <div className="booking-container">
@@ -134,32 +194,37 @@ function CreateBooking() {
                                         />
                                     ) : (
                                         <span>
-                                            {gig.category}
+                                            {gig.category || "Service"}
                                         </span>
                                     )}
                                 </div>
 
                                 <div>
                                     <h3>{gig.title}</h3>
-                                    <p>{gig.freelancerName}</p>
+                                    <p>
+                                        {gig.freelancerName ||
+                                            "Freelancer"}
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="summary-line">
                                 <span>Service price</span>
-                                <strong>R{gig.price}</strong>
+                                <strong>
+                                    {formatPrice(gig.price)}
+                                </strong>
                             </div>
 
                             <div className="summary-line">
                                 <span>Delivery</span>
-                                <strong>
-                                    {gig.deliveryDays} days
-                                </strong>
+                                <strong>{deliveryLabel}</strong>
                             </div>
 
                             <div className="summary-total">
                                 <span>Total</span>
-                                <strong>R{gig.price}</strong>
+                                <strong>
+                                    {formatPrice(gig.price)}
+                                </strong>
                             </div>
                         </section>
 
@@ -174,12 +239,14 @@ function CreateBooking() {
                             <textarea
                                 className="requirements-input"
                                 value={requirements}
-                                onChange={(e) =>
-                                    setRequirements(e.target.value)
+                                onChange={(event) =>
+                                    setRequirements(event.target.value)
                                 }
+                                minLength={5}
                                 maxLength={2000}
                                 placeholder="Describe what you need, your preferred style, colours, deadlines or any other important details..."
                                 required
+                                disabled={submitting}
                             />
 
                             <small className="character-count">
@@ -197,7 +264,10 @@ function CreateBooking() {
                             </p>
 
                             {error && (
-                                <div className="error-box">
+                                <div
+                                    className="error-box"
+                                    role="alert"
+                                >
                                     {error}
                                 </div>
                             )}
@@ -209,12 +279,12 @@ function CreateBooking() {
                             >
                                 {submitting
                                     ? "Submitting..."
-                                    : `Submit Booking • R${gig.price}`}
+                                    : `Submit Booking • ${formatPrice(gig.price)}`}
                             </button>
 
                             <div className="secure-message">
-                                Your booking will be recorded
-                                as Pending.
+                                Your booking request will be
+                                recorded without processing a payment.
                             </div>
                         </section>
                     </form>

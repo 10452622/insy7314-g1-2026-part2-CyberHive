@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
 import { getBookingById } from "../services/api";
@@ -14,27 +14,79 @@ function BookingConfirmation() {
     const [error, setError] = useState("");
 
     useEffect(() => {
+        let active = true;
+
         const loadBooking = async () => {
+            setLoading(true);
+            setError("");
+            setBooking(null);
+
             try {
                 const data = await getBookingById(bookingId);
-                setBooking(data.booking);
+
+                if (active) {
+                    setBooking(data.booking || null);
+                }
             } catch (err) {
-                setError(err.message);
+                if (active) {
+                    setError(
+                        err.message || "Unable to load booking."
+                    );
+                }
             } finally {
-                setLoading(false);
+                if (active) {
+                    setLoading(false);
+                }
             }
         };
 
         loadBooking();
+
+        return () => {
+            active = false;
+        };
     }, [bookingId]);
+
+    const formatDate = (value) => {
+        if (!value) return "Not available";
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return "Not available";
+        }
+
+        return date.toLocaleDateString("en-ZA", {
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+    };
+
+    const formatPrice = (value) => {
+        if (
+            value === null ||
+            value === undefined ||
+            value === "" ||
+            !Number.isFinite(Number(value))
+        ) {
+            return "Not available";
+        }
+
+        return `R${Number(value).toLocaleString("en-ZA", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })}`;
+    };
 
     if (loading) {
         return (
             <>
                 <ClientNavbar />
+
                 <div className="page-container">
                     <div className="status-box">
-                        Loading confirmation...
+                        Loading booking details...
                     </div>
                 </div>
             </>
@@ -44,34 +96,37 @@ function BookingConfirmation() {
     if (error || !booking) {
         return (
             <>
-                <Navbar />
+                <ClientNavbar />
+
                 <div className="page-container">
                     <div className="error-box">
                         {error || "Booking not found."}
                     </div>
+
+                    <Link
+                        to="/client/orders"
+                        className="secondary-button"
+                    >
+                        Back to My Orders
+                    </Link>
                 </div>
             </>
         );
     }
 
-    const formattedDate = booking.deliveryDate
-        ? new Date(booking.deliveryDate).toLocaleDateString(
-            "en-ZA",
-            {
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            }
-        )
-        : "Not available";
+    const status = booking.status || "Pending";
+
+    const statusClass = status
+        .toLowerCase()
+        .replace(/\s+/g, "-");
 
     const bookingReference = booking._id
-        .slice(-8)
-        .toUpperCase();
+        ? String(booking._id).slice(-8).toUpperCase()
+        : "UNKNOWN";
 
     return (
         <>
-            <Navbar />
+            <ClientNavbar />
 
             <main className="confirmation-page">
                 <div className="confirmation-card">
@@ -80,15 +135,15 @@ function BookingConfirmation() {
                     </div>
 
                     <span className="section-label">
-                        BOOKING SUBMITTED
+                        BOOKING DETAILS
                     </span>
 
-                    <h1>Booking Submitted!</h1>
+                    <h1>Booking Details</h1>
 
                     <p className="confirmation-intro">
-                        Your booking has been submitted
-                        successfully and is currently pending.
-                        No payment has been processed.
+                        Your booking request has been recorded.
+                        You can track its current status in My Orders.
+                        No payment is processed by this booking form.
                     </p>
 
                     <div className="confirmation-info">
@@ -118,42 +173,40 @@ function BookingConfirmation() {
                         <div>
                             <span>Amount</span>
                             <strong>
-                                R{booking.amount}
+                                {formatPrice(booking.amount)}
                             </strong>
                         </div>
 
                         <div>
                             <span>Status</span>
                             <strong
-                                className={
-                                    booking.status === "Pending"
-                                        ? "order-status status-pending"
-                                        : "confirmed-status"
-                                }
+                                className={`order-status status-${statusClass}`}
                             >
-                                {booking.status}
+                                {status}
                             </strong>
                         </div>
 
                         <div>
                             <span>Expected delivery</span>
                             <strong>
-                                {formattedDate}
+                                {formatDate(booking.deliveryDate)}
                             </strong>
                         </div>
                     </div>
 
                     <div className="confirmation-actions">
                         <button
+                            type="button"
                             className="primary-button"
                             onClick={() =>
                                 navigate("/client/orders")
                             }
                         >
-                            View My Order
+                            View My Orders
                         </button>
 
                         <button
+                            type="button"
                             className="secondary-button"
                             onClick={() =>
                                 navigate("/gigs")
