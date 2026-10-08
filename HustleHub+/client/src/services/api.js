@@ -6,7 +6,6 @@ const API_BASE_URL =
     "http://localhost:5000";
 
 const request = async (endpoint, options = {}) => {
-
     const token = getToken();
 
     const headers = {
@@ -44,12 +43,10 @@ const request = async (endpoint, options = {}) => {
     return data;
 };
 
-
 export const getGigs = async (
     search = "",
     category = ""
 ) => {
-
     const params = new URLSearchParams();
 
     if (search) {
@@ -75,7 +72,6 @@ export const createBooking = async (
     gigId,
     requirements
 ) => {
-
     return request("/bookings", {
         method: "POST",
         body: JSON.stringify({
@@ -91,4 +87,26 @@ export const getBookingById = async (id) => {
 
 export const getMyBookings = async () => {
     return request("/bookings/my");
+};
+
+export const getMyConversations = async () => {
+    return request("/messages");
+};
+
+export const getConversationMessages = async (
+    bookingId
+) => {
+    return request(`/messages/${bookingId}`);
+};
+
+export const sendConversationMessage = async (
+    bookingId,
+    text
+) => {
+    return request(`/messages/${bookingId}`, {
+        method: "POST",
+        body: JSON.stringify({
+            text
+        })
+    });
 };

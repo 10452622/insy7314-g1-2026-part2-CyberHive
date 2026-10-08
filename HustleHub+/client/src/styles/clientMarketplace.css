@@ -1382,3 +1382,252 @@ flex-direction: column;
     outline-offset: 3px;
 }
 
+
+/* Client Messaging Page */
+
+.hh-marketplace .client-messaging-page {
+    width: min(1200px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 45px 0 80px;
+}
+
+.hh-marketplace .client-messaging-heading {
+    margin-bottom: 30px;
+}
+
+.hh-marketplace .client-messaging-heading h1 {
+    margin: 8px 0;
+    font-size: 38px;
+}
+
+.hh-marketplace .client-messaging-heading p {
+    color: var(--gray);
+}
+
+.hh-marketplace .client-messaging-layout {
+    display: grid;
+    grid-template-columns: 340px minmax(0, 1fr);
+    min-height: 620px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    background: white;
+}
+
+.hh-marketplace .client-conversation-sidebar {
+    border-right: 1px solid var(--border);
+    background: #faf9ff;
+}
+
+.hh-marketplace .client-sidebar-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px;
+    border-bottom: 1px solid var(--border);
+}
+
+.hh-marketplace .client-sidebar-heading h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.hh-marketplace .client-sidebar-heading span {
+    color: var(--purple);
+    font-weight: 700;
+}
+
+.hh-marketplace .client-conversation-list {
+    max-height: 650px;
+    overflow-y: auto;
+}
+
+.hh-marketplace .client-conversation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 18px;
+    border: 0;
+    border-bottom: 1px solid var(--border);
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.hh-marketplace .client-conversation-item:hover,
+.hh-marketplace .client-conversation-item.selected {
+    background: var(--lavender);
+}
+
+.hh-marketplace .client-chat-avatar {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: white;
+    font-weight: 800;
+}
+
+.hh-marketplace .client-conversation-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.hh-marketplace .client-conversation-details small {
+    color: var(--gray);
+}
+
+.hh-marketplace .client-last-message {
+    color: var(--gray);
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hh-marketplace .client-chat-panel {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 620px;
+}
+
+.hh-marketplace .client-chat-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.hh-marketplace .client-chat-header h2 {
+    margin: 0 0 5px;
+    font-size: 18px;
+}
+
+.hh-marketplace .client-chat-header p {
+    margin: 0;
+    color: var(--gray);
+    font-size: 13px;
+}
+
+.hh-marketplace .client-chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px;
+    background: #fcfbff;
+}
+
+.hh-marketplace .client-chat-message {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.hh-marketplace .client-chat-message.mine {
+    justify-content: flex-end;
+}
+
+.hh-marketplace .client-chat-message.theirs {
+    justify-content: flex-start;
+}
+
+.hh-marketplace .client-message-bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: #eeeeff;
+}
+
+.hh-marketplace .client-chat-message.mine .client-message-bubble {
+    background: var(--purple);
+    color: white;
+}
+
+.hh-marketplace .client-message-bubble p {
+    margin: 0 0 8px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.hh-marketplace .client-message-bubble small {
+    display: block;
+    font-size: 11px;
+    opacity: 0.75;
+    text-align: right;
+}
+
+.hh-marketplace .client-chat-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 30px;
+    color: var(--gray);
+    text-align: center;
+}
+
+.hh-marketplace .client-chat-placeholder span {
+    font-size: 35px;
+}
+
+.hh-marketplace .client-message-error {
+    margin: 0;
+    padding: 10px 20px;
+    color: #9f1239;
+    background: #fff1f2;
+}
+
+.hh-marketplace .client-chat-compose {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    padding: 18px;
+    border-top: 1px solid var(--border);
+}
+
+.hh-marketplace .client-chat-compose textarea {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font: inherit;
+    resize: vertical;
+}
+
+.hh-marketplace .client-chat-compose button {
+    flex-shrink: 0;
+}
+
+@media (max-width: 760px) {
+    .hh-marketplace .client-messaging-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .hh-marketplace .client-conversation-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .hh-marketplace .client-conversation-list {
+        max-height: 220px;
+    }
+
+    .hh-marketplace .client-chat-panel {
+        height: 520px;
+    }
+
+    .hh-marketplace .client-chat-compose {
+        flex-wrap: wrap;
+    }
+}
+
+

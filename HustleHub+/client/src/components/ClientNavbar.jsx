@@ -80,16 +80,6 @@ function ClientNavbar() {
 
                 <div className="nav-actions">
 
-                    <button
-                        className="nav-icon-button"
-                        type="button"
-                        aria-label="Notifications"
-                        disabled
-                        title="Notifications coming soon"
-                    >
-                        ♡
-                    </button>
-
                    <div className="nav-avatar">
                       {initial}
                    </div>
