@@ -3,7 +3,7 @@
 
   background: var(--hh-black);
   color: var(--hh-white);
-}
+} /* //(MDN Web Docs, 2026) */
 
 .footer-container {
   width: 100%;
@@ -22,7 +22,7 @@
 /* Brand */
 
 .footer-brand h2 {
-  margin: 0;
+  margin: 0; /* //(MDN Web Docs, 2026) */
 
   font-size: 24px;
   line-height: 32px;
@@ -40,7 +40,7 @@
 
   font-size: 14px;
   line-height: 20px;
-}
+} /* //(MDN Web Docs, 2026) */
 
 /* Links */
 
@@ -63,7 +63,7 @@
 
 .footer-links a:hover {
   color: var(--hh-lime);
-}
+} /* //(MDN Web Docs, 2026) */
 
 /* Bottom */
 
@@ -82,7 +82,7 @@
 
   font-size: 12px;
   line-height: 18px;
-}
+} /* //(MDN Web Docs, 2026) */
 
 /* Responsive */
 
@@ -98,6 +98,10 @@
   .footer-links {
     flex-wrap: wrap;
 
-    gap: 16px 24px;
+    gap: 16px 24px; /* //(MDN Web Docs, 2026) */
   }
 }
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

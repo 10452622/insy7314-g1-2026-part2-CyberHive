@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 
-// File Path (IIE, 2026)
+// File Path
 const usersFilePath = path.join(
     __dirname,
     "..",
@@ -31,7 +31,7 @@ function readUsers() {
             "Unable to read user data."
         );
     }
-}
+} //(IIE, 2026)
 
 
 function saveUsers(users) {
@@ -71,10 +71,10 @@ const register = async (req, res, next) => {
             user =>
                 user.email.toLowerCase() ===
                 email.toLowerCase()
-        );
+        ); //(IIE, 2026)
 
 
-        // Input validation (IIE, 2026)
+        // Input validation 
         if (existingUser) {
             return res.status(409).json({
                 success: false,
@@ -84,11 +84,11 @@ const register = async (req, res, next) => {
         }
 
 
-        // Password Encryption (Islam, 2019)
+        // Password Encryption 
         const passwordHash = await bcrypt.hash(
             password,
             12
-        );
+        ); //(Islam, 2019)
 
 
         const newUser = {
@@ -111,7 +111,7 @@ const register = async (req, res, next) => {
         saveUsers(users);
 
 
-        // Successful response (IIE, 2026)
+        // Successful response
         return res.status(201).json({
 
             success: true,
@@ -125,7 +125,7 @@ const register = async (req, res, next) => {
                 lastName: newUser.lastName,
                 email: newUser.email,
                 role: newUser.role
-            }
+            } //(IIE, 2026)
 
         });
 
@@ -153,7 +153,7 @@ const login = async (req, res, next) => {
             user =>
                 user.email.toLowerCase() ===
                 email.toLowerCase()
-        );
+        ); //(IIE, 2026)
 
 
         // Does not reveal whether the email exists
@@ -170,7 +170,7 @@ const login = async (req, res, next) => {
             await bcrypt.compare(
                 password,
                 user.password
-            );
+            ); //(IIE, 2026)
 
 
         if (!passwordMatches) {
@@ -196,10 +196,10 @@ const login = async (req, res, next) => {
             user.firstName || user.username || "User";
 
         const lastName =
-            user.lastName || "";
+            user.lastName || ""; //(IIE, 2026)
 
 
-        // JWT Authentication (GeeksForGeeks, 2026)
+        // JWT Authentication
         const token = jwt.sign(
             {
                 id: user.id,
@@ -214,7 +214,7 @@ const login = async (req, res, next) => {
                 expiresIn:
                     process.env.JWT_EXPIRES_IN
                     || "1h"
-            }
+            } //(GeeksForGeeks, 2026)
         );
 
 
@@ -236,7 +236,7 @@ const login = async (req, res, next) => {
                 role: user.role
             }
 
-        });
+        }); //(IIE, 2026)
 
     } catch (error) {
         next(error);
@@ -261,7 +261,7 @@ const forgotPassword = async (req, res, next) => {
             user =>
                 user.email.toLowerCase() ===
                 email.toLowerCase()
-        );
+        ); //(IIE, 2026)
 
 
         /*
@@ -278,7 +278,7 @@ const forgotPassword = async (req, res, next) => {
 
 
             /*
-                Store only a hash of the reset token. The original token would normally be
+                Stores only a hash of the reset token. The original token would normally be
                 sent to the user by email.
             */
             const resetTokenHash =
@@ -289,7 +289,7 @@ const forgotPassword = async (req, res, next) => {
 
 
             user.resetPasswordToken =
-                resetTokenHash;
+                resetTokenHash; //(IIE, 2026)
 
 
             // Reset token expires after 15 minutes
@@ -299,11 +299,6 @@ const forgotPassword = async (req, res, next) => {
 
             saveUsers(users);
 
-
-            /*
-                Development demonstration only. In production, the reset token would
-                be sent through an email service and should not be logged.
-            */
             if (process.env.NODE_ENV !== "production") {
 
                 console.log(
@@ -312,7 +307,7 @@ const forgotPassword = async (req, res, next) => {
 
             }
 
-        }
+        } //(IIE, 2026)
 
 
         // Successful generic response
@@ -337,14 +332,16 @@ module.exports = {
     register,
     login,
     forgotPassword
-};
+}; //(IIE, 2026)
 
 /*Reference List
-- The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+1. The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
   Education: Unpublished.
-- Islam, T., 2019. NodeJS Password Encryption with bcrypt. Medium, [online] 16 December.
+
+2. Islam, T., 2019. NodeJS Password Encryption with bcrypt. Medium, [online] 16 December.
   Available at: <https://medium.com/@towfiqu/nodejs-password-encryption-with-bcrypt-8f78d78dc3e8> [Accessed 02 September 2026].
-- GeeksForGeeks, 2026. JWT Authentication In Node.js. [online] 
+
+3. GeeksForGeeks, 2026. JWT Authentication In Node.js. [online] 
   Available at: <https://www.geeksforgeeks.org/node-js/jwt-authentication-with-node-js/> 
   [Accessed 02 September 2026].  
 */

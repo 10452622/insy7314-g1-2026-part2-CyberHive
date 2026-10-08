@@ -6,7 +6,7 @@ import '../styles/TermsModal.css';
 function TermsModal({ isOpen, onClose }) {
   useEffect(() => {
     if (!isOpen) {
-      return;
+      return; /* //(MDN Web Docs, 2026) */
     }
 
     const handleKeyDown = (event) => {
@@ -25,7 +25,7 @@ function TermsModal({ isOpen, onClose }) {
   }, [isOpen, onClose]);
 
   if (!isOpen) {
-    return null;
+    return null; /* //(MDN Web Docs, 2026) */
   }
 
   const handleBackdropClick = (event) => {
@@ -48,7 +48,7 @@ function TermsModal({ isOpen, onClose }) {
 
         <div className="terms-modal-header">
           <div>
-            <span className="terms-modal-tag">
+            <span className="terms-modal-tag"> {/* //(MDN Web Docs, 2026) */}
               HUSTLEHUB+
             </span>
 
@@ -72,7 +72,7 @@ function TermsModal({ isOpen, onClose }) {
           <p className="terms-intro">
             By creating and using a HustleHub+ account,
             you agree to use the marketplace responsibly
-            and in accordance with these terms.
+            and in accordance with these terms. {/* //(MDN Web Docs, 2026) */}
           </p>
 
           <section>
@@ -102,7 +102,7 @@ function TermsModal({ isOpen, onClose }) {
             <p>
               Freelancers are responsible for ensuring that
               their service listings, descriptions and other
-              information are accurate and appropriate.
+              information are accurate and appropriate. {/* //(MDN Web Docs, 2026) */}
             </p>
           </section>
 
@@ -126,7 +126,7 @@ function TermsModal({ isOpen, onClose }) {
               must not attempt to access, modify or delete
               another user's protected resources.
             </p>
-          </section>
+          </section> {/* //(MDN Web Docs, 2026) */}
 
           <section>
             <h3>6. Acceptable Use</h3>
@@ -175,7 +175,11 @@ function TermsModal({ isOpen, onClose }) {
 
       </div>
     </div>
-  );
+  ); /* //(MDN Web Docs, 2026) */
 }
 
 export default TermsModal;
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

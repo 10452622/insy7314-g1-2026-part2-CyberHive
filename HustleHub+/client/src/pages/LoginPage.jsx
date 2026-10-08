@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import AuthLayout from '../components/AuthLayout';
 
 import { loginUser } from '../services/authService';
-import { saveSession } from '../services/authSession';
+import { saveSession } from '../services/authSession'; /* //(MDN Web Docs, 2026) */
 
 import '../styles/LoginPage.css';
 
@@ -23,7 +23,7 @@ function LoginPage() {
 
   const [serverError, setServerError] = useState('');
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); /* //(MDN Web Docs, 2026) */
 
 
   const handleChange = (event) => {
@@ -51,7 +51,7 @@ function LoginPage() {
 
     if (!formData.email.trim()) {
       newErrors.email =
-        'Email address is required.';
+        'Email address is required.'; /* //(MDN Web Docs, 2026) */
     }
     else if (
       !emailPattern.test(formData.email.trim())
@@ -75,7 +75,7 @@ function LoginPage() {
     event.preventDefault();
 
     if (!validateForm() || isSubmitting) {
-      return;
+      return; /* //(MDN Web Docs, 2026) */
     }
 
 
@@ -100,7 +100,7 @@ function LoginPage() {
 
       if (response.user.role === 'Client') {
         // Page 6
-        navigate('/browse-services');
+        navigate('/browse-services'); /* //(MDN Web Docs, 2026) */
         return;
       }
 
@@ -127,7 +127,7 @@ function LoginPage() {
       setIsSubmitting(false);
 
     }
-  };
+  }; /* //(MDN Web Docs, 2026) */
 
 
   return (
@@ -163,7 +163,7 @@ function LoginPage() {
               placeholder="Enter your email address"
               autoComplete="email"
               value={formData.email}
-              onChange={handleChange}
+              onChange={handleChange} /* //(MDN Web Docs, 2026) */
               aria-invalid={Boolean(errors.email)}
               disabled={isSubmitting}
             />
@@ -195,7 +195,7 @@ function LoginPage() {
                 name="password"
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
-                autoComplete="current-password"
+                autoComplete="current-password" /* //(MDN Web Docs, 2026) */
                 value={formData.password}
                 onChange={handleChange}
                 aria-invalid={Boolean(errors.password)}
@@ -228,7 +228,7 @@ function LoginPage() {
                 className="login-error"
                 role="alert"
               >
-                {errors.password}
+                {errors.password} {/* //(MDN Web Docs, 2026) */}
               </span>
             )}
 
@@ -259,7 +259,7 @@ function LoginPage() {
           >
             {isSubmitting
               ? 'Logging in...'
-              : 'Login'
+              : 'Login' /* //(MDN Web Docs, 2026) */
             }
           </button>
 
@@ -281,3 +281,7 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

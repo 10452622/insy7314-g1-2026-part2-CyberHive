@@ -2,25 +2,25 @@
   --hh-black: #000000;
   --hh-violet: #7E3BED;
   --hh-white: #FFFFFF;
-  --hh-lime: #C6FF34;
+  --hh-lime: #C6FF34; /* //(MDN Web Docs, 2026) */
 
   --hh-text: #111111;
   --hh-text-light: #666666;
   --hh-border: #E8E8E8;
-  --hh-background: #FAFAFA;
+  --hh-background: #FAFAFA; /* //(MDN Web Docs, 2026) */
 
   --hh-radius-small: 8px;
   --hh-radius-medium: 14px;
   --hh-radius-large: 24px;
 
   --hh-shadow:
-    0 10px 35px rgba(0, 0, 0, 0.08);
+    0 10px 35px rgba(0, 0, 0, 0.08); /* //(MDN Web Docs, 2026) */
 }
 
 /* Typography */
 
 :root {
-  --font-family: 'Inter', Arial, Helvetica, sans-serif;
+  --font-family: 'Inter', Arial, Helvetica, sans-serif; /* //(MDN Web Docs, 2026) */
 
   --font-hero: 56px;
   --line-hero: 64px;
@@ -47,8 +47,12 @@
   --line-label: 20px;
 
   --font-button: 16px;
-  --line-button: 24px;
+  --line-button: 24px; /* //(MDN Web Docs, 2026) */
 
   --font-eyebrow: 12px;
   --line-eyebrow: 16px;
 }
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

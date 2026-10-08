@@ -16,7 +16,7 @@ body {
   min-height: 100vh;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   background: var(--hh-white);
-  color: var(--hh-text);
+  color: var(--hh-text); /* //(MDN Web Docs, 2026) */
 }
 
 button,
@@ -37,5 +37,9 @@ a {
 }
 
 button {
-  cursor: pointer;
+  cursor: pointer; /* //(MDN Web Docs, 2026) */
 }
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

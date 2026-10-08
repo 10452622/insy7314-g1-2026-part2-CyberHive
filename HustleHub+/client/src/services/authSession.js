@@ -1,5 +1,5 @@
 const TOKEN_KEY = 'hustlehubToken';
-const USER_KEY = 'hustlehubUser';
+const USER_KEY = 'hustlehubUser'; /* //(MDN Web Docs, 2026) */
 
 
 export function getToken() {
@@ -12,7 +12,7 @@ export function getCurrentUser() {
     sessionStorage.getItem(USER_KEY);
 
   if (!storedUser) {
-    return null;
+    return null; /* //(MDN Web Docs, 2026) */
   }
 
   try {
@@ -31,7 +31,7 @@ export function isAuthenticated() {
 export function saveSession(token, user) {
   sessionStorage.setItem(
     TOKEN_KEY,
-    token
+    token /* //(MDN Web Docs, 2026) */
   );
 
   sessionStorage.setItem(
@@ -44,4 +44,8 @@ export function saveSession(token, user) {
 export function logout() {
   sessionStorage.removeItem(TOKEN_KEY);
   sessionStorage.removeItem(USER_KEY);
-}
+} /* //(MDN Web Docs, 2026) */
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

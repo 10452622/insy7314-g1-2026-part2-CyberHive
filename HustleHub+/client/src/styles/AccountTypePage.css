@@ -4,7 +4,7 @@
   max-width: 820px;
 
   text-align: center;
-}
+} /* //(MDN Web Docs, 2026) */
 
 
 /* Heading */
@@ -25,7 +25,7 @@
 
 .account-type-heading h1 span {
   color: var(--hh-violet);
-}
+} /* //(MDN Web Docs, 2026) */
 
 .account-type-heading p {
   margin-top: 12px;
@@ -57,7 +57,7 @@
 
   min-height: 300px;
 
-  padding: 38px 30px;
+  padding: 38px 30px; /* //(MDN Web Docs, 2026) */
 
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@
     border-color 0.25s ease,
     box-shadow 0.25s ease,
     background 0.25s ease,
-    color 0.25s ease;
+    color 0.25s ease; /* //(MDN Web Docs, 2026) */
 }
 
 .account-type-card:hover {
@@ -100,7 +100,7 @@
   color: var(--hh-white);
 
   box-shadow:
-    0 16px 32px rgba(126, 59, 237, 0.20);
+    0 16px 32px rgba(126, 59, 237, 0.20); /* //(MDN Web Docs, 2026) */
 }
 
 
@@ -146,7 +146,7 @@
 .account-type-card p {
   max-width: 250px;
 
-  margin: 12px auto 0;
+  margin: 12px auto 0; /* //(MDN Web Docs, 2026) */
 
   color: var(--hh-text-light);
 
@@ -169,7 +169,7 @@
   right: 18px;
 
   width: 28px;
-  height: 28px;
+  height: 28px; /* //(MDN Web Docs, 2026) */
 
   display: flex;
   align-items: center;
@@ -213,14 +213,14 @@
 
   transition:
     transform 0.2s ease,
-    background 0.2s ease,
+    background 0.2s ease, /* //(MDN Web Docs, 2026) */
     opacity 0.2s ease;
 }
 
 .account-type-continue:hover:not(:disabled) {
   transform: translateY(-1px);
 
-  background: #6e2ed7;
+  background: #6e2ed7; /* //(MDN Web Docs, 2026) */
 }
 
 .account-type-continue:disabled {
@@ -256,7 +256,7 @@
 /* Accessibility */
 
 .account-type-card:focus-visible,
-.account-type-continue:focus-visible,
+.account-type-continue:focus-visible, /* //(MDN Web Docs, 2026) */
 .account-type-back:focus-visible {
   outline: 3px solid var(--hh-lime);
   outline-offset: 3px;
@@ -278,7 +278,7 @@
 
   .account-type-card {
     min-height: 250px;
-  }
+  } /* //(MDN Web Docs, 2026) */
 
 }
 
@@ -307,7 +307,11 @@
   line-height: 20px;
   font-weight: 600;
 
-  text-align: center;
+  text-align: center; /* //(MDN Web Docs, 2026) */
 }
 
 }
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

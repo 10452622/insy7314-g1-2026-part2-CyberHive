@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import PopularCategories from '../components/PopularCategories';
 import Footer from '../components/Footer';
 import heroImage from '../assets/hero.png';
-import '../styles/HomePage.css';
+import '../styles/HomePage.css'; /* //(MDN Web Docs, 2026) */
 
 
 function HomePage() {
@@ -29,7 +29,7 @@ function HomePage() {
 
               <p className="hero-description">
                 Connect with talented freelancers, discover professional
-                services, and bring your ideas to life with HustleHub+.
+                services, and bring your ideas to life with HustleHub+. {/* //(MDN Web Docs, 2026) */}
               </p>
 
               <div className="hero-actions">
@@ -62,7 +62,7 @@ function HomePage() {
                   <span>Marketplace</span>
                 </div>
 
-                <div className="trust-divider"></div>
+              <div className="trust-divider"></div> {/* //(MDN Web Docs, 2026) */}
 
                 <div>
                   <strong>Simple</strong>
@@ -83,7 +83,7 @@ function HomePage() {
                   poster={heroImage}
                 >
                   <source
-                    src="/videos/hustlehub-hero.mp4"
+                    src="/videos/hustlehub-hero.mp4"/* //(Pexels, 2026) */
                     type="video/mp4"
                   />
                 </video>
@@ -99,7 +99,7 @@ function HomePage() {
               </div>
 
               <div className="hero-decoration hero-decoration-one"></div>
-              <div className="hero-decoration hero-decoration-two"></div>
+              <div className="hero-decoration hero-decoration-two"></div> {/* //(MDN Web Docs, 2026) */}
             </div>
 
           </div>
@@ -111,9 +111,14 @@ function HomePage() {
       </main>\
 
       <Footer />
-      
+
     </div>
   );
 }
 
 export default HomePage;
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. 
+    2. Pexels, 2026. The best free stock photos, royalty free images & videos shared by creators. [online] Available at: <https://www.pexels.com/> [Accessed 8 October 2026]. */

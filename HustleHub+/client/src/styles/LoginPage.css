@@ -12,7 +12,7 @@
   border-radius: 12px;
 
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.06);
+    0 10px 30px rgba(0, 0, 0, 0.06); /* //(MDN Web Docs, 2026) */
 }
 
 
@@ -31,7 +31,7 @@
 
   font-size: 30px;
   line-height: 38px;
-  font-weight: 700;
+  font-weight: 700; /* //(MDN Web Docs, 2026) */
 }
 
 .login-heading p {
@@ -70,7 +70,7 @@
 
 .login-form-group input {
   width: 100%;
-  height: 50px;
+  height: 50px; /* //(MDN Web Docs, 2026) */
 
   padding: 0 14px;
 
@@ -105,7 +105,7 @@
 /* Password */
 
 .login-password-field {
-  position: relative;
+  position: relative; /* //(MDN Web Docs, 2026) */
 }
 
 .login-password-field input {
@@ -133,7 +133,7 @@
 }
 
 .login-password-toggle:hover {
-  color: var(--hh-violet);
+  color: var(--hh-violet); /* //(MDN Web Docs, 2026) */
 }
 
 
@@ -155,7 +155,7 @@
 }
 
 .forgot-password-row a:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* //(MDN Web Docs, 2026) */
 }
 
 
@@ -182,7 +182,7 @@
 }
 
 .login-submit-btn:hover {
-  background: #6e2ed7;
+  background: #6e2ed7; /* //(MDN Web Docs, 2026) */
 
   transform: translateY(-1px);
 
@@ -207,7 +207,7 @@
 .login-register-text a {
   color: var(--hh-violet);
 
-  font-weight: 700;
+  font-weight: 700; /* //(MDN Web Docs, 2026) */
 }
 
 .login-register-text a:hover {
@@ -220,7 +220,7 @@
 .login-error {
   display: block;
 
-  margin-top: 2px;
+  margin-top: 2px; /* //(MDN Web Docs, 2026) */
 
   color: #d93025;
 
@@ -238,7 +238,7 @@ input[aria-invalid='true']:focus {
   border-color: #d93025;
 
   box-shadow:
-    0 0 0 3px rgba(217, 48, 37, 0.10);
+    0 0 0 3px rgba(217, 48, 37, 0.10); /* //(MDN Web Docs, 2026) */
 }
 
 
@@ -250,7 +250,7 @@ input[aria-invalid='true']:focus {
 .login-register-text a:focus-visible {
   outline: 3px solid var(--hh-lime);
   outline-offset: 3px;
-}
+} /* //(MDN Web Docs, 2026) */
 
 
 /* Mobile */
@@ -265,7 +265,7 @@ input[aria-invalid='true']:focus {
     font-size: 26px;
     line-height: 34px;
   }
-
+ /* //(MDN Web Docs, 2026) */
   /* Error */
 
   .login-server-error {
@@ -283,6 +283,9 @@ input[aria-invalid='true']:focus {
 .login-submit-btn:disabled {
   cursor: not-allowed;
   opacity: 0.7;
-}
+} /* //(MDN Web Docs, 2026) */
 
 }
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

@@ -7,7 +7,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-import AuthLayout from '../components/AuthLayout';
+import AuthLayout from '../components/AuthLayout'; /* //(MDN Web Docs, 2026) */
 
 import { useRegistration } from '../context/RegistrationContext';
 
@@ -27,7 +27,7 @@ function AccountTypePage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [serverError, setServerError] = useState('');
+  const [serverError, setServerError] = useState(''); /* //(MDN Web Docs, 2026) */
 
 
   useEffect(() => {
@@ -44,7 +44,7 @@ function AccountTypePage() {
 
 
     setServerError('');
-    setIsSubmitting(true);
+    setIsSubmitting(true); /* //(MDN Web Docs, 2026) */
 
 
     try {
@@ -78,7 +78,7 @@ function AccountTypePage() {
 
       if (selectedRole === 'Freelancer') {
         navigate('/freelancer-dashboard');
-      }
+      } /* //(MDN Web Docs, 2026) */
 
     } catch (error) {
 
@@ -114,7 +114,7 @@ function AccountTypePage() {
           <p>
             Choose the option that best describes you.
           </p>
-        </div>
+        </div> {/* //(MDN Web Docs, 2026) */}
 
 
         <div className="account-type-options">
@@ -163,7 +163,7 @@ function AccountTypePage() {
             }
             onClick={() => {
               setSelectedRole('Client');
-              setServerError('');
+              setServerError(''); /* //(MDN Web Docs, 2026) */
             }}
             disabled={isSubmitting}
           >
@@ -194,7 +194,7 @@ function AccountTypePage() {
             className="account-type-error"
             role="alert"
           >
-            {serverError}
+            {serverError} {/* //(MDN Web Docs, 2026) */}
           </p>
         )}
 
@@ -230,8 +230,12 @@ function AccountTypePage() {
 
       </section>
 
-    </AuthLayout>
+    </AuthLayout> /* //(MDN Web Docs, 2026) */
   );
 }
 
 export default AccountTypePage;
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

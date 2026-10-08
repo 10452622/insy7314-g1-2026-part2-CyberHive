@@ -1,6 +1,6 @@
 const { body, validationResult } = require("express-validator");
 
-// Input validation and sanitisation (IIE, 2026)
+// Input validation and sanitisation 
 const registerValidation = [
 
     body("firstName")
@@ -10,7 +10,7 @@ const registerValidation = [
         .isLength({ min: 2, max: 50 })
         .withMessage("First name must be between 2 and 50 characters.")
         .matches(/^[A-Za-zÀ-ÿ' -]+$/)
-        .withMessage("Please provide a valid first name."),
+        .withMessage("Please provide a valid first name."), //(IIE, 2026)
 
     body("lastName")
         .trim()
@@ -27,7 +27,7 @@ const registerValidation = [
         .withMessage("Email is required.")
         .isEmail()
         .withMessage("Please provide a valid email address.")
-        .normalizeEmail(),
+        .normalizeEmail(), //(IIE, 2026)
 
     body("password")
         .notEmpty()
@@ -49,7 +49,7 @@ const registerValidation = [
         .withMessage("Role is required.")
         .isIn(["Client", "Freelancer"])
         .withMessage("Role must be Client or Freelancer.")
-];
+]; //(IIE, 2026)
 
 
 const loginValidation = [
@@ -65,7 +65,7 @@ const loginValidation = [
     body("password")
         .notEmpty()
         .withMessage("Password is required.")
-];
+]; //(IIE, 2026)
 
 
 const forgotPasswordValidation = [
@@ -97,7 +97,7 @@ const handleValidationErrors = (req, res, next) => {
     }
 
     next();
-};
+}; //(IIE, 2026)
 
 
 module.exports = {
@@ -108,6 +108,6 @@ module.exports = {
 };
 
 /*Reference List
-- The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+1. The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
   Education: Unpublished.
 */  

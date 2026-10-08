@@ -7,7 +7,7 @@ export function RegistrationProvider({ children }) {
 
   const clearRegistrationData = () => {
     setRegistrationData(null);
-  };
+  }; /* //(MDN Web Docs, 2026) */
 
   return (
     <RegistrationContext.Provider
@@ -24,4 +24,8 @@ export function RegistrationProvider({ children }) {
 
 export function useRegistration() {
   return useContext(RegistrationContext);
-}
+} /* //(MDN Web Docs, 2026) */
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

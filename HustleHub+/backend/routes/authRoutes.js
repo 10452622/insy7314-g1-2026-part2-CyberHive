@@ -1,11 +1,11 @@
 const express = require("express");
 
-// Routes Handling (IIE, 2026)
+// Routes Handling 
 const {
     register,
     login,
     forgotPassword
-} = require("../controllers/authController");
+} = require("../controllers/authController"); //(IIE, 2026)
 
 const {
     registerValidation,
@@ -22,7 +22,7 @@ router.post(
     registerValidation,
     handleValidationErrors,
     register
-);
+); //(IIE, 2026)
 
 
 router.post(
@@ -38,11 +38,11 @@ router.post(
     forgotPasswordValidation,
     handleValidationErrors,
     forgotPassword
-);
+); //(IIE, 2026)
 
 
 module.exports = router;
 /*Reference List
-- The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+1. The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
   Education: Unpublished.
 */  

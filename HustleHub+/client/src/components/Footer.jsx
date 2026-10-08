@@ -14,12 +14,12 @@ function Footer() {
           <p>
             Connect. Work. Earn.
           </p>
-        </div>
+    </div> {/* //(MDN Web Docs, 2026) */}
 
         <div className="footer-links">
           <Link to="/">Home</Link>
 
-          {/* Page 6 belongs to another teammate */}
+          {/* Page 6 */}
           <Link to="/browse-services">
             Browse Services
           </Link>
@@ -37,7 +37,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <p>
-          © 2026 HustleHub+. All rights reserved.
+          © 2026 HustleHub+. All rights reserved. {/* //(MDN Web Docs, 2026) */}
         </p>
       </div>
     </footer>
@@ -45,3 +45,7 @@ function Footer() {
 }
 
 export default Footer;
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

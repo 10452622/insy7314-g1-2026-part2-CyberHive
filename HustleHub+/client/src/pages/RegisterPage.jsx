@@ -7,7 +7,7 @@ import TermsModal from '../components/TermsModal';
 
 import '../styles/RegisterPage.css';
 
-import { useRegistration } from '../context/RegistrationContext';
+import { useRegistration } from '../context/RegistrationContext'; /* //(MDN Web Docs, 2026) */
 
 
 function RegisterPage() {
@@ -29,7 +29,7 @@ function RegisterPage() {
     email: '',
     password: '',
     confirmPassword: '',
-    termsAccepted: false
+    termsAccepted: false /* //(MDN Web Docs, 2026) */
   });
 
 
@@ -48,7 +48,7 @@ function RegisterPage() {
     setErrors((previousErrors) => ({
       ...previousErrors,
       [name]: ''
-    }));
+    })); /* //(MDN Web Docs, 2026) */
   };
 
 
@@ -71,7 +71,7 @@ function RegisterPage() {
       !namePattern.test(formData.firstName.trim())
     ) {
       newErrors.firstName ='Please enter a valid first name.';
-    }
+    } /* //(MDN Web Docs, 2026) */
 
 
     // Last Name Validation
@@ -87,7 +87,7 @@ function RegisterPage() {
       !namePattern.test(formData.lastName.trim())
     ) {
       newErrors.lastName ='Please enter a valid last name.';
-    }
+    } /* //(MDN Web Docs, 2026) */
 
 
     // Email Validation
@@ -111,7 +111,7 @@ function RegisterPage() {
 
     if (!formData.password) {
       newErrors.password ='Password is required.';
-    }
+    } /* //(MDN Web Docs, 2026) */
 
     else if (
       !passwordPattern.test(formData.password)
@@ -130,7 +130,7 @@ function RegisterPage() {
       formData.confirmPassword !== formData.password
     ) {
       newErrors.confirmPassword ='Passwords do not match.';
-    }
+    } /* //(MDN Web Docs, 2026) */
 
 
     // Terms Validation
@@ -157,7 +157,7 @@ function RegisterPage() {
       lastName: formData.lastName.trim(),
       email: formData.email.trim(),
       password: formData.password
-    });
+    }); /* //(MDN Web Docs, 2026) */
 
     // Page 3 - Choose Account Type
     navigate('/account-type');
@@ -214,7 +214,7 @@ function RegisterPage() {
                 {errors.firstName && (
                   <span className="form-error">
                     {errors.firstName}
-                  </span>
+                  </span> /* //(MDN Web Docs, 2026) */
                 )}
 
               </div>
@@ -245,7 +245,7 @@ function RegisterPage() {
 
               </div>
 
-            </div>
+            </div> {/* //(MDN Web Docs, 2026) */}
 
 
             {/* Email */}
@@ -276,7 +276,7 @@ function RegisterPage() {
 
 
             {/* Password */}
-            <div className="form-group">
+            <div className="form-group"> {/* //(MDN Web Docs, 2026) */}
 
               <label htmlFor="password">
                 Password
@@ -323,7 +323,7 @@ function RegisterPage() {
                 <span className="form-error">
                   {errors.password}
                 </span>
-              )}
+              )} {/* //(MDN Web Docs, 2026) */}
 
             </div>
 
@@ -348,7 +348,7 @@ function RegisterPage() {
                   placeholder="Confirm your password"
                   autoComplete="new-password"
                   value={formData.confirmPassword}
-                  onChange={handleChange}
+                  onChange={handleChange} /* //(MDN Web Docs, 2026) */
                   aria-invalid={
                     Boolean(errors.confirmPassword)
                   }
@@ -378,7 +378,7 @@ function RegisterPage() {
 
               {errors.confirmPassword && (
                 <span className="form-error">
-                  {errors.confirmPassword}
+                  {errors.confirmPassword} {/* //(MDN Web Docs, 2026) */}
                 </span>
               )}
 
@@ -414,7 +414,7 @@ function RegisterPage() {
 
               {errors.termsAccepted && (
                 <span className="form-error terms-error">
-                  {errors.termsAccepted}
+                  {errors.termsAccepted} {/* //(MDN Web Docs, 2026) */}
                 </span>
               )}
 
@@ -435,7 +435,7 @@ function RegisterPage() {
           {/* Login Link */}
           <p className="register-login-text">
 
-            Already have an account?{' '}
+          Already have an account?{' '} {/* //(MDN Web Docs, 2026) */}
 
             <Link to="/login">
               Login
@@ -459,4 +459,8 @@ function RegisterPage() {
 }
 
 
-export default RegisterPage;
+export default RegisterPage; /* //(MDN Web Docs, 2026) */
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

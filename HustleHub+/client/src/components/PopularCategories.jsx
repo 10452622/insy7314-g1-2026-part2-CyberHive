@@ -10,7 +10,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-import '../styles/PopularCategories.css';
+import '../styles/PopularCategories.css'; /* //(MDN Web Docs, 2026) */
 
 const categories = [
   {
@@ -22,7 +22,7 @@ const categories = [
   {
     name: 'Web Development',
     icon: Code2,
-    description: 'Build your digital presence'
+    description: 'Build your digital presence' /* //(MDN Web Docs, 2026) */
   },
 
   {
@@ -46,7 +46,7 @@ const categories = [
   {
     name: 'Music & Audio',
     icon: Music2,
-    description: 'Find your perfect sound'
+    description: 'Find your perfect sound' /* //(MDN Web Docs, 2026) */
   }
 ];
 
@@ -58,7 +58,7 @@ function PopularCategories() {
         {/* Section Heading */}
         <div className="categories-header">
 
-          <span className="categories-tag">
+          <span className="categories-tag"> {/* //(MDN Web Docs, 2026) */}
             EXPLORE HUSTLEHUB+
           </span>
 
@@ -89,7 +89,7 @@ function PopularCategories() {
                   <Icon
                     size={28}
                     strokeWidth={2}
-                    aria-hidden="true"
+                    aria-hidden="true" /* //(MDN Web Docs, 2026) */
                   />
                 </div>
 
@@ -120,3 +120,7 @@ function PopularCategories() {
 }
 
 export default PopularCategories;
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

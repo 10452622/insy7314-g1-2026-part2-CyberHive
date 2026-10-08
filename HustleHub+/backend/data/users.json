@@ -121,5 +121,37 @@
     "email": "john@yahoo.co.za",
     "password": "$2b$12$plws7oJgUw24lYYhcRtoUuFTxkigMThEqZvUcBE86h1ndV0YEXvTK",
     "role": "Client"
+  },
+  {
+    "id": "dbdc24ef-c820-4c75-ab20-08c9b666d3da",
+    "firstName": "Jody",
+    "lastName": "Harris",
+    "email": "jh@gmail.com",
+    "password": "$2b$12$QrV5fDiG92aAsxPpH4P.suKV2AE8XiPIExWTVsNvSeQwPn7STv2ia",
+    "role": "Freelancer"
+  },
+  {
+    "id": "f271e0c0-4319-4fac-86e3-e40f48b218f4",
+    "firstName": "John",
+    "lastName": "Harries",
+    "email": "harries@gmail.com",
+    "password": "$2b$12$I1gxc/HWobo70WAj2caCYehHx6DpVl7fEIB99Qe6s.4FK/edhfQVO",
+    "role": "Freelancer"
+  },
+  {
+    "id": "9d999bed-49f4-48ef-abc8-a4829679806d",
+    "firstName": "Jojo",
+    "lastName": "Tank",
+    "email": "hello@yahoo.co.za",
+    "password": "$2b$12$MRCxJm.W8vbf.X374s29deIGWWa94yT4XqChgkI9ql2LBGZh7M03y",
+    "role": "Freelancer"
+  },
+  {
+    "id": "7632758e-c58b-4465-b400-b767b7ca246e",
+    "firstName": "Fill",
+    "lastName": "Hugh",
+    "email": "hugh@test.com",
+    "password": "$2b$12$NDcb.tI90u6LSOu.VSq.NewVVT3V8Hi/rjjb85/1aeJEXMxdNOQrS",
+    "role": "Client"
   }
 ]

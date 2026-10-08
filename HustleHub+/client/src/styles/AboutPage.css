@@ -2,7 +2,7 @@
 .about-page {
   min-height: 100vh;
   background: var(--hh-white);
-}
+} /* //(MDN Web Docs, 2026) */
 
 
 /* Hero */
@@ -24,7 +24,7 @@
 
   margin: 0 auto;
 
-  text-align: center;
+  text-align: center; /* //(MDN Web Docs, 2026) */
 }
 
 .about-eyebrow {
@@ -50,7 +50,7 @@
 }
 
 .about-hero h1 span {
-  color: var(--hh-violet);
+  color: var(--hh-violet); /* //(MDN Web Docs, 2026) */
 }
 
 .about-hero p {
@@ -78,7 +78,7 @@
 /* Purpose */
 
 .about-purpose {
-  padding: 55px 5%;
+  padding: 55px 5%; /* //(MDN Web Docs, 2026) */
 }
 
 .purpose-layout {
@@ -126,7 +126,7 @@
   color: var(--hh-text-light);
 
   font-size: 16px;
-  line-height: 27px;
+  line-height: 27px; /* //(MDN Web Docs, 2026) */
 }
 
 
@@ -157,7 +157,7 @@
 .about-section-heading h2 {
   margin: 10px 0 0;
 
-  color: var(--hh-black);
+  color: var(--hh-black); /* //(MDN Web Docs, 2026) */
 
   font-size: 30px;
   line-height: 38px;
@@ -198,7 +198,7 @@
   transition:
     transform 0.25s ease,
     border-color 0.25s ease,
-    box-shadow 0.25s ease;
+    box-shadow 0.25s ease; /* //(MDN Web Docs, 2026) */
 }
 
 .about-info-card:hover {
@@ -244,7 +244,7 @@
   color: var(--hh-text-light);
 
   font-size: 14px;
-  line-height: 22px;
+  line-height: 22px; /* //(MDN Web Docs, 2026) */
 }
 
 
@@ -286,7 +286,7 @@
   border-radius: 18px;
 
   background: var(--hh-lime);
-  color: var(--hh-black);
+  color: var(--hh-black); /* //(MDN Web Docs, 2026) */
 }
 
 .about-security-content > span {
@@ -341,7 +341,7 @@
   font-size: 30px;
   line-height: 38px;
   font-weight: 700;
-}
+} /* //(MDN Web Docs, 2026) */
 
 .about-cta p {
   margin-top: 10px;
@@ -365,7 +365,7 @@
 .about-secondary-btn {
   min-height: 48px;
 
-  padding: 12px 22px;
+  padding: 12px 22px; /* //(MDN Web Docs, 2026) */
 
   display: inline-flex;
   align-items: center;
@@ -397,7 +397,7 @@
 }
 
 .about-secondary-btn {
-  border: 1px solid var(--hh-border);
+  border: 1px solid var(--hh-border); /* //(MDN Web Docs, 2026) */
 
   background: var(--hh-white);
   color: var(--hh-black);
@@ -421,7 +421,7 @@
   }
 
   .about-card-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* //(MDN Web Docs, 2026) */
   }
 
 }
@@ -457,7 +457,7 @@
 
   .about-cta {
     padding: 40px 24px 65px;
-  }
+  } /* //(MDN Web Docs, 2026) */
 
 }
 
@@ -479,3 +479,7 @@
   }
 
 }
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

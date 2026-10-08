@@ -8,7 +8,7 @@ import {
   requestPasswordReset
 } from '../services/authService';
 
-import '../styles/ForgotPasswordPage.css';
+import '../styles/ForgotPasswordPage.css'; /* //(MDN Web Docs, 2026) */
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -24,7 +24,7 @@ function ForgotPasswordPage() {
 
   const validateEmail = () => {
     const emailPattern =
-      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/; /* //(MDN Web Docs, 2026) */
 
     if (!email.trim()) {
       setError('Email address is required.');
@@ -46,7 +46,7 @@ function ForgotPasswordPage() {
 
     if (!validateEmail() || isSubmitting) {
       return;
-    }
+    } /* //(MDN Web Docs, 2026) */
 
 
     setServerError('');
@@ -70,7 +70,7 @@ function ForgotPasswordPage() {
 
     } finally {
 
-      setIsSubmitting(false);
+      setIsSubmitting(false); /* //(MDN Web Docs, 2026) */
 
     }
   };
@@ -93,7 +93,7 @@ function ForgotPasswordPage() {
     setSubmitted(false);
     setEmail('');
     setError('');
-    setServerError('');
+    setServerError(''); /* //(MDN Web Docs, 2026) */
   };
 
 
@@ -109,7 +109,7 @@ function ForgotPasswordPage() {
               <div className="forgot-icon">
                 <Mail
                   size={30}
-                  strokeWidth={1.8}
+                  strokeWidth={1.8} /* //(MDN Web Docs, 2026) */
                 />
               </div>
 
@@ -132,7 +132,7 @@ function ForgotPasswordPage() {
               noValidate
             >
 
-              <div className="forgot-form-group">
+              <div className="forgot-form-group"> {/* //(MDN Web Docs, 2026) */}
 
                 <label htmlFor="resetEmail">
                   Email Address
@@ -169,7 +169,7 @@ function ForgotPasswordPage() {
                 >
                   {serverError}
                 </p>
-              )}
+              )} {/* //(MDN Web Docs, 2026) */}
 
 
               <button
@@ -205,7 +205,7 @@ function ForgotPasswordPage() {
             <button
               type="button"
               className="send-again-btn"
-              onClick={handleTryAnotherEmail}
+              onClick={handleTryAnotherEmail} /* //(MDN Web Docs, 2026) */
             >
               Try another email
             </button>
@@ -233,3 +233,7 @@ function ForgotPasswordPage() {
 }
 
 export default ForgotPasswordPage;
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

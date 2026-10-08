@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 import '../styles/Navbar.css';
-import BrandLogo from './BrandLogo';
+import BrandLogo from './BrandLogo'; {/* //(MDN Web Docs, 2026) */}
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,7 +17,8 @@ function Navbar() {
       <div className="navbar-container">
 
         {/* HustleHub+ Logo */}
-        <BrandLogo />
+        <BrandLogo /> {/* //(MDN Web Docs, 2026) */}
+
 
 
         {/* Main Navigation */}
@@ -36,7 +37,7 @@ function Navbar() {
             to="/browse-services"
             className={({ isActive }) =>
               isActive ? 'nav-link active' : 'nav-link'
-            }
+            } /* //(MDN Web Docs, 2026) */
           >
             Browse Services
           </NavLink>
@@ -58,7 +59,7 @@ function Navbar() {
           >
             About Us
           </NavLink>
-        </nav>
+        </nav> {/* //(MDN Web Docs, 2026) */}
 
 
         {/* Authentication Buttons */}
@@ -97,7 +98,7 @@ function Navbar() {
           {mobileMenuOpen
             ? <X size={28} />
             : <Menu size={28} />
-          }
+          } {/* //(MDN Web Docs, 2026) */}
         </button>
 
       </div>
@@ -121,7 +122,7 @@ function Navbar() {
                 ? 'mobile-nav-link active'
                 : 'mobile-nav-link'
             }
-            onClick={closeMobileMenu}
+            onClick={closeMobileMenu} /* //(MDN Web Docs, 2026) */
           >
             Home
           </NavLink>
@@ -137,7 +138,7 @@ function Navbar() {
             onClick={closeMobileMenu}
           >
             Browse Services
-          </NavLink>
+          </NavLink> {/* //(MDN Web Docs, 2026) */}
 
           <NavLink
             to="/how-it-works"
@@ -163,7 +164,7 @@ function Navbar() {
             About Us
           </NavLink>
 
-        </nav>
+        </nav> {/* //(MDN Web Docs, 2026) */}
 
 
         <div className="mobile-menu-actions">
@@ -187,8 +188,12 @@ function Navbar() {
         </div>
       </div>
 
-    </header>
+    </header> /* //(MDN Web Docs, 2026) */
   );
 }
 
 export default Navbar;
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Footer from '../components/Footer'; {/* //(MDN Web Docs, 2026) */}
 
 import '../styles/HowItWorksPage.css';
 
@@ -33,7 +33,7 @@ const clientSteps = [
   {
     icon: BriefcaseBusiness,
     title: 'Choose a freelancer',
-    description:'Review services and select the freelancer that suits your needs.'
+    description:'Review services and select the freelancer that suits your needs.' /* //(MDN Web Docs, 2026) */
   },
   {
     icon: CalendarCheck,
@@ -67,7 +67,7 @@ const freelancerSteps = [
   {
     icon: ClipboardCheck,
     title: 'Complete the work',
-    description:'Deliver the requested service according to the client requirements.'
+    description:'Deliver the requested service according to the client requirements.' /* //(MDN Web Docs, 2026) */
   },
   {
     icon: CircleDollarSign,
@@ -100,7 +100,7 @@ function HowItWorksPage() {
 
             <p>
               HustleHub+ connects clients with skilled freelancers
-              through a simple and secure marketplace.
+              through a simple and secure marketplace. {/* //(MDN Web Docs, 2026) */}
             </p>
 
           </div>
@@ -129,7 +129,7 @@ function HowItWorksPage() {
             <div className="steps-grid">
 
               {clientSteps.map((step, index) => {
-                const Icon = step.icon;
+                const Icon = step.icon; /* //(MDN Web Docs, 2026) */
 
                 return (
                   <article
@@ -165,7 +165,7 @@ function HowItWorksPage() {
 
 
         {/* Freelancer Process */}
-        <section className="how-section freelancer-process">
+        <section className="how-section freelancer-process"> {/* //(MDN Web Docs, 2026) */}
 
           <div className="how-container">
 
@@ -191,7 +191,7 @@ function HowItWorksPage() {
                 return (
                   <article
                     className="step-card"
-                    key={step.title}
+                    key={step.title} /* //(MDN Web Docs, 2026) */
                   >
 
                     <span className="step-number">
@@ -208,7 +208,7 @@ function HowItWorksPage() {
 
                     <h3>{step.title}</h3>
 
-                    <p>{step.description}</p>
+                    <p>{step.description}</p> {/* //(MDN Web Docs, 2026) */}
 
                   </article>
                 );
@@ -244,7 +244,7 @@ function HowItWorksPage() {
                 HustleHub+ protects account and marketplace
                 functionality through authenticated access,
                 role-based permissions and secure handling
-                of user information.
+                of user information. {/* //(MDN Web Docs, 2026) */}
               </p>
             </div>
 
@@ -264,7 +264,7 @@ function HowItWorksPage() {
 
             <p>
               Join HustleHub+ and choose how you want to use
-              the marketplace.
+              the marketplace. {/* //(MDN Web Docs, 2026) */}
             </p>
 
             <div className="how-cta-actions">
@@ -304,4 +304,8 @@ function HowItWorksPage() {
 }
 
 
-export default HowItWorksPage;
+export default HowItWorksPage; /* //(MDN Web Docs, 2026) */
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

@@ -6,7 +6,7 @@ import {
   ShieldCheck,
   Handshake,
   ArrowRight
-} from 'lucide-react';
+} from 'lucide-react'; /* //(MDN Web Docs, 2026) */
 
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -27,7 +27,7 @@ function AboutPage() {
 
           <div className="about-hero-content">
 
-            <span className="about-eyebrow">
+            <span className="about-eyebrow"> {/* //(MDN Web Docs, 2026) */}
               ABOUT HUSTLEHUB+
             </span>
 
@@ -54,7 +54,7 @@ function AboutPage() {
 
             <div className="purpose-layout">
 
-              <div className="purpose-heading">
+              <div className="purpose-heading"> {/* //(MDN Web Docs, 2026) */}
 
                 <span>
                   OUR PURPOSE
@@ -96,7 +96,7 @@ function AboutPage() {
 
           <div className="about-container">
 
-            <div className="about-section-heading">
+            <div className="about-section-heading"> {/* //(MDN Web Docs, 2026) */}
 
               <span>
                 WHAT HUSTLEHUB+ PROVIDES
@@ -197,7 +197,7 @@ function AboutPage() {
             <div className="about-security-icon">
               <ShieldCheck
                 size={38}
-                strokeWidth={1.8}
+              strokeWidth={1.8} /* //(MDN Web Docs, 2026) */
               />
             </div>
 
@@ -279,4 +279,8 @@ function AboutPage() {
 }
 
 
-export default AboutPage;
+export default AboutPage; /* //(MDN Web Docs, 2026) */
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

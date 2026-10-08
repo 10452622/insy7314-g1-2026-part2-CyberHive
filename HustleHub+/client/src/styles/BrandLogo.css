@@ -2,7 +2,7 @@
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-}
+} /* //(MDN Web Docs, 2026) */
 
 .brand-logo-image {
   display: block;
@@ -15,5 +15,9 @@
   .brand-logo-image {
     width: 195px;
     height: 64px;
-  }
+  } /* //(MDN Web Docs, 2026) */
 }
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */
