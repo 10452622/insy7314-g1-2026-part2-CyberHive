@@ -6,7 +6,7 @@ function ClientNavbar() {
         isActive ? "nav-link active" : "nav-link";
 
     return (
-        <header className="navbar">
+        <header className="client-navbar">
             <div className="navbar-inner">
 
                 <Link
