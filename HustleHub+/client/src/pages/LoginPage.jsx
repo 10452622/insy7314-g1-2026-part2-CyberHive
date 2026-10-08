@@ -97,11 +97,10 @@ function LoginPage() {
       );
 
 
-      if (response.user.role === 'Client') {
-        // Page 6
-        navigate('/browse-services'); /* //(MDN Web Docs, 2026) */
-        return;
-      }
+     if (response.user.role === 'Client') {
+    navigate('/client/home'); /* //(MDN Web Docs, 2026) */
+    return;
+}
 
 
       if (response.user.role === 'Freelancer') {
