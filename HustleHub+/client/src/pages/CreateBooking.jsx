@@ -14,6 +14,7 @@ function CreateBooking() {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [error, setError] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("card");
 
     useEffect(() => {
         let active = true;
@@ -61,6 +62,11 @@ function CreateBooking() {
             return;
         }
 
+        if (!["card", "eft"].includes(paymentMethod)) {
+            setError("Please select a payment method.");
+            return;
+        }
+
         try {
             setSubmitting(true);
             setError("");
@@ -76,12 +82,22 @@ function CreateBooking() {
                 );
             }
 
+            // Redirect to booking confirmation
             navigate(
                 `/booking/confirmation/${data.booking._id}`,
-                { replace: true }
+                {
+                    replace: true,
+                    state: {
+                        checkoutCompleted: true,
+                        paymentMethod
+                    }
+                }
             );
+
         } catch (err) {
-            const message = err?.message || "Unable to submit booking.";
+            const message =
+                err?.message || "Unable to submit booking.";
+
             const lowerMessage = message.toLowerCase();
 
             if (
@@ -96,6 +112,7 @@ function CreateBooking() {
             } else {
                 setError(message);
             }
+
         } finally {
             setSubmitting(false);
         }
@@ -121,6 +138,7 @@ function CreateBooking() {
         return (
             <>
                 <ClientNavbar />
+
                 <div className="page-container">
                     <div className="status-box">
                         Loading booking...
@@ -134,6 +152,7 @@ function CreateBooking() {
         return (
             <>
                 <ClientNavbar />
+
                 <div className="page-container">
                     <div className="error-box">
                         {error || "Service unavailable."}
@@ -165,6 +184,7 @@ function CreateBooking() {
 
             <main className="booking-page">
                 <div className="booking-container">
+
                     <div className="booking-heading">
                         <span className="section-label">
                             CHECKOUT
@@ -173,8 +193,9 @@ function CreateBooking() {
                         <h1>Complete your booking</h1>
 
                         <p>
-                            Review your order and tell the
-                            freelancer what you need.
+                            Review your order, describe your
+                            requirements and select your
+                            preferred payment method.
                         </p>
                     </div>
 
@@ -182,11 +203,14 @@ function CreateBooking() {
                         className="booking-grid"
                         onSubmit={handleBooking}
                     >
+
                         <section className="order-summary">
                             <h2>Order Summary</h2>
 
                             <div className="summary-service">
-                                <div className="summary-image">  {/* //(MDN Web Docs, 2026) */}
+
+                                <div className="summary-image">
+                                    {/* //(MDN Web Docs, 2026) */}
                                     {gig.imageUrl ? (
                                         <img
                                             src={gig.imageUrl}
@@ -201,15 +225,18 @@ function CreateBooking() {
 
                                 <div>
                                     <h3>{gig.title}</h3>
+
                                     <p>
                                         {gig.freelancerName ||
                                             "Freelancer"}
                                     </p>
                                 </div>
+
                             </div>
 
                             <div className="summary-line">
                                 <span>Service price</span>
+
                                 <strong>
                                     {formatPrice(gig.price)}
                                 </strong>
@@ -217,18 +244,24 @@ function CreateBooking() {
 
                             <div className="summary-line">
                                 <span>Delivery</span>
-                                <strong>{deliveryLabel}</strong>
+
+                                <strong>
+                                    {deliveryLabel}
+                                </strong>
                             </div>
 
                             <div className="summary-total">
                                 <span>Total</span>
+
                                 <strong>
                                     {formatPrice(gig.price)}
                                 </strong>
                             </div>
+
                         </section>
 
                         <section className="booking-form-card">
+
                             <h2>Your Requirements</h2>
 
                             <p className="muted">
@@ -253,15 +286,68 @@ function CreateBooking() {
                                 {requirements.length}/2000
                             </small>
 
-                            <h2 className="payment-heading">
-                                Booking Status
-                            </h2>
+                            <div className="payment-section">
 
-                            <p className="muted">
-                                Your booking will be submitted
-                                as Pending. No payment will be
-                                processed at this stage.
-                            </p>
+                                <h2 className="payment-heading">
+                                    Payment
+                                </h2>
+
+                                <p className="muted">
+                                    Select your preferred payment
+                                    method to complete your booking.
+                                </p>
+
+                                <div className="payment-methods">
+
+                                    <label className="radio-row">
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="card"
+                                            checked={
+                                                paymentMethod === "card"
+                                            }
+                                            onChange={(event) =>
+                                                setPaymentMethod(
+                                                    event.target.value
+                                                )
+                                            }
+                                            disabled={submitting}
+                                        />
+
+                                        Card Payment
+                                    </label>
+
+                                    <label className="radio-row">
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="eft"
+                                            checked={
+                                                paymentMethod === "eft"
+                                            }
+                                            onChange={(event) =>
+                                                setPaymentMethod(
+                                                    event.target.value
+                                                )
+                                            }
+                                            disabled={submitting}
+                                        />
+
+                                        EFT Payment
+                                    </label>
+
+                                </div>
+
+                                <div className="summary-line">
+                                    <span>Amount</span>
+
+                                    <strong>
+                                        {formatPrice(gig.price)}
+                                    </strong>
+                                </div>
+
+                            </div>
 
                             {error && (
                                 <div
@@ -279,15 +365,17 @@ function CreateBooking() {
                                 disabled={submitting}
                             >
                                 {submitting
-                                    ? "Submitting..."
-                                    : `Submit Booking • ${formatPrice(gig.price)}`}
+                                    ? "Processing..."
+                                    : `Confirm Booking • ${formatPrice(gig.price)}`}
                             </button>
 
                             <div className="secure-message">
-                                Your booking request will be
-                                recorded without processing a payment.
+                                Your booking will be recorded
+                                as Pending.
                             </div>
+
                         </section>
+
                     </form>
                 </div>
             </main>
@@ -299,8 +387,8 @@ export default CreateBooking;
 
 /*Reference List
 
-MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026].
 
-The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of
 Education: Unpublished.
 */

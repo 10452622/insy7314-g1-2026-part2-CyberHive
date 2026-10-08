@@ -39,7 +39,6 @@ function MarketplaceLayout() {
     );
 }
 
-// Protect pages that require a logged-in Client
 function ClientRoute() {
     const location = useLocation();
     const user = getCurrentUser();
@@ -71,35 +70,18 @@ function ClientRoute() {
 
     return <Outlet />;
 }
+
+// Allow visitors to browse services without logging in
 function BrowseServicesRedirect() {
-    const user = getCurrentUser();
-
-    const role = String(user?.role || "")
-        .trim()
-        .toLowerCase();
-
-    if (isAuthenticated() && role === "client") {
-        return <Navigate to="/client/home" replace />;
-    }
-
-    if (!isAuthenticated() || !user) {
-        return (
-            <Navigate
-                to="/login"
-                state={{ from: "/client/home" }}
-                replace
-            />
-        );
-    }
-
-    // Non-client users can still browse public gigs
-    return <Navigate to="/gigs" replace />;
+    return <Navigate to="/client/home" replace />;
 }
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
+
+                {/* Public website pages */}
                 <Route
                     path="/"
                     element={<HomePage />}
@@ -141,6 +123,12 @@ function App() {
                 />
 
                 <Route element={<MarketplaceLayout />}>
+
+                    <Route
+                        path="/client/home"
+                        element={<ClientHome />}
+                    />
+
                     <Route
                         path="/gigs"
                         element={<BrowseGigs />}
@@ -152,10 +140,6 @@ function App() {
                     />
 
                     <Route element={<ClientRoute />}>
-                        <Route
-                            path="/client/home"
-                            element={<ClientHome />}
-                        />
 
                         <Route
                             path="/booking/:gigId"
@@ -176,13 +160,16 @@ function App() {
                             path="/client/messages"
                             element={<Messages />}
                         />
+
                     </Route>
+
                 </Route>
 
                 <Route
                     path="*"
                     element={<Navigate to="/" replace />}
                 />
+
             </Routes>
         </BrowserRouter>
     );
@@ -191,5 +178,5 @@ function App() {
 export default App; /* //(MDN Web Docs, 2026) */
 
 /* Reference List:
-    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026].
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers.[online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026].
 */

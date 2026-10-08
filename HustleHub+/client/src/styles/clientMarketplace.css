@@ -1630,5 +1630,17 @@ flex-direction: column;
     }
 }
 
+.hh-marketplace .category-card .category-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hh-marketplace .category-card .category-icon svg {
+    width: 28px;
+    height: 28px;
+    stroke: currentColor;
+}
+
 /* Reference List:
     1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

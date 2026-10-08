@@ -1,6 +1,11 @@
 
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+    Link,
+    useLocation,
+    useNavigate,
+    useParams
+} from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
 import { getBookingById } from "../services/api";
@@ -8,10 +13,21 @@ import { getBookingById } from "../services/api";
 function BookingConfirmation() {
     const { bookingId } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [booking, setBooking] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    const checkoutCompleted =
+        location.state?.checkoutCompleted === true;
+
+    const paymentMethod =
+        location.state?.paymentMethod === "card"
+            ? "Card"
+            : location.state?.paymentMethod === "eft"
+                ? "EFT"
+                : null;
 
     useEffect(() => {
         let active = true;
@@ -130,6 +146,7 @@ function BookingConfirmation() {
 
             <main className="confirmation-page">
                 <div className="confirmation-card">
+
                     <div className="success-icon">
                         ✓
                     </div>
@@ -141,14 +158,16 @@ function BookingConfirmation() {
                     <h1>Booking Details</h1>
 
                     <p className="confirmation-intro">
-                        Your booking request has been recorded.
-                        You can track its current status in My Orders.
-                        No payment is processed by this booking form.
+                        Your booking request has been recorded
+                        successfully. You can track its status
+                        in My Orders.
                     </p>
 
                     <div className="confirmation-info">
+
                         <div>
                             <span>Booking ID</span>
+
                             <strong>
                                 #HH{bookingReference}
                             </strong>
@@ -156,14 +175,16 @@ function BookingConfirmation() {
 
                         <div>
                             <span>Service</span>
+
                             <strong>
                                 {booking.gig?.title ||
-                                    "Service unavailable"} 
+                                    "Service unavailable"}
                             </strong>
                         </div>
 
                         <div>
                             <span>Freelancer</span>
+
                             <strong>
                                 {booking.gig?.freelancerName ||
                                     "Freelancer"}
@@ -172,6 +193,7 @@ function BookingConfirmation() {
 
                         <div>
                             <span>Amount</span>
+
                             <strong>
                                 {formatPrice(booking.amount)}
                             </strong>
@@ -179,6 +201,7 @@ function BookingConfirmation() {
 
                         <div>
                             <span>Status</span>
+
                             <strong
                                 className={`order-status status-${statusClass}`}
                             >
@@ -188,13 +211,36 @@ function BookingConfirmation() {
 
                         <div>
                             <span>Expected delivery</span>
+
                             <strong>
                                 {formatDate(booking.deliveryDate)}
                             </strong>
                         </div>
+
+                        <div>
+                            <span>Payment Status</span>
+
+                            <strong>
+                                {checkoutCompleted
+                                    ? "Checkout completed"
+                                    : "Not recorded"}
+                            </strong>
+                        </div>
+
+                        {checkoutCompleted && paymentMethod && (
+                            <div>
+                                <span>Payment Method</span>
+
+                                <strong>
+                                    {paymentMethod}
+                                </strong>
+                            </div>
+                        )}
+
                     </div>
 
                     <div className="confirmation-actions">
+
                         <button
                             type="button"
                             className="primary-button"
@@ -214,7 +260,9 @@ function BookingConfirmation() {
                         >
                             Continue Browsing
                         </button>
+
                     </div>
+
                 </div>
             </main>
         </>
@@ -224,5 +272,6 @@ function BookingConfirmation() {
 export default BookingConfirmation;
 
 /*Reference List
-    MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026].
 */

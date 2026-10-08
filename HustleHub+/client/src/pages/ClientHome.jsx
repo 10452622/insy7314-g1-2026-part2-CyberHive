@@ -1,3 +1,4 @@
+
 import {
     useEffect,
     useState
@@ -6,6 +7,14 @@ import {
 import {
     useNavigate
 } from "react-router-dom";
+
+import {
+    Palette,
+    Code2,
+    Megaphone,
+    FilePenLine,
+    Clapperboard
+} from "lucide-react";
 
 import ClientNavbar from "../components/ClientNavbar";
 
@@ -16,13 +25,27 @@ import {
     getGigs
 } from "../services/api"; //(IIE, 2026)
 
-
 const categories = [
-    "Graphic Design",
-    "Web Development",
-    "Digital Marketing",
-    "Writing",
-    "Video & Animation"
+    {
+        name: "Graphic Design",
+        icon: Palette
+    },
+    {
+        name: "Web Development",
+        icon: Code2
+    },
+    {
+        name: "Digital Marketing",
+        icon: Megaphone
+    },
+    {
+        name: "Writing",
+        icon: FilePenLine
+    },
+    {
+        name: "Video & Animation",
+        icon: Clapperboard
+    }
 ];
 
 
@@ -151,7 +174,7 @@ function ClientHome() {
 
                             <button type="submit">
                                 Search
-                            </button>  {/* (MDN Web Docs, 2026) */}
+                            </button> {/* (MDN Web Docs, 2026) */}
 
                         </form>
 
@@ -167,7 +190,7 @@ function ClientHome() {
                         <div>
                             <span className="section-label">
                                 EXPLORE
-                            </span>  {/* (MDN Web Docs, 2026) */}
+                            </span> {/* (MDN Web Docs, 2026) */}
 
                             <h2>
                                 Popular Categories
@@ -180,26 +203,33 @@ function ClientHome() {
                     <div className="category-grid">
 
                         {categories.map(
-                            (category) => (
+                            (category) => {
+                                const Icon = category.icon;
 
-                                // (MDN Web Docs, 2026) 
-                                <button
-                                    key={category}
-                                    className="category-card"
-                                    onClick={() =>
-                                        openCategory(
-                                            category 
-                                        )
-                                    }
-                                >
-                                    <span className="category-icon">
-                                        ◆
-                                    </span>
+                                return (
+                                    // (MDN Web Docs, 2026)
+                                    <button
+                                        key={category.name}
+                                        type="button"
+                                        className="category-card"
+                                        onClick={() =>
+                                            openCategory(
+                                                category.name
+                                            )
+                                        }
+                                    >
+                                        <span className="category-icon">
+                                            <Icon
+                                                size={28}
+                                                strokeWidth={2}
+                                                aria-hidden="true"
+                                            />
+                                        </span>
 
-                                    {category}
-                                </button>
-
-                            )
+                                        {category.name}
+                                    </button>
+                                );
+                            }
                         )}
 
                     </div>
@@ -262,8 +292,7 @@ function ClientHome() {
 
                             <p>
                                 Freelancer services
-                                will appear here once
-                                they are published.
+                                will appear here.
                             </p>
 
                         </div>
@@ -295,8 +324,8 @@ export default ClientHome;
 
 /*Reference List
 
-MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026]. 
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026].
 
-The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of
 Education: Unpublished.
 */

@@ -118,17 +118,6 @@ function GigDetails() {
                                 )}
                             </div>
 
-                            <div className="thumbnail-row">
-                                {[1, 2, 3].map((number) => (
-                                    <div
-                                        key={number}
-                                        className="thumbnail-placeholder"
-                                    >
-                                        {number}
-                                    </div>
-                                ))}
-                            </div>
-
                             <div className="details-content">  {/* //(MDN Web Docs, 2026) */}
                                 <h2>About this service</h2>
 
@@ -209,23 +198,6 @@ function GigDetails() {
                                 Book Now
                             </button>
 
-                            <button
-                                type="button"
-                                className="secondary-button full-width"
-                                disabled
-                                title="Freelancer messaging is not available yet"
-                            >
-                                Message Freelancer — Coming Soon
-                            </button>
-
-                            <button
-                                type="button"
-                                className="save-button"
-                                disabled
-                                title="Saving gigs is not available yet"
-                            >
-                                ♡ Save — Coming Soon
-                            </button>
                         </aside>
                     </div>
                 </div>
