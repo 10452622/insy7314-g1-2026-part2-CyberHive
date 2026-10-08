@@ -1,70 +1,53 @@
-import {
-    useEffect,
-    useState
-} from "react";
 
-import {
-    Link,
-    useNavigate,
-    useParams
-} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import ClientNavbar from "../components/ClientNavbar";
-
-import {
-    getGigById
-} from "../services/api";
-
+import { getGigById } from "../services/api";
 
 function GigDetails() {
+    const { id } = useParams();
+    const navigate = useNavigate();
 
-    const { id } =
-        useParams();
-
-    const navigate =
-        useNavigate();
-
-    const [gig, setGig] =
-        useState(null);
-
-    const [loading, setLoading] =
-        useState(true);
-
-    const [error, setError] =
-        useState("");
-
+    const [gig, setGig] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
     useEffect(() => {
+        let active = true;
 
         const loadGig = async () => {
+            setLoading(true);
+            setError("");
 
             try {
+                const data = await getGigById(id);
 
-                const data =
-                    await getGigById(id);
-
-                setGig(data.gig);
-
+                if (active) {
+                    setGig(data.gig);
+                }
             } catch (err) {
-
-                setError(err.message);
-
+                if (active) {
+                    setError(err.message);
+                }
             } finally {
-
-                setLoading(false);
+                if (active) {
+                    setLoading(false);
+                }
             }
         };
 
         loadGig();
 
+        return () => {
+            active = false;
+        };
     }, [id]);
 
-
     if (loading) {
-
         return (
             <>
-              <ClientNavbar />
+                <ClientNavbar />
 
                 <div className="page-container">
                     <div className="status-box">
@@ -75,35 +58,34 @@ function GigDetails() {
         );
     }
 
-
     if (error || !gig) {
-
         return (
             <>
-                <Navbar />
+                <ClientNavbar />
 
                 <div className="page-container">
                     <div className="error-box">
-                        {error ||
-                            "Service not found."}
+                        {error || "Service not found."}
                     </div>
+
+                    <Link to="/gigs" className="secondary-button">
+                        Back to Browse Gigs
+                    </Link>
                 </div>
             </>
         );
     }
 
+    const freelancerName = gig.freelancerName || "Freelancer";
+    const freelancerInitial = freelancerName.charAt(0).toUpperCase();
 
     return (
         <>
-            <Navbar />
-
+            <ClientNavbar />
 
             <main className="details-page">
-
                 <div className="page-container">
-
                     <div className="breadcrumb">
-
                         <Link to="/client/home">
                             Home
                         </Link>
@@ -116,244 +98,140 @@ function GigDetails() {
 
                         <span>›</span>
 
-                        <span>
-                            {gig.category}
-                        </span>
-
+                        <span>{gig.category}</span>
                     </div>
 
-
                     <div className="details-grid">
-
                         <section>
-
                             <div className="main-gig-image">
-
                                 {gig.imageUrl ? (
-
                                     <img
-                                        src={
-                                            gig.imageUrl
-                                        }
-                                        alt={
-                                            gig.title
-                                        }
+                                        src={gig.imageUrl}
+                                        alt={gig.title}
                                     />
-
                                 ) : (
-
                                     <div className="large-placeholder">
-
-                                        <span>
-                                            BRAND
-                                        </span>
-
-                                        <strong>
-                                            {gig.category}
-                                        </strong>
-
-                                        <small>
-                                            HUSTLEHUB+
-                                        </small>
-
+                                        <span>BRAND</span>
+                                        <strong>{gig.category}</strong>
+                                        <small>HUSTLEHUB+</small>
                                     </div>
-
                                 )}
-
                             </div>
-
 
                             <div className="thumbnail-row">
-
-                                {[1, 2, 3].map(
-                                    (number) => (
-
-                                        <div
-                                            key={number}
-                                            className="thumbnail-placeholder"
-                                        >
-                                            {number}
-                                        </div>
-
-                                    )
-                                )}
-
+                                {[1, 2, 3].map((number) => (
+                                    <div
+                                        key={number}
+                                        className="thumbnail-placeholder"
+                                    >
+                                        {number}
+                                    </div>
+                                ))}
                             </div>
 
-
                             <div className="details-content">
+                                <h2>About this service</h2>
 
-                                <h2>
-                                    About this service
-                                </h2>
-
-                                <p>
-                                    {gig.description}
-                                </p>
-
+                                <p>{gig.description}</p>
 
                                 <hr />
 
-
-                                <h2>
-                                    About the freelancer
-                                </h2>
+                                <h2>About the freelancer</h2>
 
                                 <div className="freelancer-card">
-
                                     <div className="profile-avatar">
-                                        {gig.freelancerName
-                                            ?.charAt(0)
-                                            .toUpperCase()}
+                                        {freelancerInitial}
                                     </div>
 
                                     <div>
+                                        <h3>{freelancerName}</h3>
 
-                                        <h3>
-                                            {
-                                                gig.freelancerName
-                                            }
-                                        </h3>
-
-                                        <p>
-                                            Verified
-                                            HustleHub
-                                            Freelancer
-                                        </p>
+                                        <p>HustleHub+ Freelancer</p>
 
                                         <span className="rating">
-                                            ★{" "}
-                                            {gig.rating ||
-                                                "New"}
+                                            ★ {gig.rating ?? "New"}
                                         </span>
-
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </section>
 
-
                         <aside className="purchase-card">
-
                             <span className="category-pill">
                                 {gig.category}
                             </span>
 
-
-                            <h1>
-                                {gig.title}
-                            </h1>
-
+                            <h1>{gig.title}</h1>
 
                             <div className="seller-detail">
-
                                 <div className="small-avatar">
-                                    {gig.freelancerName
-                                        ?.charAt(0)
-                                        .toUpperCase()}
+                                    {freelancerInitial}
                                 </div>
 
                                 <div>
-                                    <strong>
-                                        {
-                                            gig.freelancerName
-                                        }
-                                    </strong>
-
-                                    <small>
-                                        Verified
-                                        Freelancer
-                                    </small>
+                                    <strong>{freelancerName}</strong>
+                                    <small>Freelancer</small>
                                 </div>
-
                             </div>
-
 
                             <div className="rating">
                                 ★{" "}
                                 <strong>
-                                    {gig.rating ||
-                                        "New"}
+                                    {gig.rating ?? "New"}
                                 </strong>
 
-                                {gig.reviewCount >
-                                    0 &&
+                                {gig.reviewCount > 0 &&
                                     ` (${gig.reviewCount} reviews)`}
                             </div>
 
-
                             <div className="price-block">
-
-                                <small>
-                                    FROM
-                                </small>
-
-                                <strong>
-                                    R{gig.price}
-                                </strong>
-
+                                <small>FROM</small>
+                                <strong>R{gig.price}</strong>
                             </div>
-
 
                             <div className="feature-list">
-
                                 <div>
-                                    ✓{" "}
-                                    {gig.deliveryDays}{" "}
-                                    day
-                                    {gig.deliveryDays !==
-                                    1
-                                        ? "s"
-                                        : ""}{" "}
-                                    delivery
+                                    ✓ {gig.deliveryDays} day
+                                    {gig.deliveryDays !== 1 ? "s" : ""} delivery
                                 </div>
 
-                                <div>
-                                    ✓ Secure booking
-                                </div>
-
-                                <div>
-                                    ✓ Direct freelancer
-                                    communication
-                                </div>
-
+                                <div>✓ Booking request submission</div>
+                                <div>✓ Track booking status in My Orders</div>
                             </div>
 
-
                             <button
+                                type="button"
                                 className="primary-button full-width large-button"
                                 onClick={() =>
-                                    navigate(
-                                        `/booking/${gig._id}`
-                                    )
+                                    navigate(`/booking/${gig._id}`)
                                 }
                             >
                                 Book Now
                             </button>
 
-
-                            <button className="secondary-button full-width">
-                                Message Freelancer
+                            <button
+                                type="button"
+                                className="secondary-button full-width"
+                                disabled
+                                title="Freelancer messaging is not available yet"
+                            >
+                                Message Freelancer — Coming Soon
                             </button>
 
-
-                            <button className="save-button">
-                                ♡ Save
+                            <button
+                                type="button"
+                                className="save-button"
+                                disabled
+                                title="Saving gigs is not available yet"
+                            >
+                                ♡ Save — Coming Soon
                             </button>
-
                         </aside>
-
                     </div>
-
                 </div>
-
             </main>
         </>
     );
 }
-
 
 export default GigDetails;
