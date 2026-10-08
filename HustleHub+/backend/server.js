@@ -8,11 +8,12 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const cors = require("cors");
 
-// MongoDB connection 
 const connectDB = require("./config/db");
-
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
+
+const gigRoutes = require("./routes/gigRoutes");
+
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dotenv.config();
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 // API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/gigs", gigRoutes);
 
 // Error handling
 app.use(notFound);
@@ -63,6 +65,7 @@ const certPath = path.join(
 const startServer = async () => {
     try {
         await connectDB();
+
         if (
             fs.existsSync(keyPath) &&
             fs.existsSync(certPath)

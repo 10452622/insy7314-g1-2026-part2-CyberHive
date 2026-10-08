@@ -1,6 +1,7 @@
+
 const { body, validationResult } = require("express-validator");
 
-// Input validation and sanitisation 
+// Input validation and sanitisation
 const registerValidation = [
 
     body("firstName")
@@ -81,6 +82,7 @@ const forgotPasswordValidation = [
 ];
 
 
+// Handle validation errors
 const handleValidationErrors = (req, res, next) => {
     const errors = validationResult(req);
 
@@ -99,15 +101,100 @@ const handleValidationErrors = (req, res, next) => {
     next();
 }; //(IIE, 2026)
 
+const buildGigFields = () => [
+
+    body("title")
+        .isString()
+        .withMessage("Title must be text.")
+        .bail()
+        .trim()
+        .isLength({ min: 3, max: 100 })
+        .withMessage("Title must be between 3 and 100 characters."),
+
+    body("description")
+        .isString()
+        .withMessage("Description must be text.")
+        .bail()
+        .trim()
+        .isLength({ min: 1, max: 2000 })
+        .withMessage("Description must be between 1 and 2000 characters."),
+
+    body("category")
+        .isString()
+        .withMessage("Category must be text.")
+        .bail()
+        .trim()
+        .notEmpty()
+        .withMessage("Category is required."),
+
+    body("price")
+        .isFloat({ min: 0 })
+        .withMessage("Price must be zero or greater."),
+
+    body("deliveryDays")
+        .isInt({ min: 1 })
+        .withMessage("Delivery days must be at least 1."),
+
+    body("imageUrl")
+        .optional({ values: "falsy" })
+        .isURL({ require_protocol: true })
+        .withMessage("Image URL must be a valid URL.")
+
+];
+
+
+// Validate a new gig
+const validateGig = [
+    ...buildGigFields(),
+    handleValidationErrors
+];
+
+
+// Validate an existing gig being updated
+const validateGigUpdate = [
+
+    ...buildGigFields().map(validator => validator.optional()),
+
+    body().custom(value => {
+        const allowedFields = [
+            "title",
+            "description",
+            "category",
+            "price",
+            "deliveryDays",
+            "imageUrl"
+        ];
+
+        if (
+            !value ||
+            typeof value !== "object" ||
+            Array.isArray(value) ||
+            !allowedFields.some(field =>
+                Object.prototype.hasOwnProperty.call(value, field)
+            )
+        ) {
+            throw new Error(
+                "Provide at least one gig field to update."
+            );
+        }
+
+        return true;
+    }),
+
+    handleValidationErrors
+];
+
 
 module.exports = {
     registerValidation,
     loginValidation,
     forgotPasswordValidation,
-    handleValidationErrors
+    handleValidationErrors,
+    validateGig,
+    validateGigUpdate
 };
 
 /*Reference List
-1. The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
-  Education: Unpublished.
-*/  
+1. The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of
+   Education: Unpublished.
+*/
