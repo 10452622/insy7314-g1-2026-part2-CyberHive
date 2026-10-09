@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 const Booking = require("../models/Booking");
 const Gig = require("../models/Gig");
+const User = require("../models/User");
 
 const createBooking = async (req, res, next) => {
     try {
@@ -113,10 +114,102 @@ const getBookingById = async (req, res, next) => {
     }
 };
 
+const getFreelancerBookings = async (req, res, next) => {
+    try {
+        const bookings = await Booking.find({
+            freelancer: req.user.id
+        })
+            .populate("gig")
+            .sort({ createdAt: -1 });
+
+        const clientIds = [...new Set(bookings.map((booking) => booking.client))];
+        const clients = await User.find({ _id: { $in: clientIds } })
+            .select("_id firstName lastName username email")
+            .lean();
+        const clientsById = new Map(clients.map((client) => [client._id, client]));
+        const bookingsWithClients = bookings.map((booking) => {
+            const client = clientsById.get(booking.client);
+            const clientName = client
+                ? [client.firstName || client.username, client.lastName].filter(Boolean).join(" ")
+                : "Client";
+
+            return { ...booking.toObject(), clientName };
+        });
+
+        res.status(200).json({
+            success: true,
+            count: bookingsWithClients.length,
+            bookings: bookingsWithClients
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const updateBookingStatus = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid booking ID."
+            });
+        }
+
+        const validStatuses = [
+            "Pending",
+            "Confirmed",
+            "In Progress",
+            "Completed",
+            "Cancelled"
+        ];
+
+        if (!status || !validStatuses.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: "A valid booking status is required."
+            });
+        }
+
+        const booking = await Booking.findById(id);
+
+        if (!booking) {
+            return res.status(404).json({
+                success: false,
+                message: "Booking not found."
+            });
+        }
+
+        if (
+            booking.client !== req.user.id &&
+            booking.freelancer !== req.user.id
+        ) {
+            return res.status(403).json({
+                success: false,
+                message: "You cannot update this booking."
+            });
+        }
+
+        booking.status = status;
+        await booking.save();
+
+        res.status(200).json({
+            success: true,
+            booking
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     createBooking,
     getMyBookings,
-    getBookingById
+    getBookingById,
+    getFreelancerBookings,
+    updateBookingStatus
 };
 
 /*Reference List
