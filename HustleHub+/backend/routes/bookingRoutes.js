@@ -4,7 +4,9 @@ const express = require("express");
 const {
     createBooking,
     getMyBookings,
-    getBookingById
+    getBookingById,
+    getFreelancerBookings,
+    updateBookingStatus
 } = require("../controllers/bookingController"); //(IIE, 2026)
 
 const {
@@ -36,10 +38,25 @@ router.get(
     getMyBookings
 );
 
+// Freelancer routes (Pages 13 & 15)
+router.get(
+    "/freelancer",
+    authenticateToken,
+    authorizeRoles("Freelancer"),
+    getFreelancerBookings
+);
+
 router.get(
     "/:id",
     authenticateToken,
     getBookingById
+);
+
+// Status update route for client cancellation or freelancer progress updates (Pages 12 & 15)
+router.patch(
+    "/:id/status",
+    authenticateToken,
+    updateBookingStatus
 );
 
 module.exports = router; //(IIE, 2026)
