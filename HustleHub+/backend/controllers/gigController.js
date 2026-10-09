@@ -1,14 +1,6 @@
-
 const Gig = require("../models/Gig");
-const fs = require("fs"); // (Node.js, n.d.)
-const path = require("path");
-
-const usersFilePath = path.join(__dirname, "../data/users.json"); // (Node.js, n.d.)
-
-const findUserById = (id) => {
-    const users = JSON.parse(fs.readFileSync(usersFilePath, "utf8")); // (Node.js, n.d.)
-    return users.find(user => user.id === id);
-};
+const User = require("../models/User");
+const Booking = require("../models/Booking");
 
 const getGigs = async (req, res, next) => {
     try {
@@ -75,9 +67,45 @@ const getGigById = async (req, res, next) => {
     }
 };
 
+// Fetch gigs created by the authenticated freelancer (Page 14)
+const getMyGigs = async (req, res, next) => {
+    try {
+        const freelancer = await User.findById(req.user.id);
+
+        if (!freelancer || freelancer.role !== "Freelancer") {
+            return res.status(403).json({
+                success: false,
+                message: "Freelancer account not found."
+            });
+        }
+
+        const gigs = await Gig.find({
+            freelancer: req.user.id,
+            isDeleted: { $ne: true }
+        }).sort({ createdAt: -1 }); // (Mongoose, n.d.)
+        const orderCounts = await Booking.aggregate([
+            { $match: { freelancer: req.user.id } },
+            { $group: { _id: "$gig", count: { $sum: 1 } } }
+        ]);
+        const countsByGig = new Map(orderCounts.map((item) => [String(item._id), item.count]));
+        const gigsWithCounts = gigs.map((gig) => ({
+            ...gig.toObject(),
+            ordersCount: countsByGig.get(String(gig._id)) || 0
+        }));
+
+        res.status(200).json({
+            success: true,
+            count: gigsWithCounts.length,
+            gigs: gigsWithCounts
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 const createGig = async (req, res, next) => {
     try {
-        const freelancer = findUserById(req.user.id);
+        const freelancer = await User.findById(req.user.id);
 
         if (!freelancer || freelancer.role !== "Freelancer") {
             return res.status(403).json({
@@ -107,7 +135,7 @@ const createGig = async (req, res, next) => {
             price,
             deliveryDays,
             imageUrl: imageUrl || "",
-            freelancer: freelancer.id,
+            freelancer: freelancer._id,
             freelancerName
         });
 
@@ -123,7 +151,7 @@ const createGig = async (req, res, next) => {
 
 const updateGig = async (req, res, next) => {
     try {
-        const gig = await Gig.findById(req.params.id); // (Mongoose, n.d.)
+        const gig = await Gig.findOne({ _id: req.params.id, isDeleted: { $ne: true } }); // (Mongoose, n.d.)
 
         if (!gig) {
             return res.status(404).json({
@@ -175,7 +203,7 @@ const updateGig = async (req, res, next) => {
 
 const deleteGig = async (req, res, next) => {
     try {
-        const gig = await Gig.findById(req.params.id); // (Mongoose, n.d.)
+        const gig = await Gig.findOne({ _id: req.params.id, isDeleted: { $ne: true } }); // (Mongoose, n.d.)
 
         if (!gig) {
             return res.status(404).json({
@@ -192,6 +220,7 @@ const deleteGig = async (req, res, next) => {
         }
 
         gig.isActive = false;
+        gig.isDeleted = true;
         await gig.save();
 
         res.status(200).json({
@@ -210,12 +239,29 @@ const deleteGig = async (req, res, next) => {
     }
 };
 
+const setGigActive = async (req, res, next) => {
+    try {
+        const gig = await Gig.findOne({ _id: req.params.id, freelancer: req.user.id, isDeleted: { $ne: true } });
+        if (!gig) {
+            return res.status(404).json({ success: false, message: "Gig not found." });
+        }
+
+        gig.isActive = Boolean(req.body.isActive);
+        await gig.save();
+        res.status(200).json({ success: true, gig });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     getGigs,
     getGigById,
+    getMyGigs,
     createGig,
     updateGig,
-    deleteGig
+    deleteGig,
+    setGigActive
 };
 
 /* Reference List
