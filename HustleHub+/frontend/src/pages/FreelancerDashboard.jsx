@@ -175,3 +175,10 @@ function FreelancerDashboard() {
 }
 
 export default FreelancerDashboard;
+
+/* Reference List
+React, 2026. Built-in React Hooks. [online] Available at: <https://react.dev/reference/react/hooks> [Accessed 10 October 2026].
+React Router, n.d. NavLink. [online] Available at: <https://reactrouter.com/api/components/NavLink> [Accessed 10 October 2026].
+MDN Web Docs, 2026. Promise.allSettled(). [online] Available at: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled> [Accessed 10 October 2026].
+MDN Web Docs, 2026. Intl.NumberFormat. [online] Available at: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat> [Accessed 10 October 2026].
+*/
