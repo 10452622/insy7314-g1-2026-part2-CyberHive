@@ -1,12 +1,13 @@
-
 const express = require("express");
 
 const {
     getGigs,
     getGigById,
+    getMyGigs,
     createGig,
     updateGig,
-    deleteGig
+    deleteGig,
+    setGigActive
 } = require("../controllers/gigController"); //(IIE, 2026)
 
 const {
@@ -25,6 +26,14 @@ const {
 const router = express.Router();
 
 router.get("/", getGigs);
+
+// Private route for freelancers to view their own created gigs (Page 14)
+router.get(
+    "/my-gigs", 
+    authenticateToken, 
+    authorizeRoles("Freelancer"), 
+    getMyGigs
+); 
 router.get("/:id", getGigById); //(IIE, 2026)
 
 router.post(
@@ -42,6 +51,13 @@ router.put(
     validateGigUpdate,
     updateGig
 ); //(IIE, 2026)
+
+router.patch(
+    "/:id/active",
+    authenticateToken,
+    authorizeRoles("Freelancer"),
+    setGigActive
+);
 
 router.delete(
     "/:id",
