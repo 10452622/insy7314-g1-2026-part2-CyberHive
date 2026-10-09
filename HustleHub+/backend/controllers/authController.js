@@ -1,54 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const fs = require("fs");
-const path = require("path");
-
-// File Path
-const usersFilePath = path.join(
-    __dirname,
-    "..",
-    "data",
-    "users.json"
-);
-
-
-function readUsers() {
-    try {
-        const data = fs.readFileSync(
-            usersFilePath,
-            "utf8"
-        );
-
-        if (!data.trim()) {
-            return [];
-        }
-
-        return JSON.parse(data);
-
-    } catch (error) {
-        throw new Error(
-            "Unable to read user data."
-        );
-    }
-} //(IIE, 2026)
-
-
-function saveUsers(users) {
-    try {
-        fs.writeFileSync(
-            usersFilePath,
-            JSON.stringify(users, null, 2),
-            "utf8"
-        );
-
-    } catch (error) {
-        throw new Error(
-            "Unable to save user data."
-        );
-    }
-}
-
+const User = require("../models/User");
 
 // POST /api/auth/register
 const register = async (req, res, next) => {
@@ -63,15 +16,8 @@ const register = async (req, res, next) => {
             role
         } = req.body;
 
-
-        const users = readUsers();
-
-
-        const existingUser = users.find(
-            user =>
-                user.email.toLowerCase() ===
-                email.toLowerCase()
-        ); //(IIE, 2026)
+        const normalizedEmail = email.toLowerCase();
+        const existingUser = await User.findOne({ email: normalizedEmail });
 
 
         // Input validation 
@@ -91,24 +37,14 @@ const register = async (req, res, next) => {
         ); //(Islam, 2019)
 
 
-        const newUser = {
-
-            id: crypto.randomUUID(),
-
+        const newUser = await User.create({
+            _id: crypto.randomUUID(),
             firstName,
             lastName,
-
-            email: email.toLowerCase(),
-
+            email: normalizedEmail,
             password: passwordHash,
-
             role
-        };
-
-
-        users.push(newUser);
-
-        saveUsers(users);
+        });
 
 
         // Successful response
@@ -120,7 +56,7 @@ const register = async (req, res, next) => {
                 "User registered successfully.",
 
             user: {
-                id: newUser.id,
+                id: newUser._id,
                 firstName: newUser.firstName,
                 lastName: newUser.lastName,
                 email: newUser.email,
@@ -146,14 +82,7 @@ const login = async (req, res, next) => {
         } = req.body;
 
 
-        const users = readUsers();
-
-
-        const user = users.find(
-            user =>
-                user.email.toLowerCase() ===
-                email.toLowerCase()
-        ); //(IIE, 2026)
+        const user = await User.findOne({ email: email.toLowerCase() });
 
 
         // Does not reveal whether the email exists
@@ -182,7 +111,7 @@ const login = async (req, res, next) => {
         }
 
         const firstName =
-            user.firstName || user.username || "User";
+            user.firstName || user.username || user.email.split("@")[0] || "User";
 
         const lastName =
             user.lastName || ""; //(IIE, 2026)
@@ -191,7 +120,7 @@ const login = async (req, res, next) => {
         // JWT Authentication
         const token = jwt.sign(
             {
-                id: user.id,
+                id: user._id,
                 firstName,
                 lastName,
                 role: user.role
@@ -218,7 +147,7 @@ const login = async (req, res, next) => {
             token,
 
             user: {
-                id: user.id,
+                id: user._id,
                 firstName,
                 lastName,
                 email: user.email,
@@ -243,14 +172,7 @@ const forgotPassword = async (req, res, next) => {
         } = req.body;
 
 
-        const users = readUsers();
-
-
-        const user = users.find(
-            user =>
-                user.email.toLowerCase() ===
-                email.toLowerCase()
-        ); //(IIE, 2026)
+        const user = await User.findOne({ email: email.toLowerCase() });
 
 
         /*
@@ -286,7 +208,7 @@ const forgotPassword = async (req, res, next) => {
                 Date.now() + (15 * 60 * 1000);
 
 
-            saveUsers(users);
+            await user.save();
 
             if (process.env.NODE_ENV !== "production") {
 

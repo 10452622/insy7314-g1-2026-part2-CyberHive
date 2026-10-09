@@ -125,9 +125,9 @@ function LoginPage() {
         return;
       }
 
-      // Preserve existing Freelancer login behaviour
+      // Freelancer landing page
       if (role === 'freelancer') {
-        navigate('/freelancer-dashboard', {
+        navigate('/freelancer/dashboard', {
           replace: true
         });
 

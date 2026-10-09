@@ -26,6 +26,13 @@ import BookingConfirmation from "./pages/BookingConfirmation"; /* (MDN Web Docs,
 import MyOrders from "./pages/MyOrders";
 import Messages from "./pages/Messages";
 
+import ClientOrders from "./pages/ClientOrders";                   /* Page 11 */
+import OrderDetails from "./pages/OrderDetails";           /* Page 12 */
+import FreelancerDashboard from "./pages/FreelancerDashboard"; /* Page 13 */
+import MyGigs from "./pages/MyGigs";                       /* Page 14 */
+import FreelancerOrders from "./pages/FreelancerOrders";   /* Page 15 */
+import FreelancerEarnings from "./pages/FreelancerEarnings";
+
 import {
     getCurrentUser,
     isAuthenticated
@@ -60,6 +67,37 @@ function ClientRoute() {
         .toLowerCase();
 
     if (role !== "client") {
+        return (
+            <Navigate
+                to="/login"
+                replace
+            />
+        );
+    }
+
+    return <Outlet />;
+}
+
+function FreelancerRoute() {
+    const location = useLocation();
+    const user = getCurrentUser();
+
+    if (!isAuthenticated() || !user) {
+        return (
+            <Navigate
+                to="/login"
+                state={{
+                    from: location.pathname + location.search
+                }}
+                replace
+            />
+        );
+    }
+
+    const role = String(user.role || "")
+        .trim()
+        .toLowerCase();
+    if (role !== "freelancer") {
         return (
             <Navigate
                 to="/login"
@@ -157,12 +195,48 @@ function App() {
                         />
 
                         <Route
+                            path="/client/orders/:orderId"
+                            element={<OrderDetails />}
+                        />
+
+                        <Route
                             path="/client/messages"
                             element={<Messages />}
                         />
 
                     </Route>
 
+                    {/* Freelancer Protected Routes */}
+                    <Route element={<FreelancerRoute />}>
+
+                        {/* Page 13: Freelancer Dashboard */}
+                        <Route
+                            path="/freelancer/dashboard"
+                            element={<FreelancerDashboard />}
+                        />
+
+                        {/* Page 14: My Gigs (Freelancer) */}
+                        <Route
+                            path="/freelancer/gigs"
+                            element={<MyGigs />}
+                        />
+
+                        {/* Page 15: Orders (Freelancer) */}
+                        <Route
+                            path="/freelancer/orders"
+                            element={<FreelancerOrders />}
+                        />
+
+                        <Route
+                            path="/freelancer/messages"
+                            element={<Messages />}
+                        />
+
+                        <Route
+                            path="/freelancer/earnings"
+                            element={<FreelancerEarnings />}
+                        />
+                    </Route>
                 </Route>
 
                 <Route

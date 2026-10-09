@@ -111,6 +111,60 @@ export const sendConversationMessage = async (
     });
 };
 
+export const getFreelancerGigs = async () => {
+    return request("/gigs/my-gigs");
+};
+
+export const fetchFreelancerGigs = async () => {
+    return getFreelancerGigs();
+};
+
+export const fetchOrderDetails = async (id) => {
+    return getBookingById(id);
+};
+
+export const createGig = async (gigData) => {
+    return request("/gigs", {
+        method: "POST",
+        body: JSON.stringify(gigData)
+    });
+};
+
+export const updateGig = async (gigId, gigData) => {
+    return request(`/gigs/${gigId}`, {
+        method: "PUT",
+        body: JSON.stringify(gigData)
+    });
+};
+
+export const deleteGig = async (gigId) => {
+    return request(`/gigs/${gigId}`, {
+        method: "DELETE"
+    });
+};
+
+export const setGigActive = async (gigId, isActive) => {
+    return request(`/gigs/${gigId}/active`, {
+        method: "PATCH",
+        body: JSON.stringify({ isActive })
+    });
+};
+
+export const getFreelancerOrders = async () => {
+    return request("/bookings/freelancer");
+};
+
+export const fetchFreelancerOrders = async () => {
+    return getFreelancerOrders();
+};
+
+export const updateOrderStatus = async (bookingId, status) => {
+    return request(`/bookings/${bookingId}/status`, {
+        method: "PATCH",
+        body: JSON.stringify({ status })
+    });
+};
+
 /*Reference List
 
 Mozilla, 2025. JavaScript reference: Standard built-in objects & Fetch API. [online] Available at: https://developer.mozilla.org/ [Accessed: 8 October 2026].

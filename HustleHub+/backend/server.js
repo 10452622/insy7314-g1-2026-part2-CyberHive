@@ -9,6 +9,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 const connectDB = require("./config/db");
+const migrateLegacyUsers = require("./config/migrateLegacyUsers");
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 
@@ -69,6 +70,7 @@ const certPath = path.join(
 const startServer = async () => {
     try {
         await connectDB();
+        await migrateLegacyUsers();
 
         if (
             fs.existsSync(keyPath) &&

@@ -85,7 +85,7 @@ function AccountTypePage() {
 
 
       if (selectedRole === 'Freelancer') {
-        navigate('/freelancer-dashboard', {
+        navigate('/freelancer/dashboard', {
           replace: true
         });
 

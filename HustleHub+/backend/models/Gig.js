@@ -68,6 +68,10 @@ const gigSchema = new mongoose.Schema(
         isActive: {
             type: Boolean,
             default: true
+        },
+        isDeleted: {
+            type: Boolean,
+            default: false
         }
     },
     {

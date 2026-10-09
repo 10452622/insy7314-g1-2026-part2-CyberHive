@@ -217,5 +217,21 @@
     "email": "grey@gmail.com",
     "password": "$2b$12$nZPnsTxL8DA2a9ePqFQERuXUKUNHGlJddxPsB2D3JNyr0LfEmByxC",
     "role": "Freelancer"
+  },
+  {
+    "id": "83effa8b-c72c-471e-a9cf-68c77c34d4b6",
+    "firstName": "Christina",
+    "lastName": "Lekana",
+    "email": "oratile.lekana@icloud.com",
+    "password": "$2b$12$JTPdOViHjK3.RQEpxV1h5uxNmER5N7zDJeyD1jws2tcBTnfUCROSi",
+    "role": "Client"
+  },
+  {
+    "id": "18304b00-e7b8-482b-8ed0-73f5a9e96e37",
+    "firstName": "Onkabetse",
+    "lastName": "Phoko",
+    "email": "onkaphoko@gmail.com",
+    "password": "$2b$12$nVjTa47PB4wNEvKIQvdX/ulD4rSH4S2PbbyJ.eWRwmdUWMHmRqsYu",
+    "role": "Freelancer"
   }
 ]
