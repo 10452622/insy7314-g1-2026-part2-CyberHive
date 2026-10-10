@@ -1,5 +1,7 @@
+//IIE, 2026
 const Transaction = require('../models/Transaction');
 
+//IIE, 2026
 exports.getEarningsOverview = async (req, res) => {
     try {
         const freelancerId = req.user._id;
@@ -37,3 +39,6 @@ exports.getTransactions = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+/*Reference List:
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of Education: Unpublished.*/

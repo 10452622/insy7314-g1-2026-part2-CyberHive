@@ -31,7 +31,9 @@ import OrderDetails from "./pages/OrderDetails";           /* Page 12 */
 import FreelancerDashboard from "./pages/FreelancerDashboard"; /* Page 13 */
 import MyGigs from "./pages/MyGigs";                       /* Page 14 */
 import FreelancerOrders from "./pages/FreelancerOrders";   /* Page 15 */
-import FreelancerEarnings from "./pages/FreelancerEarnings";
+import FreelancerEarnings from "./pages/FreelancerEarnings"; /* Page 16 - 18 */
+import FreelancerMessages from "./pages/FreelancerMessages"; /* Page 19 */
+import FreelancerSettings from "./pages/FreelancerSettings"; /* Page 20 */
 
 import {
     getCurrentUser,
