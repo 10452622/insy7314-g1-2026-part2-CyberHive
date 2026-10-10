@@ -3,7 +3,7 @@ import { getToken } from "./authSession";
 
 const API_BASE_URL =
     import.meta.env.VITE_API_URL ||
-    "https://localhost:5000"; // (Vite, 2024)
+    "http://localhost:5000"; // (Vite, 2024)
 
 const request = async (endpoint, options = {}) => {
     const token = getToken();

@@ -1,6 +1,6 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
-  'https://localhost:5000'; /* //(MDN Web Docs, 2026) */
+  'http://localhost:5000'; /* //(MDN Web Docs, 2026) */
 
 
 export async function registerUser(userData) {
