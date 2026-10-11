@@ -8,7 +8,9 @@ const links = [
   { label: "Orders", to: "/freelancer/orders" },
   { label: "Earnings", to: "/freelancer/earnings" },
   { label: "Tax", to: "/freelancer/estimated-tax" },
+  { label: "Transactions", to: "/freelancer/transactions" },
   { label: "Messages", to: "/freelancer/messages" },
+  { label: "Settings", to: "/freelancer/settings" },
 ];
 
 export function getFreelancerDisplayName(user = getCurrentUser()) {

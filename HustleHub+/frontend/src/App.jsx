@@ -34,6 +34,7 @@ import FreelancerOrders from "./pages/FreelancerOrders";
   /* Page 15 */
 import FreelancerEarnings from "./pages/FreelancerEarnings"; /* Page 16 */
 import FreelancerEstimatedTax from "./pages/FreelancerEstimatedTax"; /* Page 17 */
+import FreelancerTransactions from "./pages/FreelancerTransactions"; /* Page 18 */
 import FreelancerMessages from "./pages/FreelancerMessages"; /* Page 19 */
 import FreelancerSettings from "./pages/FreelancerSettings"; /* Page 20 */
 
@@ -233,7 +234,7 @@ function App() {
 
                         <Route
                             path="/freelancer/messages"
-                            element={<Messages />}
+                            element={<FreelancerMessages />}
                         />
 
                         <Route
@@ -244,6 +245,16 @@ function App() {
                         <Route
                             path="/freelancer/estimated-tax"
                             element={<FreelancerEstimatedTax />}
+                        />
+
+                        <Route
+                            path="/freelancer/transactions"
+                            element={<FreelancerTransactions />}
+                        />
+
+                        <Route
+                            path="/freelancer/settings"
+                            element={<FreelancerSettings />}
                         />
                     </Route>
                 </Route>
