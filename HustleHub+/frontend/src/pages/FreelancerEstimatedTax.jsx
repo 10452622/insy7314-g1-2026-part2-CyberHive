@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Calculator } from "lucide-react";
 import { fetchFreelancerOrders } from "../services/api";
@@ -18,68 +19,125 @@ function FreelancerEstimatedTax() {
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
 
+  // Fetch the freelancer's bookings from the existing API.
   useEffect(() => {
     let isCurrent = true;
 
-    fetchFreelancerOrders()
-      .then((response) => {
+    const loadBookings = async () => {
+      try {
+        setLoading(true);
+        setLoadError("");
+
+        const response = await fetchFreelancerOrders();
+
         if (!isCurrent) return;
 
-        setOrders(
-          Array.isArray(response.bookings) ? response.bookings : []
-        );
-      })
-      .catch((error) => {
+        // Support the API response formats used by common controllers.
+        const bookings = Array.isArray(response)
+          ? response
+          : Array.isArray(response?.bookings)
+          ? response.bookings
+          : Array.isArray(response?.orders)
+          ? response.orders
+          : Array.isArray(response?.data)
+          ? response.data
+          : null;
+
+        if (!bookings) {
+          throw new Error(
+            "The bookings API returned an unexpected response format."
+          );
+        }
+
+        setOrders(bookings);
+      } catch (error) {
         if (!isCurrent) return;
 
+        setOrders([]);
         setLoadError(
-          error?.message || "Your earnings could not be loaded."
+          error?.message ||
+            "Your bookings could not be loaded. Please try again."
         );
-      })
-      .finally(() => {
-        if (isCurrent) setLoading(false);
-      });
+      } finally {
+        if (isCurrent) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadBookings();
 
     return () => {
       isCurrent = false;
     };
   }, []);
 
-  const currentYear = new Date().getFullYear();
+  // South African tax year: 1 March to the end of February.
+  const now = new Date();
 
+  const taxYearStartYear =
+    now.getMonth() >= 2
+      ? now.getFullYear()
+      : now.getFullYear() - 1;
+
+  const taxYearLabel =
+    `${taxYearStartYear}/${taxYearStartYear + 1}`;
+
+  const taxYearStart = new Date(taxYearStartYear, 2, 1);
+  const nextTaxYearStart = new Date(taxYearStartYear + 1, 2, 1);
+
+  // Include bookings marked as completed.
   const completedOrders = orders.filter(
-    (order) => order.status === "Completed"
+    (order) =>
+      String(order.status || "").trim().toUpperCase() === "COMPLETED"
   );
 
+  // Keep only completed bookings within the current tax year.
   const yearlyOrders = completedOrders.filter((order) => {
-    if (!order.createdAt) return false;
+    // completedAt is recommended for accurate tax-year reporting.
+    // The supplied Booking schema does not yet contain completedAt,
+    // so updatedAt and createdAt are fallbacks.
+    const dateValue =
+      order.completedAt ||
+      order.updatedAt ||
+      order.createdAt;
 
-    const orderDate = new Date(order.createdAt);
+    if (!dateValue) return false;
+
+    const orderDate = new Date(dateValue);
 
     return (
       !Number.isNaN(orderDate.getTime()) &&
-      orderDate.getFullYear() === currentYear
+      orderDate >= taxYearStart &&
+      orderDate < nextTaxYearStart
     );
   });
 
+  // Sum the booking amounts for the selected tax year.
   const totalIncome = yearlyOrders.reduce(
-    (sum, order) => sum + (Number(order.amount) || 0),
+    (total, order) => total + (Number(order.amount) || 0),
     0
   );
 
+  // Keep user-entered deductions within the valid range.
   const deductionAmount = Math.min(
     totalIncome,
     Math.max(0, Number(deductions) || 0)
   );
 
-  const taxableIncome = Math.max(0, totalIncome - deductionAmount);
+  const taxableIncome = Math.max(
+    0,
+    totalIncome - deductionAmount
+  );
 
+  // This is an illustrative rate, not an official SARS tax calculation.
   const effectiveTaxRate = Math.min(
     100,
     Math.max(0, Number(taxRate) || 0)
   );
 
-  const estimatedTax = taxableIncome * (effectiveTaxRate / 100);
+  const estimatedTax =
+    taxableIncome * (effectiveTaxRate / 100);
 
   const afterTaxIncome =
     totalIncome - deductionAmount - estimatedTax;
@@ -88,7 +146,7 @@ function FreelancerEstimatedTax() {
     {
       label: "Total Income",
       value: money(totalIncome),
-      detail: `Completed bookings in ${currentYear}`,
+      detail: `Completed bookings in ${taxYearLabel}`,
     },
     {
       label: "Estimated Tax",
@@ -108,18 +166,33 @@ function FreelancerEstimatedTax() {
 
       <div className="freelancer-dashboard-content">
         <section className="freelancer-welcome">
-          <p className="freelancer-eyebrow">Financial overview</p>
+          <p className="freelancer-eyebrow">
+            Financial overview
+          </p>
+
           <h1>Estimated Tax</h1>
+
           <p>
-            Review your income and estimate how much you may need to set
-            aside for tax.
+            Review your completed booking income and estimate
+            how much you may need to set aside for tax.
+          </p>
+
+          <p>
+            <strong>Tax year:</strong> {taxYearLabel}
           </p>
         </section>
 
         {loadError && (
-          <p className="freelancer-dashboard-error" role="alert">
-            {loadError}
-          </p>
+          <div
+            className="freelancer-dashboard-error"
+            role="alert"
+          >
+            <p>{loadError}</p>
+            <p>
+              Your tax figures are unavailable until your
+              bookings can be loaded successfully.
+            </p>
+          </div>
         )}
 
         <section
@@ -127,13 +200,16 @@ function FreelancerEstimatedTax() {
           aria-label="Estimated tax summary"
         >
           {stats.map((stat) => (
-            <article className="freelancer-stat" key={stat.label}>
+            <article
+              className="freelancer-stat"
+              key={stat.label}
+            >
               <span className="freelancer-stat-label">
                 {stat.label}
               </span>
 
               <strong className="freelancer-stat-value">
-                {loading ? "—" : stat.value}
+                {loading || loadError ? "—" : stat.value}
               </strong>
 
               <span className="freelancer-stat-detail">
@@ -151,22 +227,34 @@ function FreelancerEstimatedTax() {
 
             {loading ? (
               <p className="freelancer-empty-state">
-                Loading your income…
+                Loading your bookings...
+              </p>
+            ) : loadError ? (
+              <p className="freelancer-empty-state">
+                Tax breakdown unavailable. Please check your
+                connection and try again.
               </p>
             ) : (
               <div className="fet-breakdown">
                 <div className="fet-breakdown-row">
-                  <span>Total income</span>
+                  <span>Completed bookings</span>
+                  <strong>{yearlyOrders.length}</strong>
+                </div>
+
+                <div className="fet-breakdown-row">
+                  <span>Total booking income</span>
                   <strong>{money(totalIncome)}</strong>
                 </div>
 
                 <div className="fet-breakdown-row">
-                  <span>Deductions</span>
-                  <strong>− {money(deductionAmount)}</strong>
+                  <span>Estimated deductions</span>
+                  <strong>
+                    − {money(deductionAmount)}
+                  </strong>
                 </div>
 
                 <div className="fet-breakdown-row">
-                  <span>Taxable income</span>
+                  <span>Estimated taxable income</span>
                   <strong>{money(taxableIncome)}</strong>
                 </div>
 
@@ -181,9 +269,16 @@ function FreelancerEstimatedTax() {
                 </div>
 
                 <div className="fet-breakdown-row fet-income-total">
-                  <span>Income after tax</span>
+                  <span>Income after estimate</span>
                   <strong>{money(afterTaxIncome)}</strong>
                 </div>
+
+                {yearlyOrders.length === 0 && (
+                  <p className="freelancer-empty-state">
+                    No completed bookings were found for this
+                    tax year.
+                  </p>
+                )}
               </div>
             )}
           </article>
@@ -191,14 +286,18 @@ function FreelancerEstimatedTax() {
           <article className="freelancer-panel fet-calculator-panel">
             <div className="freelancer-panel-heading">
               <h2>
-                <Calculator size={19} aria-hidden="true" />
+                <Calculator
+                  size={19}
+                  aria-hidden="true"
+                />
                 Adjust Your Estimate
               </h2>
             </div>
 
             <p className="fet-calculator-description">
-              Adjust the values below to see how deductions and your
-              estimated rate affect your remaining income.
+              Adjust the illustrative deductions and tax rate
+              to see how they affect your estimated remaining
+              income.
             </p>
 
             <div className="fet-form-group">
@@ -213,12 +312,15 @@ function FreelancerEstimatedTax() {
                 max={totalIncome}
                 step="0.01"
                 value={deductions}
-                onChange={(event) => setDeductions(event.target.value)}
-                disabled={loading}
+                onChange={(event) =>
+                  setDeductions(event.target.value)
+                }
+                disabled={loading || Boolean(loadError)}
               />
 
               <small>
-                Deductions cannot exceed your total recorded income.
+                Deductions are capped at your total recorded
+                booking income.
               </small>
             </div>
 
@@ -234,31 +336,49 @@ function FreelancerEstimatedTax() {
                 max="100"
                 step="1"
                 value={taxRate}
-                onChange={(event) => setTaxRate(event.target.value)}
-                disabled={loading}
+                onChange={(event) =>
+                  setTaxRate(event.target.value)
+                }
+                disabled={loading || Boolean(loadError)}
               />
 
               <small>
-                This is an illustrative rate that you can adjust.
+                This is a simplified, user-adjustable rate.
+                It is not your official SARS tax rate.
               </small>
             </div>
 
             <div className="fet-calculator-result">
               <span>Estimated amount remaining</span>
-              <strong>{loading ? "—" : money(afterTaxIncome)}</strong>
+
+              <strong>
+                {loading || loadError
+                  ? "—"
+                  : money(afterTaxIncome)}
+              </strong>
             </div>
           </article>
         </section>
 
         <aside className="fet-disclaimer">
           <strong>Important note</strong>
+
           <p>
-            This page provides a simplified estimate using completed
-            bookings recorded for the current calendar year. It does not
-            calculate your official South African tax liability or account
-            for all applicable tax brackets, rebates, exemptions, or
-            allowable deductions. Consult SARS guidance or a qualified
-            tax practitioner for your actual tax obligations.
+            This page provides a simplified estimate based on
+            completed bookings recorded for the current South
+            African tax year ({taxYearLabel}). Booking amounts
+            may not reflect the money actually received after
+            platform fees, refunds or other adjustments.
+          </p>
+
+          <p>
+            The calculation uses a flat illustrative rate and
+            user-entered deductions. It does not calculate
+            official South African tax liability or account
+            for all applicable tax brackets, rebates, exemptions
+            or allowable deductions. Consult SARS guidance or
+            a qualified tax practitioner for your actual tax
+            obligations.
           </p>
         </aside>
       </div>
