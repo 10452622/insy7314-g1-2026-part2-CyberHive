@@ -1,4 +1,3 @@
-
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { TrendingUp } from "lucide-react";
@@ -31,7 +30,10 @@ function getStatus(order) {
 }
 
 function getAmount(order) {
-    return Math.max(0, Number(order.price) || 0);
+    return Math.max(
+        0,
+        Number(order.amount ?? order.price) || 0
+    );
 }
 
 function EarningsChart({ values, months }) {
@@ -138,8 +140,14 @@ export default function FreelancerEarnings() {
 
                 if (!active) return;
 
-                if (response?.success && Array.isArray(response.data)) {
-                    setOrders(response.data);
+               const bookings = Array.isArray(response?.bookings)
+                    ? response.bookings
+                    : Array.isArray(response?.data)
+                    ? response.data
+                    : [];
+
+                if (response?.success) {
+                    setOrders(bookings);
                 } else {
                     setOrders([]);
                     setError(
