@@ -7,6 +7,7 @@ const links = [
   { label: "My Gigs", to: "/freelancer/gigs" },
   { label: "Orders", to: "/freelancer/orders" },
   { label: "Earnings", to: "/freelancer/earnings" },
+  { label: "Tax", to: "/freelancer/estimated-tax" },
   { label: "Messages", to: "/freelancer/messages" },
 ];
 
