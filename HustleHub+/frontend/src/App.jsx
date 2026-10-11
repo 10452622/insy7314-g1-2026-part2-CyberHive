@@ -38,6 +38,10 @@ import FreelancerTransactions from "./pages/FreelancerTransactions"; /* Page 18 
 import FreelancerMessages from "./pages/FreelancerMessages"; /* Page 19 */
 import FreelancerSettings from "./pages/FreelancerSettings"; /* Page 20 */
 
+import FreelancerProfile from "./pages/FreelancerProfile";
+import FreelancerAccountSettings from "./pages/FreelancerAccountSettings";
+
+
 import {
     getCurrentUser,
     isAuthenticated
@@ -255,6 +259,16 @@ function App() {
                         <Route
                             path="/freelancer/settings"
                             element={<FreelancerSettings />}
+                        />
+
+
+                        <Route
+                            path="/freelancer/profile"
+                            element={<FreelancerProfile />}
+                        />
+                        <Route
+                            path="/freelancer/account-settings"
+                            element={<FreelancerAccountSettings />}
                         />
                     </Route>
                 </Route>

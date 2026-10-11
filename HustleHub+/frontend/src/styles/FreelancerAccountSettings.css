@@ -1,0 +1,1096 @@
+
+/* =========================================
+   FREELANCER ACCOUNT SETTINGS
+   ========================================= */
+
+.fas-page {
+    min-height: 100vh;
+    background: #f8f9fc;
+    color: #202433;
+}
+
+.fas-content {
+    padding-top: 24px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+}
+
+/* =========================================
+   PAGE HEADING
+   ========================================= */
+
+.fas-heading {
+    margin-bottom: 20px;
+}
+
+.fas-eyebrow {
+    margin: 0 0 5px;
+    color: #6654dc;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.fas-heading h1 {
+    margin: 0;
+    color: #202433;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: 750;
+}
+
+.fas-heading > p:last-child {
+    margin: 5px 0 0;
+    color: #778092;
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   FEEDBACK NOTICES
+   ========================================= */
+
+.fas-notice {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 14px;
+    padding: 11px 13px;
+    border: 1px solid #e4defb;
+    border-radius: 7px;
+    background: #f8f6ff;
+    color: #5b4ca6;
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+.fas-notice > svg {
+    flex-shrink: 0;
+}
+
+.fas-notice > span {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.fas-notice > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.fas-notice > button:hover {
+    background: rgb(91 76 166 / 8%);
+}
+
+.fas-error-notice {
+    border-color: #f0d0d0;
+    background: #fff6f6;
+    color: #a33d39;
+}
+
+.fas-success-notice {
+    border-color: #d6eadb;
+    background: #f0f8f2;
+    color: #39754b;
+}
+
+/* =========================================
+   SETTINGS LAYOUT
+   ========================================= */
+
+.fas-settings-layout {
+    display: grid;
+    grid-template-columns: minmax(175px, 0.65fr) minmax(0, 2fr);
+    align-items: start;
+    gap: 14px;
+}
+
+.fas-settings-sidebar,
+.fas-settings-main {
+    min-width: 0;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+/* =========================================
+   SETTINGS SIDEBAR
+   Consistent with FreelancerProfile.css
+   ========================================= */
+
+.fas-settings-sidebar {
+    position: sticky;
+    top: 20px;
+    padding: 14px 10px;
+}
+
+.fas-settings-sidebar > h2 {
+    margin: 2px 8px 13px;
+    color: #292d3c;
+    font-size: 0.8rem;
+    font-weight: 750;
+}
+
+.fas-settings-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fas-settings-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    min-height: 36px;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #687183;
+    font-family: inherit;
+    font-size: 0.68rem;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition:
+        background 120ms ease,
+        color 120ms ease;
+}
+
+.fas-settings-nav-item > svg:first-child {
+    flex-shrink: 0;
+}
+
+.fas-settings-nav-item > span {
+    flex: 1;
+    min-width: 0;
+}
+
+.fas-settings-nav-item:hover {
+    background: #f8f7ff;
+    color: #5b43d6;
+}
+
+.fas-settings-nav-item.is-active {
+    background: #f0edff;
+    color: #5b43d6;
+    font-weight: 700;
+}
+
+.fas-settings-nav-item:focus-visible {
+    outline: 3px solid rgb(102 84 220 / 25%);
+    outline-offset: 2px;
+}
+
+.fas-nav-chevron {
+    flex-shrink: 0;
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.fas-settings-nav-item.is-active .fas-nav-chevron {
+    opacity: 1;
+}
+
+.fas-logout-item {
+    margin-top: 8px;
+    border-top: 1px solid #f0f1f5;
+    border-radius: 0;
+    padding-top: 14px;
+    color: #b94d4d;
+}
+
+.fas-logout-item:hover {
+    background: #fff5f5;
+    color: #a33d39;
+}
+
+/* =========================================
+   MAIN SETTINGS PANEL
+   ========================================= */
+
+.fas-settings-main {
+    overflow: hidden;
+}
+
+.fas-settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+}
+
+/* =========================================
+   ACCOUNT SUMMARY
+   ========================================= */
+
+.fas-account-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.fas-avatar {
+    display: flex;
+    flex: 0 0 54px;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #f0edff;
+    color: #5b43d6;
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+.fas-summary-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.fas-summary-info h2 {
+    margin: 0;
+    color: #292d3c;
+    font-size: 0.9rem;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.fas-summary-info > p {
+    margin: 5px 0;
+    color: #778092;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.fas-summary-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #89909c;
+    font-size: 0.65rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.fas-summary-email svg {
+    flex-shrink: 0;
+}
+
+/* =========================================
+   INFORMATION BANNER
+   ========================================= */
+
+.fas-info-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid #e4defb;
+    border-radius: 7px;
+    background: #f8f6ff;
+    color: #5b4ca6;
+}
+
+.fas-info-banner > svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.fas-info-banner p {
+    margin: 0;
+    font-size: 0.69rem;
+    line-height: 1.7;
+}
+
+/* =========================================
+   SETTINGS SECTIONS
+   ========================================= */
+
+.fas-section {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.fas-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 17px 18px;
+    border-bottom: 1px solid #e8eaf0;
+}
+
+.fas-panel-heading > div {
+    min-width: 0;
+}
+
+.fas-panel-heading h2 {
+    margin: 0;
+    color: #292d3c;
+    font-size: 0.86rem;
+    font-weight: 750;
+}
+
+.fas-panel-heading p {
+    margin: 5px 0 0;
+    color: #89909c;
+    font-size: 0.68rem;
+    line-height: 1.6;
+}
+
+.fas-heading-icon {
+    display: inline-flex;
+    flex: 0 0 39px;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    border-radius: 8px;
+    background: #f0edff;
+    color: #5b43d6;
+}
+
+.fas-section-body {
+    padding: 17px 18px;
+}
+
+/* =========================================
+   ACCOUNT INFORMATION ROWS
+   ========================================= */
+
+.fas-account-detail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 4px 0;
+}
+
+.fas-detail-icon {
+    display: flex;
+    flex: 0 0 36px;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 7px;
+    background: #f8f7ff;
+    color: #6654dc;
+}
+
+.fas-detail-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.fas-detail-content > span {
+    color: #89909c;
+    font-size: 0.65rem;
+}
+
+.fas-detail-content > strong {
+    color: #303849;
+    font-size: 0.73rem;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+}
+
+.fas-detail-content > small {
+    color: #89909c;
+    font-size: 0.62rem;
+    line-height: 1.5;
+}
+
+.fas-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    padding: 5px 8px;
+    border: 1px solid #d6eadb;
+    border-radius: 20px;
+    background: #f0f8f2;
+    color: #39754b;
+    font-size: 0.61rem;
+    font-weight: 650;
+}
+
+.fas-detail-divider {
+    height: 1px;
+    margin: 15px 0;
+    background: #edf0f5;
+}
+
+/* =========================================
+   FORM GRID AND INPUTS
+   ========================================= */
+
+.fas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 14px;
+}
+
+.fas-form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.fas-form-group > label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 6px;
+    color: #596173;
+    font-size: 0.68rem;
+    font-weight: 650;
+}
+
+.fas-form-group > label svg {
+    flex-shrink: 0;
+    color: #6654dc;
+}
+
+.fas-form-group select {
+    width: 100%;
+    min-width: 0;
+    min-height: 39px;
+    padding: 9px 30px 9px 10px;
+    border: 1px solid #dfe2ea;
+    border-radius: 6px;
+    outline: none;
+    background-color: #fff;
+    color: #303849;
+    font-family: inherit;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+.fas-form-group select:focus {
+    border-color: #6654dc;
+    box-shadow: 0 0 0 3px rgb(102 84 220 / 10%);
+}
+
+.fas-form-group select:focus-visible {
+    outline: 2px solid rgb(102 84 220 / 20%);
+    outline-offset: 1px;
+}
+
+.fas-form-group small {
+    margin-top: 6px;
+    color: #89909c;
+    font-size: 0.61rem;
+    line-height: 1.6;
+}
+
+.fas-field-note {
+    margin: 14px 0 0;
+    color: #89909c;
+    font-size: 0.64rem;
+    line-height: 1.7;
+}
+
+/* =========================================
+   THEME OPTIONS
+   ========================================= */
+
+.fas-theme-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.fas-theme-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    min-width: 0;
+    padding: 13px 10px;
+    border: 1px solid #e1e4ec;
+    border-radius: 7px;
+    background: #fff;
+    cursor: pointer;
+    transition:
+        border-color 150ms ease,
+        background 150ms ease;
+}
+
+.fas-theme-option:hover {
+    border-color: #cfc6fa;
+    background: #faf9ff;
+}
+
+.fas-theme-option.is-selected {
+    border-color: #8c7ce7;
+    background: #f8f6ff;
+}
+
+.fas-theme-option input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.fas-theme-option input:focus-visible + .fas-theme-radio {
+    outline: 3px solid rgb(102 84 220 / 25%);
+    outline-offset: 3px;
+}
+
+.fas-theme-radio {
+    display: inline-flex;
+    flex: 0 0 16px;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    border: 1px solid #c6cad5;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.fas-theme-option.is-selected .fas-theme-radio {
+    border-color: #6654dc;
+}
+
+.fas-theme-option.is-selected .fas-theme-radio::after {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #6654dc;
+    content: "";
+}
+
+.fas-theme-text {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.fas-theme-text strong {
+    color: #303849;
+    font-size: 0.69rem;
+    font-weight: 700;
+}
+
+.fas-theme-text small {
+    color: #89909c;
+    font-size: 0.61rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   EMAIL PREFERENCE TOGGLES
+   ========================================= */
+
+.fas-toggle-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.fas-toggle-copy {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.fas-toggle-copy strong {
+    color: #303849;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.fas-toggle-copy small {
+    color: #89909c;
+    font-size: 0.64rem;
+    line-height: 1.6;
+}
+
+.fas-toggle-input {
+    position: absolute;
+    right: 0;
+    width: 39px;
+    height: 23px;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.fas-toggle-track {
+    position: relative;
+    display: block;
+    flex: 0 0 39px;
+    width: 39px;
+    height: 23px;
+    border-radius: 20px;
+    background: #d9dde6;
+    transition: background 150ms ease;
+}
+
+.fas-toggle-track::after {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%);
+    content: "";
+    transition: transform 150ms ease;
+}
+
+.fas-toggle-input:checked + .fas-toggle-track {
+    background: #6654dc;
+}
+
+.fas-toggle-input:checked + .fas-toggle-track::after {
+    transform: translateX(16px);
+}
+
+.fas-toggle-input:focus-visible + .fas-toggle-track {
+    outline: 3px solid rgb(102 84 220 / 25%);
+    outline-offset: 3px;
+}
+
+/* =========================================
+   ACCOUNT MANAGEMENT
+   ========================================= */
+
+.fas-management-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-width: 0;
+}
+
+.fas-management-row > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.fas-management-row strong {
+    display: block;
+    color: #303849;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.fas-management-row p {
+    margin: 5px 0 0;
+    color: #89909c;
+    font-size: 0.65rem;
+    line-height: 1.7;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.fas-primary-button,
+.fas-secondary-button,
+.fas-danger-outline-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 35px;
+    padding: 9px 14px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 650;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        color 150ms ease,
+        opacity 150ms ease;
+}
+
+.fas-primary-button {
+    border-color: #5b43d6;
+    background: #5b43d6;
+    color: #fff;
+}
+
+.fas-primary-button:hover:not(:disabled) {
+    border-color: #4933bf;
+    background: #4933bf;
+}
+
+.fas-secondary-button {
+    border-color: #e1e4ec;
+    background: #fff;
+    color: #555d6d;
+}
+
+.fas-secondary-button:hover:not(:disabled) {
+    border-color: #d8d0fa;
+    background: #f8f7ff;
+    color: #5b43d6;
+}
+
+.fas-danger-outline-button {
+    border-color: #f0d0d0;
+    background: #fff;
+    color: #a33d39;
+}
+
+.fas-danger-outline-button:hover {
+    border-color: #e9b9b9;
+    background: #fff6f6;
+}
+
+.fas-primary-button:focus-visible,
+.fas-secondary-button:focus-visible,
+.fas-danger-outline-button:focus-visible {
+    outline: 3px solid rgb(102 84 220 / 25%);
+    outline-offset: 2px;
+}
+
+.fas-primary-button:disabled,
+.fas-secondary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   FORM ACTIONS
+   ========================================= */
+
+.fas-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 3px 0 0;
+}
+
+.fas-form-actions button {
+    min-width: 140px;
+}
+
+/* =========================================
+   LOADING
+   ========================================= */
+
+.fas-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 230px;
+    padding: 25px;
+}
+
+.fas-loading p {
+    margin: 0;
+    color: #778092;
+    font-size: 0.75rem;
+}
+
+.fas-loading-icon {
+    flex-shrink: 0;
+    color: #6654dc;
+    animation: fas-spin 1s linear infinite;
+}
+
+@keyframes fas-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 820px) {
+    .fas-settings-layout {
+        grid-template-columns:
+            minmax(145px, 0.65fr)
+            minmax(0, 1.7fr);
+        gap: 10px;
+    }
+
+    .fas-settings-sidebar {
+        padding: 12px 7px;
+    }
+
+    .fas-settings-nav-item {
+        gap: 7px;
+        padding: 9px 7px;
+        font-size: 0.64rem;
+    }
+
+    .fas-panel-heading {
+        padding: 14px;
+    }
+
+    .fas-section-body {
+        padding: 14px;
+    }
+
+    .fas-account-summary {
+        padding: 14px;
+    }
+
+    .fas-account-summary > .fas-secondary-button {
+        padding: 8px 10px;
+    }
+
+    .fas-theme-options {
+        gap: 7px;
+    }
+
+    .fas-theme-option {
+        padding: 11px 8px;
+    }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 620px) {
+    .fas-content {
+        padding-top: 20px;
+        padding-bottom: 28px;
+    }
+
+    .fas-heading {
+        margin-bottom: 16px;
+    }
+
+    .fas-settings-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .fas-settings-sidebar {
+        position: static;
+        padding: 12px;
+    }
+
+    .fas-settings-sidebar > h2 {
+        margin: 2px 2px 11px;
+    }
+
+    .fas-settings-sidebar nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
+    }
+
+    .fas-settings-nav-item {
+        min-width: 0;
+        min-height: 38px;
+        gap: 7px;
+        padding: 9px 8px;
+        font-size: 0.65rem;
+    }
+
+    .fas-settings-nav-item > span {
+        overflow-wrap: anywhere;
+    }
+
+    .fas-nav-chevron {
+        display: none;
+    }
+
+    .fas-logout-item {
+        margin-top: 0;
+        border-top: 0;
+        border-radius: 5px;
+        padding-top: 9px;
+    }
+
+    .fas-settings-form {
+        gap: 12px;
+    }
+
+    .fas-account-summary {
+        flex-wrap: wrap;
+        gap: 11px;
+        padding: 13px;
+    }
+
+    .fas-avatar {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+        font-size: 0.9rem;
+    }
+
+    .fas-summary-info {
+        flex-basis: calc(100% - 65px);
+    }
+
+    .fas-account-summary > .fas-secondary-button {
+        width: 100%;
+    }
+
+    .fas-panel-heading {
+        padding: 14px 12px;
+    }
+
+    .fas-panel-heading h2 {
+        font-size: 0.8rem;
+    }
+
+    .fas-panel-heading p {
+        font-size: 0.65rem;
+    }
+
+    .fas-heading-icon {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .fas-section-body {
+        padding: 14px 12px;
+    }
+
+    .fas-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    .fas-form-group select {
+        font-size: 0.75rem;
+    }
+
+    .fas-theme-options {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .fas-theme-option {
+        align-items: center;
+        padding: 12px;
+    }
+
+    .fas-theme-text {
+        gap: 3px;
+    }
+
+    .fas-management-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .fas-management-row > .fas-secondary-button,
+    .fas-management-row > .fas-danger-outline-button {
+        width: 100%;
+    }
+
+    .fas-account-detail {
+        flex-wrap: wrap;
+        gap: 9px;
+    }
+
+    .fas-detail-content {
+        flex-basis: calc(100% - 50px);
+    }
+
+    .fas-status-pill {
+        margin-left: 45px;
+    }
+
+    .fas-form-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .fas-form-actions button {
+        width: 100%;
+    }
+
+    .fas-notice {
+        align-items: flex-start;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 360px) {
+    .fas-settings-nav-item {
+        gap: 5px;
+        padding: 8px 6px;
+        font-size: 0.61rem;
+    }
+
+    .fas-settings-nav-item > svg:first-child {
+        width: 14px;
+        height: 14px;
+    }
+
+    .fas-summary-info h2 {
+        font-size: 0.82rem;
+    }
+
+    .fas-primary-button,
+    .fas-secondary-button,
+    .fas-danger-outline-button {
+        padding: 9px 10px;
+        font-size: 0.65rem;
+    }
+
+    .fas-info-banner {
+        padding: 10px;
+    }
+}

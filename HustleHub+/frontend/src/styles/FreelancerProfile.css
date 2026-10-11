@@ -1,0 +1,858 @@
+
+/* =========================================
+   FREELANCER PROFILE PAGE
+   ========================================= */
+
+.fps-page {
+    min-height: 100vh;
+    background: #f8f9fc;
+    color: #202433;
+}
+
+.fps-content {
+    padding-top: 24px;
+    padding-bottom: 40px;
+}
+
+/* =========================================
+   PAGE HEADING
+   ========================================= */
+
+.fps-heading {
+    margin-bottom: 20px;
+}
+
+.fps-eyebrow {
+    margin: 0 0 5px;
+    color: #6654dc;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.fps-heading h1 {
+    margin: 0;
+    color: #202433;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: 750;
+}
+
+.fps-heading > p:last-child {
+    margin: 5px 0 0;
+    color: #778092;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+/* =========================================
+   NOTICES
+   ========================================= */
+
+.fps-notice {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 14px;
+    padding: 11px 13px;
+    border: 1px solid #e4defb;
+    border-radius: 7px;
+    background: #f8f6ff;
+    color: #5b4ca6;
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+.fps-notice > span {
+    flex: 1;
+    min-width: 0;
+}
+
+.fps-notice > svg {
+    flex-shrink: 0;
+}
+
+.fps-notice > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.fps-notice > button:hover {
+    background: rgb(91 76 166 / 8%);
+}
+
+.fps-error-notice {
+    border-color: #f0d0d0;
+    background: #fff6f6;
+    color: #a33d39;
+}
+
+.fps-error-notice > button:hover {
+    background: rgb(163 61 57 / 8%);
+}
+
+.fps-success-notice {
+    border-color: #d6eadb;
+    background: #f0f8f2;
+    color: #39754b;
+}
+
+/* =========================================
+   SETTINGS LAYOUT
+   ========================================= */
+
+.fps-settings-layout {
+    display: grid;
+    grid-template-columns: minmax(175px, 0.65fr) minmax(0, 2fr);
+    align-items: start;
+    gap: 14px;
+}
+
+.fps-settings-sidebar,
+.fps-settings-main {
+    min-width: 0;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+/* =========================================
+   SETTINGS SIDEBAR
+   ========================================= */
+
+.fps-settings-sidebar {
+    position: sticky;
+    top: 20px;
+    padding: 14px 10px;
+}
+
+.fps-settings-sidebar > h2 {
+    margin: 2px 8px 13px;
+    color: #292d3c;
+    font-size: 0.8rem;
+    font-weight: 750;
+}
+
+.fps-settings-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fps-settings-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    min-height: 36px;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #687183;
+    font-family: inherit;
+    font-size: 0.68rem;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        background 120ms ease,
+        color 120ms ease;
+    box-sizing: border-box;
+}
+
+.fps-settings-nav-item > svg:first-child {
+    flex-shrink: 0;
+}
+
+.fps-settings-nav-item > span {
+    flex: 1;
+    min-width: 0;
+}
+
+.fps-settings-nav-item:hover {
+    background: #f8f7ff;
+    color: #5b43d6;
+}
+
+.fps-settings-nav-item.is-active {
+    background: #f0edff;
+    color: #5b43d6;
+    font-weight: 700;
+}
+
+.fps-settings-nav-item:focus-visible {
+    outline: 3px solid rgb(102 84 220 / 25%);
+    outline-offset: 2px;
+}
+
+.fps-nav-chevron {
+    flex-shrink: 0;
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.fps-settings-nav-item.is-active .fps-nav-chevron {
+    opacity: 1;
+}
+
+.fps-logout-item {
+    margin-top: 8px;
+    border-top: 1px solid #f0f1f5;
+    border-radius: 0;
+    padding-top: 14px;
+    color: #b94d4d;
+}
+
+.fps-logout-item:hover {
+    background: #fff5f5;
+    color: #a33d39;
+}
+
+/* =========================================
+   MAIN PROFILE PANEL
+   ========================================= */
+
+.fps-settings-main {
+    overflow: hidden;
+}
+
+.fps-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+}
+
+/* =========================================
+   PROFILE SUMMARY
+   ========================================= */
+
+.fps-profile-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.fps-avatar {
+    display: flex;
+    flex: 0 0 54px;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #f0edff;
+    color: #5b43d6;
+    font-size: 1rem;
+    font-weight: 750;
+    text-transform: uppercase;
+}
+
+.fps-profile-summary-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.fps-profile-summary-info h2 {
+    margin: 0;
+    color: #292d3c;
+    font-size: 0.9rem;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.fps-profile-summary-info > p {
+    margin: 5px 0;
+    color: #778092;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.fps-profile-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #89909c;
+    font-size: 0.65rem;
+    line-height: 1.5;
+}
+
+.fps-profile-location svg {
+    flex-shrink: 0;
+}
+
+.fps-photo-hint {
+    margin: -6px 0 0;
+    padding: 0 3px;
+    color: #89909c;
+    font-size: 0.64rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   PROFILE SECTIONS
+   ========================================= */
+
+.fps-profile-section {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.fps-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 17px 18px;
+    border-bottom: 1px solid #e8eaf0;
+}
+
+.fps-panel-heading > div {
+    min-width: 0;
+}
+
+.fps-panel-heading h2 {
+    margin: 0;
+    color: #292d3c;
+    font-size: 0.86rem;
+    font-weight: 750;
+}
+
+.fps-panel-heading p {
+    margin: 5px 0 0;
+    color: #89909c;
+    font-size: 0.68rem;
+    line-height: 1.6;
+}
+
+.fps-heading-icon {
+    display: inline-flex;
+    flex: 0 0 39px;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    border-radius: 8px;
+    background: #f0edff;
+    color: #5b43d6;
+}
+
+.fps-section-body {
+    padding: 17px 18px;
+}
+
+/* =========================================
+   FORM GRID AND FIELDS
+   ========================================= */
+
+.fps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px 14px;
+}
+
+.fps-form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    margin: 0;
+}
+
+.fps-form-group > label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 6px;
+    color: #596173;
+    font-size: 0.68rem;
+    font-weight: 650;
+}
+
+.fps-form-group > label svg {
+    flex-shrink: 0;
+    color: #6654dc;
+}
+
+.fps-form-group input,
+.fps-form-group textarea {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 10px 11px;
+    border: 1px solid #dfe2ea;
+    border-radius: 6px;
+    outline: none;
+    background: #fff;
+    color: #303849;
+    font-family: inherit;
+    font-size: 0.7rem;
+    line-height: 1.5;
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+.fps-form-group input {
+    min-height: 38px;
+}
+
+.fps-form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.fps-form-group input::placeholder,
+.fps-form-group textarea::placeholder {
+    color: #a0a5b0;
+}
+
+.fps-form-group input:focus,
+.fps-form-group textarea:focus {
+    border-color: #6654dc;
+    box-shadow: 0 0 0 3px rgb(102 84 220 / 10%);
+}
+
+.fps-form-group input[readonly] {
+    background: #f8f9fc;
+    color: #778092;
+    cursor: not-allowed;
+}
+
+.fps-form-group small {
+    margin-top: 5px;
+    color: #89909c;
+    font-size: 0.61rem;
+    line-height: 1.5;
+}
+
+.fps-full-width {
+    grid-column: 1 / -1;
+}
+
+.fps-character-count {
+    align-self: flex-end;
+    margin-top: 5px;
+    color: #89909c;
+    font-size: 0.62rem;
+}
+
+/* =========================================
+   SKILLS
+   ========================================= */
+
+.fps-skill-input {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    min-width: 0;
+}
+
+.fps-skill-input input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 37px;
+    padding: 9px 10px;
+    border: 1px solid #dfe2ea;
+    border-radius: 6px;
+    outline: none;
+    background: #fff;
+    color: #303849;
+    font-family: inherit;
+    font-size: 0.7rem;
+}
+
+.fps-skill-input input::placeholder {
+    color: #a0a5b0;
+}
+
+.fps-skill-input input:focus {
+    border-color: #6654dc;
+    box-shadow: 0 0 0 3px rgb(102 84 220 / 10%);
+}
+
+.fps-skills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.fps-skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    max-width: 100%;
+    padding: 6px 8px 6px 10px;
+    border: 1px solid #e4defb;
+    border-radius: 20px;
+    background: #f8f6ff;
+    color: #5b4ca6;
+    font-size: 0.65rem;
+    overflow-wrap: anywhere;
+}
+
+.fps-skill-tag > button {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 19px;
+    height: 19px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #5b4ca6;
+    cursor: pointer;
+}
+
+.fps-skill-tag > button:hover {
+    background: #e8e1ff;
+    color: #4933bf;
+}
+
+.fps-empty-skills {
+    margin: 0;
+    color: #89909c;
+    font-size: 0.67rem;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.fps-primary-button,
+.fps-secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 35px;
+    padding: 9px 14px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 650;
+    line-height: 1.3;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        color 150ms ease,
+        opacity 150ms ease;
+}
+
+.fps-primary-button {
+    border-color: #5b43d6;
+    background: #5b43d6;
+    color: #fff;
+}
+
+.fps-primary-button:hover:not(:disabled) {
+    border-color: #4933bf;
+    background: #4933bf;
+}
+
+.fps-secondary-button {
+    border-color: #e1e4ec;
+    background: #fff;
+    color: #555d6d;
+}
+
+.fps-secondary-button:hover:not(:disabled) {
+    border-color: #d8d0fa;
+    background: #f8f7ff;
+    color: #5b43d6;
+}
+
+.fps-primary-button:focus-visible,
+.fps-secondary-button:focus-visible {
+    outline: 3px solid rgb(102 84 220 / 25%);
+    outline-offset: 2px;
+}
+
+.fps-primary-button:disabled,
+.fps-secondary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   FORM ACTIONS
+   ========================================= */
+
+.fps-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 3px 0 0;
+}
+
+.fps-form-actions button {
+    min-width: 125px;
+}
+
+/* =========================================
+   LOADING STATE
+   ========================================= */
+
+.fps-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 230px;
+    padding: 25px;
+}
+
+.fps-loading p {
+    margin: 0;
+    color: #778092;
+    font-size: 0.75rem;
+}
+
+.fps-loading-icon {
+    flex-shrink: 0;
+    color: #6654dc;
+    animation: fps-spin 1s linear infinite;
+}
+
+@keyframes fps-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 820px) {
+    .fps-settings-layout {
+        grid-template-columns:
+            minmax(145px, 0.65fr)
+            minmax(0, 1.7fr);
+        gap: 10px;
+    }
+
+    .fps-settings-sidebar {
+        padding: 12px 7px;
+    }
+
+    .fps-settings-nav-item {
+        gap: 7px;
+        padding: 9px 7px;
+        font-size: 0.64rem;
+    }
+
+    .fps-panel-heading {
+        padding: 14px;
+    }
+
+    .fps-section-body {
+        padding: 14px;
+    }
+
+    .fps-profile-summary {
+        padding: 14px;
+    }
+
+    .fps-profile-summary .fps-secondary-button {
+        padding: 8px 10px;
+    }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 620px) {
+    .fps-content {
+        padding-top: 20px;
+        padding-bottom: 28px;
+    }
+
+    .fps-heading {
+        margin-bottom: 16px;
+    }
+
+    .fps-settings-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .fps-settings-sidebar {
+        position: static;
+        padding: 12px;
+    }
+
+    .fps-settings-sidebar > h2 {
+        margin: 2px 2px 11px;
+    }
+
+    .fps-settings-sidebar nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
+    }
+
+    .fps-settings-nav-item {
+        min-width: 0;
+        min-height: 38px;
+        gap: 7px;
+        padding: 9px 8px;
+        font-size: 0.65rem;
+    }
+
+    .fps-settings-nav-item > span {
+        overflow-wrap: anywhere;
+    }
+
+    .fps-nav-chevron {
+        display: none;
+    }
+
+    .fps-logout-item {
+        margin-top: 0;
+        border-top: 0;
+        border-radius: 5px;
+        padding-top: 9px;
+    }
+
+    .fps-profile-form {
+        gap: 12px;
+    }
+
+    .fps-profile-summary {
+        flex-wrap: wrap;
+        gap: 11px;
+        padding: 13px;
+    }
+
+    .fps-avatar {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+        font-size: 0.9rem;
+    }
+
+    .fps-profile-summary-info {
+        flex-basis: calc(100% - 65px);
+    }
+
+    .fps-profile-summary > .fps-secondary-button {
+        width: 100%;
+    }
+
+    .fps-panel-heading {
+        padding: 14px 12px;
+    }
+
+    .fps-panel-heading h2 {
+        font-size: 0.8rem;
+    }
+
+    .fps-panel-heading p {
+        font-size: 0.65rem;
+    }
+
+    .fps-heading-icon {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .fps-section-body {
+        padding: 14px 12px;
+    }
+
+    .fps-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+    }
+
+    .fps-full-width {
+        grid-column: auto;
+    }
+
+    .fps-form-group input,
+    .fps-form-group textarea {
+        font-size: 0.75rem;
+    }
+
+    .fps-skill-input {
+        flex-direction: column;
+    }
+
+    .fps-skill-input .fps-secondary-button {
+        width: 100%;
+    }
+
+    .fps-form-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .fps-form-actions button {
+        width: 100%;
+    }
+
+    .fps-notice {
+        align-items: flex-start;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 360px) {
+    .fps-settings-nav-item {
+        gap: 5px;
+        padding: 8px 6px;
+        font-size: 0.61rem;
+    }
+
+    .fps-settings-nav-item > svg:first-child {
+        width: 14px;
+        height: 14px;
+    }
+
+    .fps-profile-summary-info h2 {
+        font-size: 0.82rem;
+    }
+
+    .fps-primary-button,
+    .fps-secondary-button {
+        padding: 9px 10px;
+        font-size: 0.65rem;
+    }
+}

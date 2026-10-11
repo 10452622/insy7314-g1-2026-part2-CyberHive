@@ -164,6 +164,18 @@ export const updateOrderStatus = async (bookingId, status) => {
     });
 };
 
+export const fetchMyProfile = async () => {
+    return request("/users/me");
+};
+
+export const updateMyProfile = async (profileData) => {
+    return request("/users/me", {
+        method: "PATCH",
+        body: JSON.stringify(profileData)
+    });
+};
+
+
 /*Reference List
 
 Mozilla, 2025. JavaScript reference: Standard built-in objects & Fetch API. [online] Available at: https://developer.mozilla.org/ [Accessed: 8 October 2026].
