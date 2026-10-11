@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 const Booking = require("../models/Booking");
 const Message = require("../models/Message");
@@ -90,15 +89,20 @@ const getBookingMessages = async (req, res, next) => {
             }); //(IIE, 2026)
         }
 
-        const messages = await Message.find({
-            booking: booking._id
-        })
+       const messages = await Message.find({ booking: booking._id })
             .sort({ createdAt: 1, _id: 1 })
             .lean();
 
+       const userId = String(req.user.id);
+
+       const messagesWithOwnership = messages.map((message) => ({
+                ...message,
+                isMine: String(message.sender) === userId
+        }));
+
         return res.status(200).json({
             success: true,
-            messages
+            messages: messagesWithOwnership
         });
     } catch (error) {
         next(error);

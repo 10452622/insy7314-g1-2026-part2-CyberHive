@@ -1,5 +1,4 @@
-import React, { useMemo, useState } from "react";
-
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Search,
   Plus,
@@ -9,171 +8,286 @@ import {
   Smile,
   CheckCheck,
 } from "lucide-react";
+
 import FreelancerHeader from "../components/FreelancerHeader";
+import {
+  getMyConversations,
+  getConversationMessages,
+  sendConversationMessage,
+} from "../services/api";
+
 import "../styles/FreelancerMessages.css";
 
-const initialConversations = [
-  {
-    id: "1",
-    name: "John Smith",
-    initials: "JS",
-    online: true,
-    unread: 1,
-    time: "10:42 AM",
-    preview: "Hi Sarah, I've attached the...",
-    messages: [
-      {
-        id: 1,
-        sender: "them",
-        text: "Hi Sarah, I've attached the first few logo concepts. Can you take a look?",
-        time: "10:35 AM",
-      },
-      {
-        id: 2,
-        sender: "me",
-        text: "Hi John! Thank you for sending these through.",
-        time: "10:38 AM",
-      },
-      {
-        id: 3,
-        sender: "them",
-        text: "Let me know if you would like any changes.",
-        time: "10:42 AM",
-      },
-    ],
-  },
-  {
-    id: "2",
-    name: "Tech Corp",
-    initials: "TC",
-    online: true,
-    unread: 0,
-    time: "Yesterday",
-    preview: "Please find the brief attached.",
-    messages: [
-      {
-        id: 1,
-        sender: "them",
-        text: "Hello! Please find the project brief attached.",
-        time: "Yesterday",
-      },
-    ],
-  },
-  {
-    id: "3",
-    name: "Emma Brown",
-    initials: "EB",
-    online: false,
-    unread: 0,
-    time: "2 days ago",
-    preview: "Thank you!",
-    messages: [
-      {
-        id: 1,
-        sender: "them",
-        text: "Thank you for completing the design. Everything looks great!",
-        time: "2 days ago",
-      },
-    ],
-  },
-  {
-    id: "4",
-    name: "Mike Johnson",
-    initials: "MJ",
-    online: false,
-    unread: 0,
-    time: "3 days ago",
-    preview: "Can you make changes?",
-    messages: [
-      {
-        id: 1,
-        sender: "them",
-        text: "Hi, could you make a few small changes to the design?",
-        time: "3 days ago",
-      },
-    ],
-  },
-];
+const getInitials = (name = "Client") =>
+  String(name)
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0].toUpperCase())
+    .join("") || "C";
+
+const formatTime = (dateValue) => {
+  if (!dateValue) return "";
+
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return "";
+
+  const now = new Date();
+
+  if (date.toDateString() === now.toDateString()) {
+    return date.toLocaleTimeString("en-ZA", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  }
+
+  const yesterday = new Date(now);
+  yesterday.setDate(now.getDate() - 1);
+
+  if (date.toDateString() === yesterday.toDateString()) {
+    return "Yesterday";
+  }
+
+  return date.toLocaleDateString("en-ZA", {
+    day: "numeric",
+    month: "short",
+  });
+};
+
+const formatMessageTime = (dateValue) => {
+  if (!dateValue) return "";
+
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return "";
+
+  return date.toLocaleTimeString("en-ZA", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+const getDisplayName = (conversation) => {
+  if (conversation.clientName) return conversation.clientName;
+  if (conversation.otherParticipantName) {
+    return conversation.otherParticipantName;
+  }
+  if (conversation.client?.name) return conversation.client.name;
+
+  if (conversation.clientId) {
+    return `Client ${String(conversation.clientId).slice(-4)}`;
+  }
+
+  return "Client";
+};
+
+const normaliseConversation = (conversation) => {
+  const bookingId = String(
+    conversation.bookingId || conversation._id || conversation.id || ""
+  );
+
+  const lastMessage = conversation.lastMessage || {};
+  const name = getDisplayName(conversation);
+
+  return {
+    ...conversation,
+    id: bookingId,
+    bookingId,
+    name,
+    initials: getInitials(name),
+    gigTitle: conversation.gigTitle || "Service",
+    freelancerId: String(conversation.freelancerId || ""),
+    clientId: String(conversation.clientId || ""),
+    messages: [],
+    time: formatTime(lastMessage.createdAt || conversation.createdAt),
+    preview: lastMessage.text || "No messages yet.",
+  };
+};
 
 function FreelancerMessages() {
-  const [conversations, setConversations] = useState(
-    initialConversations
-  );
-  const [activeId, setActiveId] = useState("1");
+  const [conversations, setConversations] = useState([]);
+  const [activeId, setActiveId] = useState("");
   const [search, setSearch] = useState("");
   const [messageText, setMessageText] = useState("");
   const [notice, setNotice] = useState("");
 
+  const [loadingConversations, setLoadingConversations] = useState(true);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [sending, setSending] = useState(false);
+
   const activeConversation = conversations.find(
     (conversation) => conversation.id === activeId
   );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadConversations = async () => {
+      setLoadingConversations(true);
+
+      try {
+        const response = await getMyConversations();
+
+        if (cancelled) return;
+
+        const data = Array.isArray(response.conversations)
+          ? response.conversations
+          : [];
+
+        const loaded = data
+          .map(normaliseConversation)
+          .filter((conversation) => conversation.bookingId);
+
+        setConversations(loaded);
+        setActiveId((currentId) =>
+          loaded.some((conversation) => conversation.id === currentId)
+            ? currentId
+            : loaded[0]?.id || ""
+        );
+      } catch (error) {
+        if (!cancelled) {
+          setNotice(error.message || "Unable to load conversations.");
+        }
+      } finally {
+        if (!cancelled) setLoadingConversations(false);
+      }
+    };
+
+    loadConversations();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!activeId) return;
+
+    let cancelled = false;
+
+    const loadMessages = async () => {
+      setLoadingMessages(true);
+
+      try {
+        const response = await getConversationMessages(activeId);
+
+        if (cancelled) return;
+
+        const messages = Array.isArray(response.messages)
+          ? response.messages
+          : [];
+
+        setConversations((current) =>
+          current.map((conversation) =>
+            conversation.id === activeId
+              ? {
+                  ...conversation,
+                  messages,
+                  preview: messages.length
+                    ? messages[messages.length - 1].text
+                    : "No messages yet.",
+                  time: messages.length
+                    ? formatTime(messages[messages.length - 1].createdAt)
+                    : conversation.time,
+                }
+              : conversation
+          )
+        );
+      } catch (error) {
+        if (!cancelled) {
+          setNotice(error.message || "Unable to load messages.");
+        }
+      } finally {
+        if (!cancelled) setLoadingMessages(false);
+      }
+    };
+
+    loadMessages();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeId]);
 
   const filteredConversations = useMemo(() => {
     const query = search.trim().toLowerCase();
 
     if (!query) return conversations;
 
-    return conversations.filter(
-      (conversation) =>
-        conversation.name.toLowerCase().includes(query) ||
-        conversation.messages.some((message) =>
-          message.text.toLowerCase().includes(query)
-        )
+    return conversations.filter((conversation) =>
+      [
+        conversation.name,
+        conversation.gigTitle,
+        conversation.preview,
+        ...conversation.messages.map((message) => message.text || ""),
+      ].some((value) => String(value).toLowerCase().includes(query))
     );
   }, [conversations, search]);
 
   const selectConversation = (id) => {
-    setActiveId(id);
-    setNotice("");
+    if (id === activeId) return;
 
-    setConversations((current) =>
-      current.map((conversation) =>
-        conversation.id === id
-          ? { ...conversation, unread: 0 }
-          : conversation
-      )
-    );
+    setActiveId(id);
+    setMessageText("");
+    setNotice("");
   };
 
-  const sendMessage = (event) => {
+  const sendMessage = async (event) => {
     event.preventDefault();
 
     const text = messageText.trim();
 
-    if (!text || !activeConversation) return;
+    if (!text || !activeConversation || sending) return;
 
-    const newMessage = {
-      id: `${Date.now()}-${Math.random()}`,
-      sender: "me",
-      text,
-      time: new Date().toLocaleTimeString("en-ZA", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    };
+    setSending(true);
+    setNotice("");
 
-    setConversations((current) =>
-      current.map((conversation) =>
-        conversation.id === activeId
-          ? {
-              ...conversation,
-              time: "Just now",
-              preview: text,
-              messages: [...conversation.messages, newMessage],
-            }
-          : conversation
-      )
-    );
+    try {
+      const response = await sendConversationMessage(
+        activeConversation.bookingId,
+        text
+      );
 
-    setMessageText("");
-    setNotice(
-      "Message added to the conversation locally. Connect your messaging API to deliver and save messages."
-    );
+      if (!response.message) {
+        throw new Error("The server did not return the saved message.");
+      }
+
+      const savedMessage = response.message;
+
+      setConversations((current) =>
+        current.map((conversation) => {
+          if (conversation.id !== activeId) return conversation;
+
+          return {
+            ...conversation,
+            messages: [...conversation.messages, savedMessage],
+            preview: savedMessage.text,
+            time: formatTime(savedMessage.createdAt),
+          };
+        })
+      );
+
+      setMessageText("");
+    } catch (error) {
+      setNotice(error.message || "Unable to send your message.");
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const getMessageSender = (message) => {
+    if (typeof message.isMine === "boolean") {
+      return message.isMine ? "me" : "them";
+    }
+
+    return String(message.sender) === activeConversation?.freelancerId
+      ? "me"
+      : "them";
   };
 
   const startConversation = () => {
     setNotice(
-      "Connect your users API to search for clients and start a conversation."
+      "Conversations are linked to bookings. Select an existing booking conversation."
     );
   };
 
@@ -216,9 +330,7 @@ function FreelancerMessages() {
             <div className="fm-conversations-heading">
               <div>
                 <h2>All Messages</h2>
-                <span>
-                  {conversations.length} conversations
-                </span>
+                <span>{conversations.length} conversations</span>
               </div>
 
               <button
@@ -243,10 +355,18 @@ function FreelancerMessages() {
             </label>
 
             <div className="fm-conversation-list">
-              {filteredConversations.length === 0 ? (
+              {loadingConversations ? (
+                <div className="fm-list-empty">
+                  <span>Loading conversations...</span>
+                </div>
+              ) : filteredConversations.length === 0 ? (
                 <div className="fm-list-empty">
                   <Search size={20} />
-                  <span>No conversations found.</span>
+                  <span>
+                    {search.trim()
+                      ? "No conversations found."
+                      : "You don't have any booking conversations yet."}
+                  </span>
                 </div>
               ) : (
                 filteredConversations.map((conversation) => (
@@ -256,15 +376,10 @@ function FreelancerMessages() {
                     className={`fm-conversation ${
                       activeId === conversation.id ? "is-active" : ""
                     }`}
-                    onClick={() =>
-                      selectConversation(conversation.id)
-                    }
+                    onClick={() => selectConversation(conversation.id)}
                   >
                     <span className="fm-avatar">
                       {conversation.initials}
-                      {conversation.online && (
-                        <span className="fm-online-dot" />
-                      )}
                     </span>
 
                     <span className="fm-conversation-info">
@@ -275,12 +390,6 @@ function FreelancerMessages() {
 
                       <span className="fm-conversation-bottom">
                         <span>{conversation.preview}</span>
-
-                        {conversation.unread > 0 && (
-                          <span className="fm-unread">
-                            {conversation.unread}
-                          </span>
-                        )}
                       </span>
                     </span>
                   </button>
@@ -295,16 +404,11 @@ function FreelancerMessages() {
                 <header className="fm-chat-header">
                   <span className="fm-avatar">
                     {activeConversation.initials}
-                    {activeConversation.online && (
-                      <span className="fm-online-dot" />
-                    )}
                   </span>
 
                   <div className="fm-chat-contact">
                     <strong>{activeConversation.name}</strong>
-                    <span>
-                      {activeConversation.online ? "Online" : "Offline"}
-                    </span>
+                    <span>{activeConversation.gigTitle}</span>
                   </div>
 
                   <button
@@ -313,7 +417,9 @@ function FreelancerMessages() {
                     aria-label="More conversation options"
                     onClick={() =>
                       setNotice(
-                        "Conversation options can be connected to your messaging API."
+                        `Booking status: ${
+                          activeConversation.status || "Unavailable"
+                        }.`
                       )
                     }
                   >
@@ -323,31 +429,46 @@ function FreelancerMessages() {
 
                 <div className="fm-chat-messages" aria-live="polite">
                   <div className="fm-date-divider">
-                    <span>Today</span>
+                    <span>Conversation history</span>
                   </div>
 
-                  {activeConversation.messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`fm-message-row ${
-                        message.sender === "me"
-                          ? "is-mine"
-                          : "is-theirs"
-                      }`}
-                    >
-                      <article className="fm-message">
-                        <p>{message.text}</p>
-
-                        <span className="fm-message-meta">
-                          {message.time}
-
-                          {message.sender === "me" && (
-                            <CheckCheck size={13} />
-                          )}
-                        </span>
-                      </article>
+                  {loadingMessages ? (
+                    <div className="fm-list-empty">
+                      <span>Loading messages...</span>
                     </div>
-                  ))}
+                  ) : activeConversation.messages.length === 0 ? (
+                    <div className="fm-no-chat">
+                      <h2>No messages yet</h2>
+                      <p>
+                        Send a message to start the conversation about this
+                        booking.
+                      </p>
+                    </div>
+                  ) : (
+                    activeConversation.messages.map((message) => {
+                      const sender = getMessageSender(message);
+
+                      return (
+                        <div
+                          key={message._id || message.id}
+                          className={`fm-message-row ${
+                            sender === "me" ? "is-mine" : "is-theirs"
+                          }`}
+                        >
+                          <article className="fm-message">
+                            <p>{message.text}</p>
+
+                            <span className="fm-message-meta">
+                              {formatMessageTime(message.createdAt)}
+                              {sender === "me" && (
+                                <CheckCheck size={13} />
+                              )}
+                            </span>
+                          </article>
+                        </div>
+                      );
+                    })
+                  )}
                 </div>
 
                 <form className="fm-composer" onSubmit={sendMessage}>
@@ -357,7 +478,7 @@ function FreelancerMessages() {
                     aria-label="Attach a file"
                     onClick={() =>
                       setNotice(
-                        "File attachments require upload support in your backend."
+                        "File attachments are not supported by the current API."
                       )
                     }
                   >
@@ -368,10 +489,10 @@ function FreelancerMessages() {
                     type="text"
                     placeholder="Type a message..."
                     value={messageText}
-                    onChange={(event) =>
-                      setMessageText(event.target.value)
-                    }
+                    onChange={(event) => setMessageText(event.target.value)}
                     aria-label="Message"
+                    maxLength={2000}
+                    disabled={sending || loadingMessages}
                   />
 
                   <button
@@ -379,8 +500,9 @@ function FreelancerMessages() {
                     className="fm-attachment-button fm-emoji-button"
                     aria-label="Insert emoji"
                     onClick={() =>
-                      setMessageText((current) => `${current} 😊`)
+                      setMessageText((current) => `${current}😊`)
                     }
+                    disabled={sending}
                   >
                     <Smile size={17} />
                   </button>
@@ -388,7 +510,9 @@ function FreelancerMessages() {
                   <button
                     type="submit"
                     className="fm-send-button"
-                    disabled={!messageText.trim()}
+                    disabled={
+                      !messageText.trim() || sending || loadingMessages
+                    }
                     aria-label="Send message"
                   >
                     <Send size={15} />
@@ -397,8 +521,16 @@ function FreelancerMessages() {
               </>
             ) : (
               <div className="fm-no-chat">
-                <h2>Select a conversation</h2>
-                <p>Choose a conversation to view your messages.</p>
+                <h2>
+                  {loadingConversations
+                    ? "Loading conversations..."
+                    : "Select a conversation"}
+                </h2>
+                <p>
+                  {loadingConversations
+                    ? "Please wait while your messages load."
+                    : "Choose an existing booking conversation to view your messages."}
+                </p>
               </div>
             )}
           </section>
