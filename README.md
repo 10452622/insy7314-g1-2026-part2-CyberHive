@@ -147,6 +147,51 @@ Messages therefore represent user-to-user communication, while notifications rep
 
 ---
 
+## Security Decisions
+
+### Password Hashing
+
+Prevents passwords from being stored as plain text.
+
+### JWT Authentication
+
+Ensures protected API requests can only be accessed by authenticated users.
+
+### Role-Based Access Control
+
+Role-based access control is used to ensure that users can only perform actions permitted for their role.
+
+The main roles are:
+
+- Client.
+- Freelancer.
+
+### Resource Ownership
+
+The application checks whether a resource belongs to the authenticated user before allowing sensitive operations. This protects the system against unauthorized access to resources.
+
+### Input Validation
+
+Prevents invalid or potentially malicious input from being processed.
+
+### HTTPS/TLS
+
+Encrypts communication between the frontend and backend.
+
+### Error Handling
+
+Prevents internal system information from being exposed through error responses.
+
+### Environment Variables
+
+Keeps sensitive configuration and secrets outside the source code.
+
+### .gitignore
+
+Prevents sensitive files such as .env from being committed to the repository.
+
+---
+
 ## 2. MERN Architecture
 
 ### 2.1 Architecture Overview
