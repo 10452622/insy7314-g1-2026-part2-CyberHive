@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from "react";
 import { Download, FileText, ChevronDown } from "lucide-react";
 import { fetchFreelancerOrders } from "../services/api";
@@ -11,8 +12,15 @@ const money = (amount) =>
     maximumFractionDigits: 2,
   }).format(Number(amount) || 0);
 
+// Use the best available date for a completed booking.
+// completedAt should be added to the backend schema for accuracy.
 const getOrderDate = (order) =>
-  order.createdAt || order.orderDate || order.date || null;
+  order.completedAt ||
+  order.updatedAt ||
+  order.createdAt ||
+  order.orderDate ||
+  order.date ||
+  null;
 
 const formatDate = (date) => {
   if (!date) return "—";
@@ -28,62 +36,98 @@ const formatDate = (date) => {
       });
 };
 
+const getDescription = (order) =>
+  order.gig?.title ||
+  order.gig?.name ||
+  order.serviceName ||
+  order.service ||
+  order.title ||
+  "Freelance service";
+
+const getBookingId = (order) =>
+  order._id || order.bookingId || "";
+
+const isCompleted = (order) =>
+  String(order.status || "").trim().toUpperCase() === "COMPLETED";
+
 function FreelancerTransactions() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
-  const [statusFilter, setStatusFilter] = useState("All Transactions");
   const [dateRange, setDateRange] = useState("all");
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     let active = true;
 
-    fetchFreelancerOrders()
-      .then((response) => {
+    const loadTransactions = async () => {
+      try {
+        setLoading(true);
+        setLoadError("");
+
+        const response = await fetchFreelancerOrders();
+
         if (!active) return;
 
-        setOrders(
-          Array.isArray(response.bookings) ? response.bookings : []
-        );
-      })
-      .catch((error) => {
+        // Support the response shape returned by the existing API,
+        // as well as common wrapped response formats.
+        const payload = response?.data ?? response;
+
+        const bookings = Array.isArray(payload)
+          ? payload
+          : Array.isArray(payload?.bookings)
+          ? payload.bookings
+          : Array.isArray(payload?.orders)
+          ? payload.orders
+          : null;
+
+        if (!bookings) {
+          throw new Error(
+            "The bookings API returned an unexpected response format."
+          );
+        }
+
+        setOrders(bookings);
+      } catch (error) {
         if (!active) return;
 
+        setOrders([]);
         setLoadError(
-          error?.message || "Transactions could not be loaded."
+          error?.message ||
+            "Transactions could not be loaded. Please try again."
         );
-      })
-      .finally(() => {
+      } finally {
         if (active) setLoading(false);
-      });
+      }
+    };
+
+    loadTransactions();
 
     return () => {
       active = false;
     };
   }, []);
 
+  // A completed booking is treated as an income record.
+  // This does not independently verify that a payment was received.
+  const completedOrders = useMemo(
+    () => orders.filter(isCompleted),
+    [orders]
+  );
+
   const transactions = useMemo(() => {
     const now = new Date();
+    const query = search.trim().toLowerCase();
 
-    return orders
-      .filter((order) => order.status === "Completed")
-      .filter((order) => {
-        if (statusFilter === "All Transactions") return true;
-
-        return (
-          String(order.status || "").toLowerCase() ===
-          statusFilter.toLowerCase()
-        );
-      })
+    return completedOrders
       .filter((order) => {
         if (dateRange === "all") return true;
 
-        const date = getOrderDate(order);
+        const dateValue = getOrderDate(order);
 
-        if (!date) return false;
+        if (!dateValue) return false;
 
-        const parsed = new Date(date);
+        const parsed = new Date(dateValue);
 
         if (Number.isNaN(parsed.getTime())) return false;
 
@@ -101,20 +145,22 @@ function FreelancerTransactions() {
         return true;
       })
       .filter((order) => {
-        const query = search.trim().toLowerCase();
-
         if (!query) return true;
 
-        return [
-          order.service,
-          order.serviceName,
-          order.title,
-          order.freelancerName,
+        const searchableValues = [
+          getDescription(order),
+          order.client,
           order.clientName,
+          order.freelancer,
+          order.freelancerName,
           order._id,
           order.bookingId,
-        ]
-          .filter(Boolean)
+          order.status,
+          order.amount,
+        ];
+
+        return searchableValues
+          .filter((value) => value !== null && value !== undefined)
           .some((value) =>
             String(value).toLowerCase().includes(query)
           );
@@ -125,33 +171,54 @@ function FreelancerTransactions() {
 
         return second - first;
       });
-  }, [orders, statusFilter, dateRange, search]);
+  }, [completedOrders, dateRange, search]);
+
+  // Total income reflects the currently filtered transaction list.
+  const totalIncome = useMemo(
+    () =>
+      transactions.reduce(
+        (sum, order) => sum + (Number(order.amount) || 0),
+        0
+      ),
+    [transactions]
+  );
 
   const exportCSV = () => {
+    if (loading || loadError || transactions.length === 0) return;
+
     const headers = [
       "Date",
       "Description",
-      "Order ID",
+      "Booking ID",
       "Type",
-      "Amount",
+      "Amount (ZAR)",
       "Status",
     ];
 
     const rows = transactions.map((order) => [
       formatDate(getOrderDate(order)),
-      order.serviceName || order.service || order.title || "Service",
-      order.bookingId || order._id || "",
-      "Income",
+      getDescription(order),
+      getBookingId(order),
+      "Completed booking income",
       Number(order.amount) || 0,
       order.status || "Completed",
     ]);
 
-    const escapeCSV = (value) =>
-      `"${String(value ?? "").replace(/"/g, '""')}"`;
+    const escapeCSV = (value) => {
+      let text = String(value ?? "");
+
+      // Reduce the risk of spreadsheet formula injection
+      // when opening exported data in spreadsheet software.
+      if (/^[=+\-@\t\r]/.test(text)) {
+        text = `'${text}`;
+      }
+
+      return `"${text.replace(/"/g, '""')}"`;
+    };
 
     const csv = [headers, ...rows]
       .map((row) => row.map(escapeCSV).join(","))
-      .join("\n");
+      .join("\r\n");
 
     const blob = new Blob(["\uFEFF", csv], {
       type: "text/csv;charset=utf-8;",
@@ -162,15 +229,12 @@ function FreelancerTransactions() {
 
     link.href = url;
     link.download = "freelancer-transactions.csv";
+    document.body.appendChild(link);
     link.click();
+    link.remove();
 
     URL.revokeObjectURL(url);
   };
-
-  const totalIncome = transactions.reduce(
-    (sum, order) => sum + (Number(order.amount) || 0),
-    0
-  );
 
   return (
     <main className="freelancer-dashboard ftr-page">
@@ -180,50 +244,69 @@ function FreelancerTransactions() {
         <section className="ftr-heading">
           <div>
             <h1>Transaction Records</h1>
-            <p>View all your financial transactions in one place.</p>
+            <p>
+              Review your completed booking income and export
+              your transaction records.
+            </p>
           </div>
 
           <button
             type="button"
             className="ftr-export-button"
             onClick={exportCSV}
-            disabled={loading || transactions.length === 0}
+            disabled={
+              loading ||
+              Boolean(loadError) ||
+              transactions.length === 0
+            }
           >
-            <Download size={15} />
+            <Download size={15} aria-hidden="true" />
             Export CSV
           </button>
         </section>
 
         {loadError && (
-          <p className="ftr-error" role="alert">
-            {loadError}
-          </p>
+          <div className="ftr-error" role="alert">
+            <p>{loadError}</p>
+            <p>
+              Please check your connection and sign-in status,
+              then reload the page.
+            </p>
+          </div>
         )}
 
         <section className="ftr-toolbar">
           <label className="ftr-select-wrapper">
-            <span className="ftr-sr-only">Transaction status</span>
-            <select
-              value={statusFilter}
-              onChange={(event) => setStatusFilter(event.target.value)}
-            >
-              <option>All Transactions</option>
-              <option>Completed</option>
+            <span className="ftr-sr-only">
+              Transaction status
+            </span>
+
+            <select value="Completed" disabled>
+              <option value="Completed">
+                Completed Transactions
+              </option>
             </select>
-            <ChevronDown size={14} />
+
+            <ChevronDown size={14} aria-hidden="true" />
           </label>
 
           <label className="ftr-select-wrapper">
-            <span className="ftr-sr-only">Transaction date range</span>
+            <span className="ftr-sr-only">
+              Transaction date range
+            </span>
+
             <select
               value={dateRange}
-              onChange={(event) => setDateRange(event.target.value)}
+              onChange={(event) =>
+                setDateRange(event.target.value)
+              }
             >
               <option value="all">All dates</option>
               <option value="month">This month</option>
-              <option value="year">This year</option>
+              <option value="year">This calendar year</option>
             </select>
-            <ChevronDown size={14} />
+
+            <ChevronDown size={14} aria-hidden="true" />
           </label>
 
           <input
@@ -239,10 +322,13 @@ function FreelancerTransactions() {
         <section className="ftr-table-panel">
           <div className="ftr-table-heading">
             <div>
-              <h2>All Transactions</h2>
+              <h2>Completed Transactions</h2>
+
               <p>
                 {loading
                   ? "Loading records..."
+                  : loadError
+                  ? "Records unavailable"
                   : `${transactions.length} transaction${
                       transactions.length === 1 ? "" : "s"
                     }`}
@@ -250,8 +336,11 @@ function FreelancerTransactions() {
             </div>
 
             <div className="ftr-total">
-              <span>Total income</span>
-              <strong>{loading ? "—" : money(totalIncome)}</strong>
+              <span>Total booking income</span>
+
+              <strong>
+                {loading || loadError ? "—" : money(totalIncome)}
+              </strong>
             </div>
           </div>
 
@@ -261,7 +350,7 @@ function FreelancerTransactions() {
                 <tr>
                   <th>Date</th>
                   <th>Description</th>
-                  <th>Order ID</th>
+                  <th>Booking ID</th>
                   <th>Type</th>
                   <th>Amount</th>
                   <th>Status</th>
@@ -271,40 +360,50 @@ function FreelancerTransactions() {
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan="6" className="ftr-empty">
+                    <td colSpan={6} className="ftr-empty">
                       Loading transactions...
+                    </td>
+                  </tr>
+                ) : loadError ? (
+                  <tr>
+                    <td colSpan={6} className="ftr-empty">
+                      Transactions could not be retrieved.
                     </td>
                   </tr>
                 ) : transactions.length === 0 ? (
                   <tr>
-                    <td colSpan="6" className="ftr-empty">
-                      <FileText size={23} />
+                    <td colSpan={6} className="ftr-empty">
+                      <FileText size={23} aria-hidden="true" />
+
                       <strong>No transactions found</strong>
+
                       <span>
-                        Completed bookings will appear here.
+                        Completed bookings matching your filters
+                        will appear here.
                       </span>
                     </td>
                   </tr>
                 ) : (
                   transactions.map((order) => (
-                    <tr key={order._id || order.bookingId}>
+                    <tr key={getBookingId(order)}>
                       <td>{formatDate(getOrderDate(order))}</td>
+
                       <td className="ftr-description">
-                        {order.serviceName ||
-                          order.service ||
-                          order.title ||
-                          "Service"}
+                        {getDescription(order)}
                       </td>
+
                       <td>
-                        {order.bookingId ||
-                          (order._id
-                            ? String(order._id).slice(-8)
-                            : "—")}
+                        {getBookingId(order)
+                          ? String(getBookingId(order)).slice(-8)
+                          : "—"}
                       </td>
-                      <td>Income</td>
+
+                      <td>Booking income</td>
+
                       <td className="ftr-amount">
                         +{money(order.amount)}
                       </td>
+
                       <td>
                         <span className="ftr-status">
                           {order.status || "Completed"}
@@ -317,6 +416,17 @@ function FreelancerTransactions() {
             </table>
           </div>
         </section>
+
+        <aside className="fet-disclaimer">
+          <strong>Income record clarification</strong>
+          <p>
+            These records are based on completed bookings returned
+            by HustleHub+. The booking amount is not necessarily
+            the amount received after fees, refunds or adjustments.
+            A completed booking alone does not confirm successful
+            payment.
+          </p>
+        </aside>
       </div>
     </main>
   );
