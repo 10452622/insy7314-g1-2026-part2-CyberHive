@@ -1,0 +1,113 @@
+/* ==========================================
+   Settings
+   ========================================== */
+
+.freelancer-settings-layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+}
+
+.freelancer-settings-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.76rem;
+}
+
+.freelancer-settings-nav-link {
+    display: block;
+    padding: 10px 16px;
+    color: #626b7b;
+    text-decoration: none;
+    transition: background 150ms ease, color 150ms ease;
+}
+
+.freelancer-settings-nav-link:hover {
+    background: #f8f9fc;
+    color: var(--fd-violet);
+}
+
+.freelancer-settings-nav-link.active {
+    color: var(--fd-violet);
+    font-weight: 700;
+    background: #f2f1fb;
+    border-left: 3px solid var(--fd-violet);
+}
+
+.freelancer-settings-nav-link.danger {
+    color: #a33d39;
+}
+
+.freelancer-settings-nav-link.danger:hover {
+    background: #fdf2f2;
+}
+
+.freelancer-settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+    max-width: 420px;
+}
+
+.freelancer-field-label {
+    display: block;
+    font-size: 0.70rem;
+    color: var(--fd-muted);
+    margin-bottom: 4px;
+    font-weight: 650;
+}
+
+.freelancer-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--fd-border);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    outline: none;
+}
+
+.freelancer-input:focus {
+    border-color: var(--fd-violet);
+}
+
+.freelancer-tfa-toggle-btn {
+    border: none;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background 150ms ease;
+    color: #fff;
+}
+
+.freelancer-tfa-toggle-btn.enabled {
+    background: var(--fd-green);
+}
+
+.freelancer-tfa-toggle-btn.disabled {
+    background: #e8eaf0;
+    color: #626b7b;
+}
+
+@media (max-width: 620px) {
+    .freelancer-settings-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .freelancer-settings-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--fd-border);
+    }
+
+    .freelancer-settings-nav-link.active {
+        border-left: none;
+        border-bottom: 3px solid var(--fd-violet);
+    }
+}

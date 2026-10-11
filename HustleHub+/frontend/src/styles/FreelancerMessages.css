@@ -1,0 +1,196 @@
+/* ==========================================
+   Messages
+   ========================================== */
+
+.freelancer-messages-layout {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    background: #fff;
+    border: 1px solid var(--fd-border);
+    border-radius: 9px;
+    min-height: 520px;
+    overflow: hidden;
+}
+
+.freelancer-chat-sidebar {
+    border-right: 1px solid var(--fd-border);
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+}
+
+.freelancer-chat-search-wrap {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--fd-border);
+}
+
+.freelancer-chat-search {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--fd-border);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    outline: none;
+    background: #f8f9fc;
+}
+
+.freelancer-chat-list {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.freelancer-chat-item {
+    padding: 13px 16px;
+    border-bottom: 1px solid #f0f1f5;
+    cursor: pointer;
+    transition: background 150ms ease;
+}
+
+.freelancer-chat-item:hover {
+    background: #f8f9fc;
+}
+
+.freelancer-chat-item.active {
+    background: #f2f1fb;
+}
+
+.freelancer-chat-item-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.freelancer-chat-name {
+    font-size: 0.78rem;
+    color: #202433;
+    font-weight: 650;
+}
+
+.freelancer-chat-item.active .freelancer-chat-name {
+    color: var(--fd-violet);
+}
+
+.freelancer-chat-time {
+    font-size: 0.64rem;
+    color: #89909c;
+}
+
+.freelancer-chat-snippet {
+    margin: 0;
+    font-size: 0.72rem;
+    color: var(--fd-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.freelancer-chat-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+}
+
+.freelancer-chat-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--fd-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+}
+
+.freelancer-chat-status {
+    font-size: 0.66rem;
+    color: var(--fd-green);
+    font-weight: 650;
+}
+
+.freelancer-chat-messages-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #f8f9fc;
+}
+
+.freelancer-bubble-wrap {
+    max-width: 72%;
+}
+
+.freelancer-bubble-wrap.outgoing {
+    align-self: flex-end;
+}
+
+.freelancer-bubble-wrap.incoming {
+    align-self: flex-start;
+}
+
+.freelancer-bubble {
+    padding: 11px 14px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    color: #202433;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.freelancer-bubble.incoming {
+    background: #fff;
+    border: 1px solid var(--fd-border);
+}
+
+.freelancer-bubble.outgoing {
+    background: #eceaff;
+}
+
+.freelancer-bubble-time {
+    font-size: 0.62rem;
+    color: #89909c;
+    margin-top: 3px;
+    display: block;
+}
+
+.freelancer-chat-input-form {
+    padding: 14px 16px;
+    border-top: 1px solid var(--fd-border);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #fff;
+}
+
+.freelancer-chat-input {
+    flex: 1;
+    padding: 9px 14px;
+    border: 1px solid var(--fd-border);
+    border-radius: 6px;
+    font-size: 0.75rem;
+    outline: none;
+}
+
+.freelancer-chat-send-btn {
+    background: var(--fd-violet);
+    color: #fff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .freelancer-messages-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .freelancer-chat-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--fd-border);
+        max-height: 220px;
+    }
+}
