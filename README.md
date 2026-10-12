@@ -266,13 +266,7 @@ The newman tests verify that the API endpoints return the expected response and 
 Newman is used to execute the Postman collection from the command line:
 
 ```bash
-newman run HustleHub.postman_collection.json
-```
-
-If .env is required:
-
-```bash
-newman run HustleHub.postman_collection.json -e HustleHub.postman_enviroment.json
+newman run "HustleHub+2.postman_collection.json" -e "HustleHub Local.postman_enviroment.json"
 ```
 
 ### Security and Authorization Testing
