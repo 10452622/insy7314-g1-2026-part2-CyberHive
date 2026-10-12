@@ -52,7 +52,7 @@ const settingsNavigation = [
     {
         label: "Help & Support",
         icon: CircleHelp,
-        to: "/freelancer/help"
+        to: "/freelancer/support"
     }
 ];
 

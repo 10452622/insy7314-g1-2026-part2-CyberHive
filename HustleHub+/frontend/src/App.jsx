@@ -36,16 +36,18 @@ import FreelancerEarnings from "./pages/FreelancerEarnings"; /* Page 16 */
 import FreelancerEstimatedTax from "./pages/FreelancerEstimatedTax"; /* Page 17 */
 import FreelancerTransactions from "./pages/FreelancerTransactions"; /* Page 18 */
 import FreelancerMessages from "./pages/FreelancerMessages"; /* Page 19 */
-import FreelancerSettings from "./pages/FreelancerSettings"; /* Page 20 */
 
-import FreelancerProfile from "./pages/FreelancerProfile";
-import FreelancerAccountSettings from "./pages/FreelancerAccountSettings";
-
+import FreelancerProfile from "./pages/FreelancerProfile"; /* Page 20 */
+import FreelancerAccountSettings from "./pages/FreelancerAccountSettings"; /* Page 20 */
+import FreelancerSecurity from "./pages/FreelancerSecurity"; /* Page 20 */
+import FreelancerNotifications from "./pages/FreelancerNotifications"; /* Page 20 */
+import FreelancerNotifications from "./pages/FreelancerSupport"; /* Page 20 */
 
 import {
     getCurrentUser,
     isAuthenticated
 } from "./services/authSession";
+import FreelancerSupport from "./pages/FreelancerSuppport";
 
 function MarketplaceLayout() {
     return (
@@ -257,18 +259,28 @@ function App() {
                         />
 
                         <Route
-                            path="/freelancer/settings"
-                            element={<FreelancerSettings />}
-                        />
-
-
-                        <Route
                             path="/freelancer/profile"
                             element={<FreelancerProfile />}
                         />
+
                         <Route
                             path="/freelancer/account-settings"
                             element={<FreelancerAccountSettings />}
+                        />
+
+                        <Route
+                            path="/freelancer/security"
+                            element={<FreelancerSecurity />}
+                        />
+
+                        <Route
+                            path="/freelancer/notifications"
+                            element={<FreelancerNotifications />}
+                        />
+
+                        <Route
+                            path="/freelancer/support"
+                            element={<FreelancerSupport />}
                         />
                     </Route>
                 </Route>

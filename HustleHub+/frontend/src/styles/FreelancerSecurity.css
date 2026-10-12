@@ -1,0 +1,1007 @@
+
+/* =========================================
+   FREELANCER SECURITY PAGE
+   ========================================= */
+
+.fsec-page {
+    min-height: 100vh;
+    background: #f8f9fc;
+    color: #202433;
+}
+
+.fsec-content {
+    padding-top: 24px;
+    padding-bottom: 40px;
+}
+
+/* =========================================
+   PAGE HEADING
+   ========================================= */
+
+.fsec-heading {
+    margin-bottom: 20px;
+}
+
+.fsec-eyebrow {
+    margin: 0 0 5px;
+    color: #6654dc;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.fsec-heading h1 {
+    margin: 0;
+    color: #202433;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    font-weight: 750;
+}
+
+.fsec-heading > p:last-child {
+    margin: 5px 0 0;
+    color: #778092;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+/* =========================================
+   NOTICES
+   ========================================= */
+
+.fsec-notice {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 14px;
+    padding: 11px 13px;
+    border: 1px solid #d6eadb;
+    border-radius: 7px;
+    background: #f0f8f2;
+    color: #39754b;
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+.fsec-notice > svg {
+    flex-shrink: 0;
+}
+
+.fsec-notice > span {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.fsec-notice > button {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 27px;
+    height: 27px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+
+.fsec-notice > button:hover {
+    background: rgb(57 117 75 / 8%);
+}
+
+.fsec-error-notice {
+    border-color: #f0d0d0;
+    background: #fff6f6;
+    color: #a33d39;
+}
+
+.fsec-error-notice > button:hover {
+    background: rgb(163 61 57 / 8%);
+}
+
+/* =========================================
+   SETTINGS LAYOUT
+   ========================================= */
+
+.fsec-settings-layout {
+    display: grid;
+    grid-template-columns: minmax(175px, 0.65fr) minmax(0, 2fr);
+    align-items: start;
+    gap: 14px;
+}
+
+.fsec-settings-sidebar,
+.fsec-settings-main {
+    min-width: 0;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+/* =========================================
+   SETTINGS SIDEBAR
+   ========================================= */
+
+.fsec-settings-sidebar {
+    position: sticky;
+    top: 20px;
+    padding: 14px 10px;
+}
+
+.fsec-settings-sidebar > h2 {
+    margin: 2px 8px 13px;
+    color: #292d3c;
+    font-size: 0.8rem;
+    font-weight: 750;
+}
+
+.fsec-settings-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fsec-settings-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    min-height: 36px;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #687183;
+    font-family: inherit;
+    font-size: 0.68rem;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 120ms ease, color 120ms ease;
+}
+
+.fsec-settings-nav-item > svg:first-child {
+    flex-shrink: 0;
+}
+
+.fsec-settings-nav-item > span {
+    flex: 1;
+    min-width: 0;
+}
+
+.fsec-settings-nav-item:hover {
+    background: #f8f7ff;
+    color: #5b43d6;
+}
+
+.fsec-settings-nav-item.is-active {
+    background: #f0edff;
+    color: #5b43d6;
+    font-weight: 700;
+}
+
+.fsec-settings-nav-item:focus-visible {
+    outline: 3px solid rgb(102 84 220 / 25%);
+    outline-offset: 2px;
+}
+
+.fsec-nav-chevron {
+    flex-shrink: 0;
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 120ms ease;
+}
+
+.fsec-settings-nav-item.is-active .fsec-nav-chevron {
+    opacity: 1;
+}
+
+.fsec-logout-item {
+    margin-top: 8px;
+    border-top: 1px solid #f0f1f5;
+    border-radius: 0;
+    padding-top: 14px;
+    color: #b94d4d;
+}
+
+.fsec-logout-item:hover {
+    background: #fff5f5;
+    color: #a33d39;
+}
+
+/* =========================================
+   MAIN CONTENT
+   ========================================= */
+
+.fsec-settings-main {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow: hidden;
+    border: 0;
+    background: transparent;
+}
+
+/* =========================================
+   SECURITY BANNER
+   ========================================= */
+
+.fsec-security-banner {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid #e4defb;
+    border-radius: 8px;
+    background: linear-gradient(120deg, #f8f6ff, #fff);
+}
+
+.fsec-security-banner-icon {
+    display: flex;
+    flex: 0 0 48px;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #f0edff;
+    color: #5b43d6;
+}
+
+.fsec-security-banner > div:nth-child(2) {
+    flex: 1;
+    min-width: 0;
+}
+
+.fsec-security-banner h2 {
+    margin: 0;
+    color: #292d3c;
+    font-size: 0.86rem;
+    font-weight: 750;
+}
+
+.fsec-security-banner p {
+    margin: 5px 0 0;
+    color: #778092;
+    font-size: 0.69rem;
+    line-height: 1.6;
+}
+
+.fsec-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    padding: 6px 9px;
+    border: 1px solid #e4defb;
+    border-radius: 20px;
+    background: #fff;
+    color: #5b43d6;
+    font-size: 0.61rem;
+    font-weight: 650;
+}
+
+/* =========================================
+   PANELS AND HEADINGS
+   ========================================= */
+
+.fsec-panel {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e8eaf0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.fsec-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 17px 18px;
+    border-bottom: 1px solid #e8eaf0;
+}
+
+.fsec-panel-heading > div {
+    min-width: 0;
+}
+
+.fsec-panel-heading h2 {
+    margin: 0;
+    color: #292d3c;
+    font-size: 0.86rem;
+    font-weight: 750;
+}
+
+.fsec-panel-heading p {
+    margin: 5px 0 0;
+    color: #89909c;
+    font-size: 0.68rem;
+    line-height: 1.6;
+}
+
+.fsec-heading-icon {
+    display: inline-flex;
+    flex: 0 0 39px;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    border-radius: 8px;
+    background: #f0edff;
+    color: #5b43d6;
+}
+
+/* =========================================
+   PASSWORD FORM
+   ========================================= */
+
+.fsec-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 18px;
+}
+
+.fsec-field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.fsec-field > label {
+    margin-bottom: 7px;
+    color: #596173;
+    font-size: 0.69rem;
+    font-weight: 650;
+}
+
+.fsec-password-input {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    border: 1px solid #dfe2ea;
+    border-radius: 6px;
+    background: #fff;
+    transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.fsec-password-input:focus-within {
+    border-color: #6654dc;
+    box-shadow: 0 0 0 3px rgb(102 84 220 / 10%);
+}
+
+.fsec-password-input input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    min-height: 39px;
+    padding: 10px 11px;
+    border: 0;
+    outline: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #303849;
+    font-family: inherit;
+    font-size: 0.7rem;
+}
+
+.fsec-password-input input::placeholder {
+    color: #a0a5b0;
+}
+
+.fsec-password-input > button {
+    display: inline-flex;
+    flex: 0 0 38px;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: #89909c;
+    cursor: pointer;
+}
+
+.fsec-password-input > button:hover {
+    background: #f8f7ff;
+    color: #5b43d6;
+}
+
+.fsec-password-input > button:focus-visible {
+    outline: 2px solid #6654dc;
+    outline-offset: -3px;
+}
+
+/* =========================================
+   PASSWORD STRENGTH
+   ========================================= */
+
+.fsec-strength {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 9px;
+}
+
+.fsec-strength-bars {
+    display: flex;
+    flex: 1;
+    gap: 5px;
+}
+
+.fsec-strength-bars > span {
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: #e8eaf0;
+}
+
+.fsec-strength-bars > span.strength-weak {
+    background: #d85a5a;
+}
+
+.fsec-strength-bars > span.strength-fair {
+    background: #e5a33e;
+}
+
+.fsec-strength-bars > span.strength-strong {
+    background: #42a36b;
+}
+
+.fsec-strength-label {
+    flex-shrink: 0;
+    font-size: 0.64rem;
+    font-weight: 700;
+}
+
+.fsec-strength-label.strength-weak {
+    color: #c34646;
+}
+
+.fsec-strength-label.strength-fair {
+    color: #b77921;
+}
+
+.fsec-strength-label.strength-strong {
+    color: #328451;
+}
+
+/* =========================================
+   PASSWORD REQUIREMENTS
+   ========================================= */
+
+.fsec-password-requirements {
+    margin-top: 13px;
+    padding: 12px;
+    border: 1px solid #ececf3;
+    border-radius: 6px;
+    background: #fafbfe;
+}
+
+.fsec-password-requirements > p {
+    margin: 0 0 10px;
+    color: #596173;
+    font-size: 0.67rem;
+    font-weight: 700;
+}
+
+.fsec-password-requirements ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.fsec-password-requirements li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+    color: #89909c;
+    font-size: 0.65rem;
+    line-height: 1.5;
+}
+
+.fsec-password-requirements li svg {
+    flex-shrink: 0;
+    color: #b8bdc8;
+}
+
+.fsec-password-requirements li.is-passed {
+    color: #328451;
+}
+
+.fsec-password-requirements li.is-passed svg {
+    color: #42a36b;
+}
+
+/* =========================================
+   PASSWORD MATCH FEEDBACK
+   ========================================= */
+
+.fsec-match {
+    margin: 6px 0 0;
+    font-size: 0.65rem;
+    line-height: 1.5;
+}
+
+.fsec-match-success {
+    color: #328451;
+}
+
+.fsec-match-error {
+    color: #b94d4d;
+}
+
+/* =========================================
+   PASSWORD TIP
+   ========================================= */
+
+.fsec-password-tip {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 12px;
+    border: 1px solid #e4defb;
+    border-radius: 6px;
+    background: #f8f6ff;
+    color: #5b4ca6;
+}
+
+.fsec-password-tip > svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.fsec-password-tip p {
+    margin: 0;
+    font-size: 0.67rem;
+    line-height: 1.65;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.fsec-primary-button,
+.fsec-secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 36px;
+    padding: 9px 14px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 650;
+    line-height: 1.3;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        color 150ms ease,
+        opacity 150ms ease;
+}
+
+.fsec-primary-button {
+    border-color: #5b43d6;
+    background: #5b43d6;
+    color: #fff;
+}
+
+.fsec-primary-button:hover:not(:disabled) {
+    border-color: #4933bf;
+    background: #4933bf;
+}
+
+.fsec-secondary-button {
+    border-color: #e1e4ec;
+    background: #fff;
+    color: #555d6d;
+}
+
+.fsec-secondary-button:hover:not(:disabled) {
+    border-color: #d8d0fa;
+    background: #f8f7ff;
+    color: #5b43d6;
+}
+
+.fsec-primary-button:focus-visible,
+.fsec-secondary-button:focus-visible {
+    outline: 3px solid rgb(102 84 220 / 25%);
+    outline-offset: 2px;
+}
+
+.fsec-primary-button:disabled,
+.fsec-secondary-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.fsec-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 2px;
+}
+
+/* =========================================
+   LOGIN ACTIVITY
+   ========================================= */
+
+.fsec-activity-content {
+    padding: 4px 18px 18px;
+}
+
+.fsec-activity-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f1f5;
+}
+
+.fsec-activity-icon {
+    display: inline-flex;
+    flex: 0 0 39px;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    border-radius: 8px;
+    background: #f6f5ff;
+    color: #6654dc;
+}
+
+.fsec-activity-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.fsec-activity-details h3,
+.fsec-protection-item h3 {
+    margin: 0;
+    color: #303849;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.fsec-activity-details p,
+.fsec-protection-item p {
+    margin: 5px 0 0;
+    color: #89909c;
+    font-size: 0.66rem;
+    line-height: 1.6;
+}
+
+.fsec-activity-label {
+    flex-shrink: 0;
+    padding: 5px 7px;
+    border-radius: 4px;
+    background: #f2f3f7;
+    color: #778092;
+    font-size: 0.59rem;
+    font-weight: 650;
+}
+
+.fsec-activity-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 11px;
+    border: 1px solid #ececf3;
+    border-radius: 6px;
+    background: #fafbfe;
+    color: #778092;
+}
+
+.fsec-activity-note svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.fsec-activity-note p {
+    margin: 0;
+    font-size: 0.65rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   ACCOUNT PROTECTION
+   ========================================= */
+
+.fsec-protection-list {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 18px 15px;
+}
+
+.fsec-protection-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0f1f5;
+}
+
+.fsec-protection-item:last-child {
+    border-bottom: 0;
+}
+
+.fsec-protection-check {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: #42a36b;
+}
+
+/* =========================================
+   ANIMATION
+   ========================================= */
+
+.fsec-spin {
+    animation: fsec-spin 1s linear infinite;
+}
+
+@keyframes fsec-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 820px) {
+    .fsec-settings-layout {
+        grid-template-columns:
+            minmax(145px, 0.65fr)
+            minmax(0, 1.7fr);
+        gap: 10px;
+    }
+
+    .fsec-settings-sidebar {
+        padding: 12px 7px;
+    }
+
+    .fsec-settings-nav-item {
+        gap: 7px;
+        padding: 9px 7px;
+        font-size: 0.64rem;
+    }
+
+    .fsec-panel-heading {
+        padding: 14px;
+    }
+
+    .fsec-password-form {
+        padding: 14px;
+    }
+
+    .fsec-security-banner {
+        flex-wrap: wrap;
+        padding: 14px;
+    }
+
+    .fsec-status-badge {
+        margin-left: 61px;
+    }
+
+    .fsec-activity-content {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .fsec-protection-list {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 620px) {
+    .fsec-content {
+        padding-top: 20px;
+        padding-bottom: 28px;
+    }
+
+    .fsec-heading {
+        margin-bottom: 16px;
+    }
+
+    .fsec-settings-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .fsec-settings-sidebar {
+        position: static;
+        padding: 12px;
+    }
+
+    .fsec-settings-sidebar > h2 {
+        margin: 2px 2px 11px;
+    }
+
+    .fsec-settings-sidebar nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 5px;
+    }
+
+    .fsec-settings-nav-item {
+        min-width: 0;
+        min-height: 38px;
+        gap: 7px;
+        padding: 9px 8px;
+        font-size: 0.65rem;
+    }
+
+    .fsec-settings-nav-item > span {
+        overflow-wrap: anywhere;
+    }
+
+    .fsec-nav-chevron {
+        display: none;
+    }
+
+    .fsec-logout-item {
+        margin-top: 0;
+        border-top: 0;
+        border-radius: 5px;
+        padding-top: 9px;
+    }
+
+    .fsec-settings-main {
+        gap: 12px;
+    }
+
+    .fsec-security-banner {
+        align-items: flex-start;
+        gap: 10px;
+        padding: 13px;
+    }
+
+    .fsec-security-banner-icon {
+        flex-basis: 39px;
+        width: 39px;
+        height: 39px;
+    }
+
+    .fsec-security-banner h2 {
+        font-size: 0.8rem;
+    }
+
+    .fsec-security-banner p {
+        font-size: 0.65rem;
+    }
+
+    .fsec-status-badge {
+        margin-left: 49px;
+    }
+
+    .fsec-panel-heading {
+        padding: 14px 12px;
+    }
+
+    .fsec-panel-heading h2 {
+        font-size: 0.8rem;
+    }
+
+    .fsec-panel-heading p {
+        font-size: 0.65rem;
+    }
+
+    .fsec-heading-icon {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .fsec-password-form {
+        gap: 16px;
+        padding: 14px 12px;
+    }
+
+    .fsec-password-input input {
+        font-size: 0.75rem;
+    }
+
+    .fsec-password-requirements ul {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 9px;
+    }
+
+    .fsec-strength {
+        flex-wrap: wrap;
+    }
+
+    .fsec-strength-bars {
+        flex-basis: 100%;
+    }
+
+    .fsec-form-actions {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .fsec-form-actions button {
+        width: 100%;
+    }
+
+    .fsec-activity-content {
+        padding: 4px 12px 12px;
+    }
+
+    .fsec-activity-row {
+        flex-wrap: wrap;
+        gap: 9px;
+    }
+
+    .fsec-activity-details {
+        flex-basis: calc(100% - 50px);
+    }
+
+    .fsec-activity-label {
+        margin-left: 48px;
+    }
+
+    .fsec-protection-list {
+        padding: 4px 12px 12px;
+    }
+
+    .fsec-notice {
+        align-items: flex-start;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 360px) {
+    .fsec-settings-nav-item {
+        gap: 5px;
+        padding: 8px 6px;
+        font-size: 0.61rem;
+    }
+
+    .fsec-settings-nav-item > svg:first-child {
+        width: 14px;
+        height: 14px;
+    }
+
+    .fsec-primary-button,
+    .fsec-secondary-button {
+        padding: 9px 10px;
+        font-size: 0.65rem;
+    }
+
+    .fsec-security-banner h2 {
+        font-size: 0.75rem;
+    }
+}

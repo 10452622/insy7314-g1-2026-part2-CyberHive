@@ -10,7 +10,7 @@ const links = [
   { label: "Tax", to: "/freelancer/estimated-tax" },
   { label: "Transactions", to: "/freelancer/transactions" },
   { label: "Messages", to: "/freelancer/messages" },
-  { label: "Settings", to: "/freelancer/settings" },
+  { label: "Settings", to: "/freelancer/profile" },
 ];
 
 export function getFreelancerDisplayName(user = getCurrentUser()) {
