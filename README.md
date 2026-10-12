@@ -147,6 +147,126 @@ Messages therefore represent user-to-user communication, while notifications rep
 
 ---
 
+## Backend Structure
+
+The backend of **HustleHub+** is built using **Node.js** and **Express.js**. It follows a modular architecture that separates application responsibilities into dedicated folders and files, making the codebase easier to maintain, test, and extend.
+
+### Backend Project Structure
+
+```text
+HustleHub+/
+├── backend/
+│   ├── config/
+│   ├── certs/
+│   ├── controllers/
+│   ├── data/
+│   ├── middleware/
+│   ├── models/
+│   ├── node_modules/
+│   ├── routes/
+│   ├── utils/
+│   ├── .env
+│   ├── .gitignore
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js
+│
+└── frontend/
+    ├── .vscode/
+    ├── dist/
+    ├── node_modules/
+    ├── public/
+    ├── src/
+    ├── .gitignore
+    ├── eslint.config.js
+    ├── index.html
+    ├── package-lock.json
+    ├── package.json
+    ├── README.md
+    └── vite.config.js
+```
+
+### Backend Folder and File Descriptions
+
+| Folder/File | Description |
+|---|---|
+| `config/` | Contains configuration files and setup logic required by the backend, such as database connection settings. |
+| `certs/` | Contains the local SSL/TLS certificates required for HTTPS communication during development. |
+| `controllers/` | Contains the main application logic for backend features, including user registration, authentication, and user operations. |
+| `data/` | Handles local data storage and retrieval where applicable. This functionality can be extended or replaced with database-backed storage. |
+| `middleware/` | Contains middleware responsible for authentication, input validation, rate limiting, error handling, and other request-processing tasks. |
+| `models/` | Defines the data structures and models used to represent application entities. |
+| `routes/` | Defines the API routes and endpoints through which the frontend communicates with the backend. |
+| `utils/` | Contains reusable helper functions, including security-related utilities such as password hashing and JSON Web Token (JWT) generation. |
+| `node_modules/` | Contains the Node.js packages and dependencies installed for the backend. This directory is generated through package installation and should not be committed to Git. |
+| `.env` | Stores environment variables and sensitive configuration values outside the source code. This file must not be committed to the repository. |
+| `.gitignore` | Specifies files and directories that Git should exclude from version control, such as environment files and installed dependencies. |
+| `package.json` | Contains project metadata, dependencies, and scripts required to install, configure, and run the backend. |
+| `package-lock.json` | Records the resolved dependency versions to support consistent installations across development environments. |
+| `server.js` | Serves as the main entry point of the backend. It configures Express, registers middleware and routes, establishes required connections, and starts the HTTPS server. |
+
+> **Note:** The `utils/` directory is included in this structure because it is referenced in the folder descriptions. Ensure that it exists in the actual project. Similarly, retain only the folders that are present in your repository.
+
+## Frontend Structure
+
+The frontend of **HustleHub+** is developed using **React.js** and **Vite**. It provides the user interface through which clients and freelancers interact with the platform's features.
+
+The frontend communicates with the Node.js and Express.js backend through **REST API requests**, enabling users to access application functionality through their respective interfaces.
+
+### Frontend Application Sections
+
+#### 1. Authentication
+
+The authentication section provides the pages required for users to access the platform and create accounts.
+
+- **Landing Page** — Introduces HustleHub+ and its core features.
+- **Register Page** — Allows new users to create an account.
+- **Choose Account Type** — Allows users to select the appropriate account type, such as client or freelancer.
+- **Login Page** — Allows registered users to authenticate and access their accounts.
+- **Forgot Password Page** — Supports the password recovery process.
+
+#### 2. Client Functionality
+
+The client interface allows users to discover freelancers, manage bookings, communicate with freelancers, and maintain their accounts.
+
+- **Client Home/Browse** — Displays available services and freelancers.
+- **Search Results** — Displays freelancers or gigs matching a user's search criteria.
+- **Gig Details** — Displays information about a selected gig, including its description and relevant details.
+- **Booking Page** — Allows clients to initiate a booking for a selected gig.
+- **Booking Confirmation** — Displays confirmation details after a successful booking.
+- **My Orders** — Provides an overview of the client's bookings and orders.
+- **Order Details** — Displays information about a specific order.
+- **Messages** — Enables communication between clients and freelancers.
+- **Profile/Security** — Allows clients to manage their profile information and account security settings.
+
+#### 3. Freelancer Functionality
+
+The freelancer interface provides tools for managing services, tracking orders, monitoring earnings, and maintaining account information.
+
+- **Freelancer Dashboard** — Provides an overview of the freelancer's activities and performance.
+- **My Gigs** — Allows freelancers to manage the services they offer.
+- **Orders** — Displays and supports the management of incoming and ongoing orders.
+- **Earnings** — Provides an overview of income generated through the platform.
+- **Estimated Tax** — Helps freelancers estimate their tax obligations based on relevant earnings information.
+- **Transaction Records** — Displays financial transaction history.
+- **Messages** — Enables communication with clients.
+- **Profile/Security** — Allows freelancers to manage their profile information and account security settings.
+
+## Frontend–Backend Communication
+
+HustleHub+ uses a client-server architecture in which the React frontend communicates with the Express.js backend through RESTful API endpoints.
+
+The general request flow is as follows:
+
+1. A client or freelancer interacts with the React user interface.
+2. The frontend sends an HTTP or HTTPS request to the appropriate backend API endpoint.
+3. Express.js routes the request to the relevant controller, applying the required middleware.
+4. The backend processes the request and interacts with the applicable data source or model.
+5. The backend returns a response to the frontend.
+6. The frontend updates the user interface based on the response.
+
+This separation of responsibilities improves maintainability, supports modular development, and allows the frontend and backend to evolve independently.
+
 ## Security Decisions
 
 ### Password Hashing
@@ -289,6 +409,12 @@ Examples include:
 These tests demonstrate that authentication, authorisation, validation and ownership controls are applied to sensitive operations.
 
 ---
+
+## Demonstration Video
+
+The demonstration video showcases the key features and functionality of HustleHub+, including the client and freelancer interfaces.
+
+**YouTube Link:** [Watch the HustleHub+ Demonstration Video](https://youtu.be/VDY50vO1tt0)
 
 ## 3. Conclusion
 
