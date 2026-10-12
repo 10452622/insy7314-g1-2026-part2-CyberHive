@@ -1,0 +1,394 @@
+
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+import ClientNavbar from "../components/ClientNavbar";
+import { createBooking, getGigById } from "../services/api"; //(IIE, 2026)
+
+function CreateBooking() {
+    const { gigId } = useParams();
+    const navigate = useNavigate();
+
+    const [gig, setGig] = useState(null);
+    const [requirements, setRequirements] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [submitting, setSubmitting] = useState(false);
+    const [error, setError] = useState("");
+    const [paymentMethod, setPaymentMethod] = useState("card");
+
+    useEffect(() => {
+        let active = true;
+
+        const loadGig = async () => {
+            setLoading(true);
+            setError("");
+            setGig(null);
+
+            try {
+                const data = await getGigById(gigId);
+
+                if (active) {
+                    setGig(data.gig || null);
+                }
+            } catch (err) {
+                if (active) {
+                    setError(
+                        err.message || "Unable to load this service."
+                    );
+                }
+            } finally {
+                if (active) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        loadGig();
+
+        return () => {
+            active = false;
+        };
+    }, [gigId]);
+
+    const handleBooking = async (event) => {
+        event.preventDefault();
+
+        if (submitting) return;
+
+        if (requirements.trim().length < 5) {
+            setError(
+                "Please provide at least 5 characters describing your project."
+            );
+            return;
+        }
+
+        if (!["card", "eft"].includes(paymentMethod)) {
+            setError("Please select a payment method.");
+            return;
+        }
+
+        try {
+            setSubmitting(true);
+            setError("");
+
+            const data = await createBooking(
+                gigId,
+                requirements.trim()
+            );
+
+            if (!data.booking?._id) {
+                throw new Error(
+                    "The booking response did not include a booking ID. Please check My Orders before submitting again."
+                );
+            }
+
+            // Redirect to booking confirmation
+            navigate(
+                `/booking/confirmation/${data.booking._id}`,
+                {
+                    replace: true,
+                    state: {
+                        checkoutCompleted: true,
+                        paymentMethod
+                    }
+                }
+            );
+
+        } catch (err) {
+            const message =
+                err?.message || "Unable to submit booking.";
+
+            const lowerMessage = message.toLowerCase();
+
+            if (
+                lowerMessage.includes("authentication") ||
+                lowerMessage.includes("token") ||
+                lowerMessage.includes("unauthorized") ||
+                lowerMessage.includes("401")
+            ) {
+                setError(
+                    "Please log in as a Client before booking."
+                );
+            } else {
+                setError(message);
+            }
+
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    const formatPrice = (value) => {
+        if (
+            value === null ||
+            value === undefined ||
+            value === "" ||
+            !Number.isFinite(Number(value))
+        ) {
+            return "Price unavailable";
+        }
+
+        return `R${Number(value).toLocaleString("en-ZA", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        })}`;
+    };
+
+    if (loading) {
+        return (
+            <>
+                <ClientNavbar />
+
+                <div className="page-container">
+                    <div className="status-box">
+                        Loading booking...
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    if (!gig) {
+        return (
+            <>
+                <ClientNavbar />
+
+                <div className="page-container">
+                    <div className="error-box">
+                        {error || "Service unavailable."}
+                    </div>
+
+                    <Link
+                        to="/gigs"
+                        className="secondary-button"
+                    >
+                        Back to Browse Gigs
+                    </Link>
+                </div>
+            </>
+        );
+    }
+
+    const deliveryDays = Number(gig.deliveryDays);
+
+    const deliveryLabel =
+        gig.deliveryDays != null &&
+        gig.deliveryDays !== "" &&
+        Number.isFinite(deliveryDays)
+            ? `${deliveryDays} day${deliveryDays === 1 ? "" : "s"}`
+            : "Not specified";
+
+    return (
+        <>
+            <ClientNavbar />
+
+            <main className="booking-page">
+                <div className="booking-container">
+
+                    <div className="booking-heading">
+                        <span className="section-label">
+                            CHECKOUT
+                        </span>
+
+                        <h1>Complete your booking</h1>
+
+                        <p>
+                            Review your order, describe your
+                            requirements and select your
+                            preferred payment method.
+                        </p>
+                    </div>
+
+                    <form
+                        className="booking-grid"
+                        onSubmit={handleBooking}
+                    >
+
+                        <section className="order-summary">
+                            <h2>Order Summary</h2>
+
+                            <div className="summary-service">
+
+                                <div className="summary-image">
+                                    {/* //(MDN Web Docs, 2026) */}
+                                    {gig.imageUrl ? (
+                                        <img
+                                            src={gig.imageUrl}
+                                            alt={gig.title}
+                                        />
+                                    ) : (
+                                        <span>
+                                            {gig.category || "Service"}
+                                        </span>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <h3>{gig.title}</h3>
+
+                                    <p>
+                                        {gig.freelancerName ||
+                                            "Freelancer"}
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <div className="summary-line">
+                                <span>Service price</span>
+
+                                <strong>
+                                    {formatPrice(gig.price)}
+                                </strong>
+                            </div>
+
+                            <div className="summary-line">
+                                <span>Delivery</span>
+
+                                <strong>
+                                    {deliveryLabel}
+                                </strong>
+                            </div>
+
+                            <div className="summary-total">
+                                <span>Total</span>
+
+                                <strong>
+                                    {formatPrice(gig.price)}
+                                </strong>
+                            </div>
+
+                        </section>
+
+                        <section className="booking-form-card">
+
+                            <h2>Your Requirements</h2>
+
+                            <p className="muted">
+                                Give the freelancer everything
+                                they need to get started.
+                            </p>
+
+                            <textarea
+                                className="requirements-input"
+                                value={requirements}
+                                onChange={(event) =>
+                                    setRequirements(event.target.value)
+                                }
+                                minLength={5}
+                                maxLength={2000}
+                                placeholder="Describe what you need, your preferred style, colours, deadlines or any other important details..."
+                                required
+                                disabled={submitting}
+                            />
+
+                            <small className="character-count">
+                                {requirements.length}/2000
+                            </small>
+
+                            <div className="payment-section">
+
+                                <h2 className="payment-heading">
+                                    Payment
+                                </h2>
+
+                                <p className="muted">
+                                    Select your preferred payment
+                                    method to complete your booking.
+                                </p>
+
+                                <div className="payment-methods">
+
+                                    <label className="radio-row">
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="card"
+                                            checked={
+                                                paymentMethod === "card"
+                                            }
+                                            onChange={(event) =>
+                                                setPaymentMethod(
+                                                    event.target.value
+                                                )
+                                            }
+                                            disabled={submitting}
+                                        />
+
+                                        Card Payment
+                                    </label>
+
+                                    <label className="radio-row">
+                                        <input
+                                            type="radio"
+                                            name="paymentMethod"
+                                            value="eft"
+                                            checked={
+                                                paymentMethod === "eft"
+                                            }
+                                            onChange={(event) =>
+                                                setPaymentMethod(
+                                                    event.target.value
+                                                )
+                                            }
+                                            disabled={submitting}
+                                        />
+
+                                        EFT Payment
+                                    </label>
+
+                                </div>
+
+                                <div className="summary-line">
+                                    <span>Amount</span>
+
+                                    <strong>
+                                        {formatPrice(gig.price)}
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                            {error && (
+                                <div
+                                    className="error-box"
+                                    role="alert"
+                                >
+                                    {error}
+                                </div>
+                            )}
+
+                            {/* //(MDN Web Docs, 2026) */}
+                            <button
+                                type="submit"
+                                className="primary-button full-width large-button"
+                                disabled={submitting}
+                            >
+                                {submitting
+                                    ? "Processing..."
+                                    : `Confirm Booking • ${formatPrice(gig.price)}`}
+                            </button>
+
+                            <div className="secure-message">
+                                Your booking will be recorded
+                                as Pending.
+                            </div>
+
+                        </section>
+
+                    </form>
+                </div>
+            </main>
+        </>
+    );
+}
+
+export default CreateBooking;
+
+/*Reference List
+
+MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 7 October 2026].
+
+The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of
+Education: Unpublished.
+*/

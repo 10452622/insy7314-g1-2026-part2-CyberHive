@@ -1,0 +1,41 @@
+.auth-page {
+  min-height: 100vh;
+  background: var(--hh-white); /* //(MDN Web Docs, 2026) */
+}
+
+.auth-header {
+  width: 100%;
+  max-width: 1400px;
+
+  margin: 0 auto;
+  padding: 20px 5%;
+}
+
+.auth-main {
+  min-height: calc(100vh - 116px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 35px 24px 70px; /* //(MDN Web Docs, 2026) */
+}
+
+@media (max-width: 560px) {
+  .auth-header {
+    padding: 16px 20px;
+  }
+
+  .auth-logo {
+    width: 175px;
+    height: 58px;
+  }
+
+  .auth-main {
+    padding: 20px 18px 45px;
+  } /* //(MDN Web Docs, 2026) */
+}
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

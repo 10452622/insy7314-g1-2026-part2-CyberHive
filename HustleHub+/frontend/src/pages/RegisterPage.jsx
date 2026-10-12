@@ -1,0 +1,466 @@
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
+
+import AuthLayout from '../components/AuthLayout';
+import TermsModal from '../components/TermsModal';
+
+import '../styles/RegisterPage.css';
+
+import { useRegistration } from '../context/RegistrationContext'; /* //(MDN Web Docs, 2026) */
+
+
+function RegisterPage() {
+  const navigate = useNavigate();
+
+  const { setRegistrationData } = useRegistration();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false);
+
+  const [showTerms, setShowTerms] = useState(false);
+
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    termsAccepted: false /* //(MDN Web Docs, 2026) */
+  });
+
+
+  const [errors, setErrors] = useState({});
+
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+
+    setFormData((previousData) => ({
+      ...previousData,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+
+    // Removes the error while the user corrects the field
+    setErrors((previousErrors) => ({
+      ...previousErrors,
+      [name]: ''
+    })); /* //(MDN Web Docs, 2026) */
+  };
+
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    const namePattern = /^[A-Za-zÀ-ÿ' -]+$/;
+
+
+    // First Name Validation
+    if (!formData.firstName.trim()) {
+      newErrors.firstName ='First name is required.';
+    }
+
+    else if (formData.firstName.trim().length < 2) {
+      newErrors.firstName ='First name must contain at least 2 characters.';
+    }
+
+    else if (
+      !namePattern.test(formData.firstName.trim())
+    ) {
+      newErrors.firstName ='Please enter a valid first name.';
+    } /* //(MDN Web Docs, 2026) */
+
+
+    // Last Name Validation
+    if (!formData.lastName.trim()) {
+      newErrors.lastName ='Last name is required.';
+    }
+
+    else if (formData.lastName.trim().length < 2) {
+      newErrors.lastName ='Last name must contain at least 2 characters.';
+    }
+
+    else if (
+      !namePattern.test(formData.lastName.trim())
+    ) {
+      newErrors.lastName ='Please enter a valid last name.';
+    } /* //(MDN Web Docs, 2026) */
+
+
+    // Email Validation
+    const emailPattern =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!formData.email.trim()) {
+      newErrors.email ='Email address is required.';
+    }
+
+    else if (
+      !emailPattern.test(formData.email.trim())
+    ) {
+      newErrors.email ='Please enter a valid email address.';
+    }
+
+
+    // Password Validation
+    const passwordPattern =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+
+    if (!formData.password) {
+      newErrors.password ='Password is required.';
+    } /* //(MDN Web Docs, 2026) */
+
+    else if (
+      !passwordPattern.test(formData.password)
+    ) {
+      newErrors.password =
+        'Password must be at least 8 characters and include uppercase, lowercase, a number and a special character.';
+    }
+
+
+    // Confirm Password Validation
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword ='Please confirm your password.';
+    }
+
+    else if (
+      formData.confirmPassword !== formData.password
+    ) {
+      newErrors.confirmPassword ='Passwords do not match.';
+    } /* //(MDN Web Docs, 2026) */
+
+
+    // Terms Validation
+    if (!formData.termsAccepted) {
+      newErrors.termsAccepted ='You must accept the Terms & Conditions.';
+    }
+
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setRegistrationData({
+      firstName: formData.firstName.trim(),
+      lastName: formData.lastName.trim(),
+      email: formData.email.trim(),
+      password: formData.password
+    }); /* //(MDN Web Docs, 2026) */
+
+    // Page 3 - Choose Account Type
+    navigate('/account-type');
+  };
+
+
+  return (
+    <>
+      <AuthLayout>
+
+        <section className="register-card">
+
+          {/* Heading */}
+          <div className="register-heading">
+
+            <h1>
+              Create your account
+            </h1>
+
+            <p>
+              Join HustleHub+ today
+            </p>
+
+          </div>
+
+
+          {/* Registration Form */}
+          <form
+            className="register-form"
+            onSubmit={handleSubmit}
+            noValidate
+          >
+
+            {/* First Name + Last Name */}
+            <div className="name-fields">
+
+              {/* First Name */}
+              <div className="form-group">
+
+                <label htmlFor="firstName">
+                  First Name
+                </label>
+
+                <input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  placeholder="Enter your first name"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.firstName)}
+                />
+
+                {errors.firstName && (
+                  <span className="form-error">
+                    {errors.firstName}
+                  </span> /* //(MDN Web Docs, 2026) */
+                )}
+
+              </div>
+
+
+              {/* Last Name */}
+              <div className="form-group">
+
+                <label htmlFor="lastName">
+                  Last Name
+                </label>
+
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  placeholder="Enter your last name"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.lastName)}
+                />
+
+                {errors.lastName && (
+                  <span className="form-error">
+                    {errors.lastName}
+                  </span>
+                )}
+
+              </div>
+
+            </div> {/* //(MDN Web Docs, 2026) */}
+
+
+            {/* Email */}
+            <div className="form-group">
+
+              <label htmlFor="email">
+                Email Address
+              </label>
+
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Enter your email address"
+                autoComplete="email"
+                value={formData.email}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.email)}
+              />
+
+              {errors.email && (
+                <span className="form-error">
+                  {errors.email}
+                </span>
+              )}
+
+            </div>
+
+
+            {/* Password */}
+            <div className="form-group"> {/* //(MDN Web Docs, 2026) */}
+
+              <label htmlFor="password">
+                Password
+              </label>
+
+              <div className="password-field">
+
+                <input
+                  id="password"
+                  name="password"
+                  type={
+                    showPassword
+                      ? 'text'
+                      : 'password'
+                  }
+                  placeholder="Create a password"
+                  autoComplete="new-password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  aria-invalid={Boolean(errors.password)}
+                />
+
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() =>
+                    setShowPassword(!showPassword)
+                  }
+                  aria-label={
+                    showPassword
+                      ? 'Hide password'
+                      : 'Show password'
+                  }
+                >
+                  {showPassword
+                    ? <EyeOff size={18} />
+                    : <Eye size={18} />
+                  }
+                </button>
+
+              </div>
+
+              {errors.password && (
+                <span className="form-error">
+                  {errors.password}
+                </span>
+              )} {/* //(MDN Web Docs, 2026) */}
+
+            </div>
+
+
+            {/* Confirm Password */}
+            <div className="form-group">
+
+              <label htmlFor="confirmPassword">
+                Confirm Password
+              </label>
+
+              <div className="password-field">
+
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={
+                    showConfirmPassword
+                      ? 'text'
+                      : 'password'
+                  }
+                  placeholder="Confirm your password"
+                  autoComplete="new-password"
+                  value={formData.confirmPassword}
+                  onChange={handleChange} /* //(MDN Web Docs, 2026) */
+                  aria-invalid={
+                    Boolean(errors.confirmPassword)
+                  }
+                />
+
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() =>
+                    setShowConfirmPassword(
+                      !showConfirmPassword
+                    )
+                  }
+                  aria-label={
+                    showConfirmPassword
+                      ? 'Hide confirmation password'
+                      : 'Show confirmation password'
+                  }
+                >
+                  {showConfirmPassword
+                    ? <EyeOff size={18} />
+                    : <Eye size={18} />
+                  }
+                </button>
+
+              </div>
+
+              {errors.confirmPassword && (
+                <span className="form-error">
+                  {errors.confirmPassword} {/* //(MDN Web Docs, 2026) */}
+                </span>
+              )}
+
+            </div>
+
+
+            {/* Terms and Conditions */}
+            <div>
+
+              <label className="terms-row">
+
+                <input
+                  type="checkbox"
+                  name="termsAccepted"
+                  checked={formData.termsAccepted}
+                  onChange={handleChange}
+                />
+
+                <span>
+                  I agree to the{' '}
+
+                  <button
+                    type="button"
+                    className="terms-link-button"
+                    onClick={() => setShowTerms(true)}
+                  >
+                    Terms & Conditions
+                  </button>
+
+                </span>
+
+              </label>
+
+              {errors.termsAccepted && (
+                <span className="form-error terms-error">
+                  {errors.termsAccepted} {/* //(MDN Web Docs, 2026) */}
+                </span>
+              )}
+
+            </div>
+
+
+            {/* Continue Button */}
+            <button
+              type="submit"
+              className="register-submit-btn"
+            >
+              Continue
+            </button>
+
+          </form>
+
+
+          {/* Login Link */}
+          <p className="register-login-text">
+
+          Already have an account?{' '} {/* //(MDN Web Docs, 2026) */}
+
+            <Link to="/login">
+              Login
+            </Link>
+
+          </p>
+
+        </section>
+
+      </AuthLayout>
+
+
+      {/* Terms & Conditions Popup */}
+      <TermsModal
+        isOpen={showTerms}
+        onClose={() => setShowTerms(false)}
+      />
+
+    </>
+  );
+}
+
+
+export default RegisterPage; /* //(MDN Web Docs, 2026) */
+
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

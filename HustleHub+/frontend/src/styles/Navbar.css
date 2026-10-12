@@ -1,0 +1,329 @@
+.navbar {
+  width: 100%;
+
+  background: var(--hh-white);
+
+  border-bottom: 1px solid var(--hh-border);
+
+  position: sticky;
+  top: 0;
+
+  z-index: 1000; /* //(MDN Web Docs, 2026) */
+}
+
+.navbar-container {
+  max-width: 1400px;
+
+  margin: 0 auto;
+
+  min-height: 90px;
+
+  padding: 0 5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+} /* //(MDN Web Docs, 2026) */
+
+
+/* Navigation Links */
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+
+  gap: 34px;
+}
+
+.nav-link {
+  position: relative;
+
+  color: var(--hh-text);
+
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+
+  transition: color 0.2s ease; /* //(MDN Web Docs, 2026) */
+}
+
+.nav-link:hover {
+  color: var(--hh-violet);
+}
+
+.nav-link.active {
+  color: var(--hh-violet);
+
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: '';
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  bottom: -8px;
+
+  height: 2px;
+
+  border-radius: 10px;
+
+  background: var(--hh-violet); /* //(MDN Web Docs, 2026) */
+}
+
+
+/* Authentication Buttons */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.login-btn,
+.register-btn {
+  min-width: 86px;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+
+  text-align: center; /* //(MDN Web Docs, 2026) */
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.login-btn {
+  border: 1px solid var(--hh-border);
+
+  background: var(--hh-white);
+
+  color: var(--hh-black);
+}
+
+.login-btn:hover {
+  border-color: var(--hh-violet);
+
+  color: var(--hh-violet); /* //(MDN Web Docs, 2026) */
+}
+
+.register-btn {
+  border: 1px solid var(--hh-violet);
+
+  background: var(--hh-violet);
+
+  color: var(--hh-white);
+}
+
+.register-btn:hover {
+  transform: translateY(-1px);
+
+  background: #6e2ed7;
+}
+
+
+/* Mobile Menu Button */
+
+.mobile-menu-toggle {
+  display: none;
+
+  padding: 8px;
+
+  border: none;
+
+  background: transparent;
+
+  color: var(--hh-black); /* //(MDN Web Docs, 2026) */
+
+  cursor: pointer;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-toggle:hover {
+  color: var(--hh-violet);
+}
+
+
+/* Mobile Menu */
+
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+ /* //(MDN Web Docs, 2026) */
+  width: 100%;
+}
+
+.mobile-nav-link {
+  width: 100%;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid var(--hh-border);
+
+  color: var(--hh-text);
+
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+
+  transition:
+    color 0.2s ease,
+    padding-left 0.2s ease; /* //(MDN Web Docs, 2026) */
+}
+
+.mobile-nav-link:hover {
+  color: var(--hh-violet);
+
+  padding-left: 4px;
+}
+
+.mobile-nav-link.active {
+  color: var(--hh-violet);
+}
+
+
+/* Mobile Authentication Buttons */
+
+.mobile-menu-actions {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 22px;
+}
+
+.mobile-login-btn,
+.mobile-register-btn {
+  flex: 1; /* //(MDN Web Docs, 2026) */
+
+  padding: 11px 18px;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+
+  text-align: center;
+}
+
+.mobile-login-btn {
+  border: 1px solid var(--hh-border);
+
+  background: var(--hh-white);
+
+  color: var(--hh-black); /* //(MDN Web Docs, 2026) */
+}
+
+.mobile-login-btn:hover {
+  border-color: var(--hh-violet);
+
+  color: var(--hh-violet);
+}
+
+.mobile-register-btn {
+  border: 1px solid var(--hh-violet);
+
+  background: var(--hh-violet);
+
+  color: var(--hh-white);
+}
+
+.mobile-register-btn:hover {
+  background: #6e2ed7; /* //(MDN Web Docs, 2026) */
+}
+
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+  .navbar-links {
+    gap: 18px;
+  }
+
+  .nav-link {
+    font-size: 0.82rem;
+  }
+
+  .login-btn,
+  .register-btn {
+    min-width: auto;
+
+    padding: 9px 13px; /* //(MDN Web Docs, 2026) */
+  }
+}
+
+
+@media (max-width: 720px) {
+
+  .navbar-container {
+    min-height: 72px;
+
+    padding: 0 5%;
+  }
+
+
+  .navbar-links,
+  .navbar-actions {
+    display: none; /* //(MDN Web Docs, 2026) */
+  }
+
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+
+
+  .mobile-menu {
+    display: none;
+
+    padding: 8px 5% 24px;
+
+    border-top: 1px solid var(--hh-border);
+
+    background: var(--hh-white); /* //(MDN Web Docs, 2026) */
+  }
+
+
+  .mobile-menu.open {
+    display: block;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .mobile-menu-actions {
+    flex-direction: column;
+  } /* //(MDN Web Docs, 2026) */
+
+
+  .mobile-login-btn,
+  .mobile-register-btn {
+    width: 100%;
+  }
+
+}
+
+/* Reference List:
+    1. MDN Web Docs, 2026. Resources for Developers, by Developers. [online] Available at: <https://developer.mozilla.org/en-US/> [Accessed 8 October 2026]. */

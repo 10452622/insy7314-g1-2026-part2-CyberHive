@@ -1,10 +1,10 @@
-//Error handling (IIE, 2026)
+//Error handling 
 const notFound = (req, res) => {
     res.status(404).json({
         success: false,
         message: "The requested endpoint was not found."
     });
-};
+};//(IIE, 2026)
 
 const errorHandler = (err, req, res, next) => {
     console.error(err);
@@ -24,9 +24,9 @@ const errorHandler = (err, req, res, next) => {
 module.exports = {
     notFound,
     errorHandler
-};
+}; //(IIE, 2026)
 
 /*Reference List
-- The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
+1. The Independent Institute of Education (IIE), 2026. Information Systems 3D [INSY7314 Module Manual]. The Independent Institute of 
   Education: Unpublished.
 */ 

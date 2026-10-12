@@ -103,5 +103,135 @@
     "email": "testuser_1788614923819@gmail.com",
     "password": "$2b$12$fM6fYPVDU4YIC8oHxsP.fe00ghrlTk91aqJPyfiETC7erS8Y3uAhO",
     "role": "Client"
+  },
+  {
+    "id": "a7658f19-cbfc-445c-afc5-575cc491bb15",
+    "firstName": "Sam",
+    "lastName": "Wilhelm",
+    "email": "samtest001@gmail.com",
+    "password": "$2b$12$DUxGsuPIpfDZ3Ghy7dJir.GmQjmveDiDyp8tXRuED6rkbdvIBLl1G",
+    "role": "Client",
+    "resetPasswordToken": "ac326f40336d81ef2fd51303e4d930f8d35a0a3beadb74eb19c96da0c43b7a58",
+    "resetPasswordExpires": 1791426515256
+  },
+  {
+    "id": "0879147d-158c-4bfa-8caf-85b2156d79d5",
+    "firstName": "John",
+    "lastName": "Smith",
+    "email": "john@yahoo.co.za",
+    "password": "$2b$12$plws7oJgUw24lYYhcRtoUuFTxkigMThEqZvUcBE86h1ndV0YEXvTK",
+    "role": "Client"
+  },
+  {
+    "id": "dbdc24ef-c820-4c75-ab20-08c9b666d3da",
+    "firstName": "Jody",
+    "lastName": "Harris",
+    "email": "jh@gmail.com",
+    "password": "$2b$12$QrV5fDiG92aAsxPpH4P.suKV2AE8XiPIExWTVsNvSeQwPn7STv2ia",
+    "role": "Freelancer"
+  },
+  {
+    "id": "f271e0c0-4319-4fac-86e3-e40f48b218f4",
+    "firstName": "John",
+    "lastName": "Harries",
+    "email": "harries@gmail.com",
+    "password": "$2b$12$I1gxc/HWobo70WAj2caCYehHx6DpVl7fEIB99Qe6s.4FK/edhfQVO",
+    "role": "Freelancer"
+  },
+  {
+    "id": "9d999bed-49f4-48ef-abc8-a4829679806d",
+    "firstName": "Jojo",
+    "lastName": "Tank",
+    "email": "hello@yahoo.co.za",
+    "password": "$2b$12$MRCxJm.W8vbf.X374s29deIGWWa94yT4XqChgkI9ql2LBGZh7M03y",
+    "role": "Freelancer"
+  },
+  {
+    "id": "7632758e-c58b-4465-b400-b767b7ca246e",
+    "firstName": "Fill",
+    "lastName": "Hugh",
+    "email": "hugh@test.com",
+    "password": "$2b$12$NDcb.tI90u6LSOu.VSq.NewVVT3V8Hi/rjjb85/1aeJEXMxdNOQrS",
+    "role": "Client"
+  },
+  {
+    "id": "20207a04-3ffb-428c-a5d1-c0d5a4361e3d",
+    "firstName": "Joe",
+    "lastName": "Smith",
+    "email": "smith@test.co.za",
+    "password": "$2b$12$G.lCoNbdviA54MtlYRMQaO2PPu07kxRm1fHdQj6kyWVktB1iJVvQG",
+    "role": "Freelancer"
+  },
+  {
+    "id": "e6129107-e271-4b14-9205-d1fb812fc3d6",
+    "firstName": "john",
+    "lastName": "smith",
+    "email": "smith@gmail.com",
+    "password": "$2b$12$II3ic8QI4vGVoHmDwBFGfeRefyiCRA0mzmLjsZUAQRkkyXUHw3DtW",
+    "role": "Freelancer"
+  },
+  {
+    "id": "3d5607de-36dc-4d19-890b-5d0a69d60ed8",
+    "firstName": "Nala",
+    "lastName": "Loo",
+    "email": "loo@gmail.com",
+    "password": "$2b$12$bcX6CnLiNSEVeDh6NPs3..p9ByHtn21ef8U/7yAknHPtM7SS3PMAG",
+    "role": "Client"
+  },
+  {
+    "id": "bba5976a-c7ae-4153-9665-a615594256b4",
+    "firstName": "Zilde",
+    "lastName": "Camala",
+    "email": "camala@yahoo.co.uk",
+    "password": "$2b$12$mYSNKe0OMpDmh1dVirkDXeUm0xLFAhX9HZb.37sUoSjvFfMr4DjE.",
+    "role": "Client"
+  },
+  {
+    "id": "6e5194e1-80bf-4875-b786-704ef49eee0e",
+    "firstName": "David",
+    "lastName": "Miles",
+    "email": "dm@gmail.com",
+    "password": "$2b$12$qMRyvkpzCtqGzL44xztxCuV1xgZ680w1JtLUpqQwA.HrTG5Q2LkCG",
+    "role": "Freelancer"
+  },
+  {
+    "id": "bc25ff72-8af3-41cc-bfd9-5202590d191b",
+    "firstName": "test",
+    "lastName": "testing",
+    "email": "test@email.com",
+    "password": "$2b$12$hz17k4QTFdY.Yie9eyxpret79cEfmz6IaklXqnwL5mBv9Ya80DGV6",
+    "role": "Client"
+  },
+  {
+    "id": "b21169f7-8e42-48cc-a840-23104bf3defe",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "doe@gmail.com",
+    "password": "$2b$12$6wzAnGbRQ2FEhBVukLq1quYVbVHmsCRdE6g6MuwWCBketgYLcgSuK",
+    "role": "Client"
+  },
+  {
+    "id": "e0a80609-6fbd-4638-a997-f0cab5de1f90",
+    "firstName": "Meredith",
+    "lastName": "Grey",
+    "email": "grey@gmail.com",
+    "password": "$2b$12$nZPnsTxL8DA2a9ePqFQERuXUKUNHGlJddxPsB2D3JNyr0LfEmByxC",
+    "role": "Freelancer"
+  },
+  {
+    "id": "83effa8b-c72c-471e-a9cf-68c77c34d4b6",
+    "firstName": "Christina",
+    "lastName": "Lekana",
+    "email": "oratile.lekana@icloud.com",
+    "password": "$2b$12$JTPdOViHjK3.RQEpxV1h5uxNmER5N7zDJeyD1jws2tcBTnfUCROSi",
+    "role": "Client"
+  },
+  {
+    "id": "18304b00-e7b8-482b-8ed0-73f5a9e96e37",
+    "firstName": "Onkabetse",
+    "lastName": "Phoko",
+    "email": "onkaphoko@gmail.com",
+    "password": "$2b$12$nVjTa47PB4wNEvKIQvdX/ulD4rSH4S2PbbyJ.eWRwmdUWMHmRqsYu",
+    "role": "Freelancer"
   }
 ]
