@@ -1,8 +1,7 @@
-
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-import ClientNavbar from "../components/ClientNavbar";
+import FreelancerHeader from "../components/FreelancerHeader";
 import { getGigById } from "../services/api"; //(IIE, 2026)
 
 function GigDetails() {
@@ -47,7 +46,7 @@ function GigDetails() {
     if (loading) {
         return (
             <>
-                <ClientNavbar />
+                <FreelancerHeader />
 
                 <div className="page-container">
                     <div className="status-box">  {/* //(MDN Web Docs, 2026) */}
@@ -61,7 +60,7 @@ function GigDetails() {
     if (error || !gig) {
         return (
             <>
-                <ClientNavbar />
+                <FreelancerHeader />
 
                 <div className="page-container">
                     <div className="error-box">
@@ -81,7 +80,7 @@ function GigDetails() {
 
     return (
         <>
-            <ClientNavbar />
+            <FreelancerHeader />
 
             <main className="details-page">
                 <div className="page-container">
