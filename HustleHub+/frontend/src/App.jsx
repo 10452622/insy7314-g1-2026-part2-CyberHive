@@ -1,4 +1,3 @@
-
 import {
     BrowserRouter,
     Navigate,
@@ -30,8 +29,8 @@ import ClientOrders from "./pages/ClientOrders";                   /* Page 11 */
 import OrderDetails from "./pages/OrderDetails";           /* Page 12 */
 import FreelancerDashboard from "./pages/FreelancerDashboard"; /* Page 13 */
 import MyGigs from "./pages/MyGigs";                       /* Page 14 */
-import FreelancerOrders from "./pages/FreelancerOrders"; 
-  /* Page 15 */
+import FreelancerOrders from "./pages/FreelancerOrders"; /* Page 15 */
+
 import FreelancerEarnings from "./pages/FreelancerEarnings"; /* Page 16 */
 import FreelancerEstimatedTax from "./pages/FreelancerEstimatedTax"; /* Page 17 */
 import FreelancerTransactions from "./pages/FreelancerTransactions"; /* Page 18 */
@@ -41,13 +40,17 @@ import FreelancerProfile from "./pages/FreelancerProfile"; /* Page 20 */
 import FreelancerAccountSettings from "./pages/FreelancerAccountSettings"; /* Page 20 */
 import FreelancerSecurity from "./pages/FreelancerSecurity"; /* Page 20 */
 import FreelancerNotifications from "./pages/FreelancerNotifications"; /* Page 20 */
-import FreelancerNotifications from "./pages/FreelancerSupport"; /* Page 20 */
+import FreelancerSupport from "./pages/FreelancerSuppport"; /* Page 20 */
+
+import FreelancerGigs from "./pages/FreelancerGigs";
+import FreelancerGigDetails from "./pages/FreelancerGigDetails";
+import ClientGigs from "./pages/ClientGigs";
+import ClientGigDetails from "./pages/ClientGigDetails";
 
 import {
     getCurrentUser,
     isAuthenticated
 } from "./services/authSession";
-import FreelancerSupport from "./pages/FreelancerSuppport";
 
 function MarketplaceLayout() {
     return (
@@ -214,6 +217,16 @@ function App() {
                             path="/client/messages"
                             element={<Messages />}
                         />
+                        
+                        <Route
+                            path="/gigs"
+                            element={<ClientGigs />}
+                        />
+
+                        <Route
+                            path="/gigs/:id"
+                            element={<ClientGigDetails />}
+                        />
 
                     </Route>
 
@@ -229,7 +242,12 @@ function App() {
                         {/* Page 14: My Gigs (Freelancer) */}
                         <Route
                             path="/freelancer/gigs"
-                            element={<MyGigs />}
+                            element={<FreelancerGigs />}
+                        />
+
+                        <Route
+                            path="/freelancer/gigs/:id"
+                            element={<FreelancerGigDetails />}
                         />
 
                         {/* Page 15: Orders (Freelancer) */}
