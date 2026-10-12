@@ -1,5 +1,15 @@
 # HustleHub+
 
+## Explanation of the system:
+HustleHub+ is a freelance marketplace or a platform that connects clients with freelancers. Clients can browse and search for services, view the freelancer profiles and available gigs, place bookings/orders, make payments towards the service(s), communicate with freelancers and leave reviews.
+Freelancers can create and manage gigs, manage bookings, view their earnings and transactions, communicate with clients and manage their profile and security settings.
+
+For part 2, the original backend has been extended into a full-stack application. A React.js frontend has been developed to allow users to interact with the backend through the REST API endpoints.
+
+The application now supports marketplace functionality including gig creation, gig browsing, gig management, bookings along with booking confirmations, transaction records and freelancer income tracking.
+
+The backend is developed using Node.js and Express.js and the frontend is developed using React.js in Visual Studio Code. The system follows the MERN architecture with the MongoDB forming the intended database layer for persistent application data. This application provides REST API endpoints that allow the frontend application to communicate with the backend application and perform operations such as user registration, authentication and management of HustleHub+ services.
+
 ## 1. Intended Users
 
 ### 1.1 Clients
@@ -339,7 +349,31 @@ Prevents sensitive files such as .env from being committed to the repository.
 
 **MongoDB (Database)**
 
----
+## Running the application
+### Backend:
+**Prerequisites:**
+Required software:
+•	Node.js.
+•	npm.
+•	Visual Studio Code.
+•	Git.
+•	MongoDB.
+
+**Install backend dependencies:**
+1.	Open a terminal to navigate to backend folder: cd backend
+2.	Install dependencies: npm install
+Environment variables:
+Copy and paste the .env file available in arc into the program opened in Visual Studio Code.
+
+**Start the backend:**
+The start command is defined in package.json (node server.js).
+
+### Frontend:
+1.	Open a terminal to navigate to backend folder: cd frontend
+2.	Install dependencies: npm install
+
+**Start the frontend:**
+The start command is npm run dev or npm start. The frontend communicates with backend API.
 
 ## Testing
 
